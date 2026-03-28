@@ -7,6 +7,14 @@ This package installs command contracts under `.claude/commands`.
 - Primary command namespace: `/fad:*`
 - Compatibility namespace: `/gsd:*` (hidden, generated for backward compatibility)
 
+## FAD Unified Pipeline
+
+| Command | Primary Use |
+|---|---|
+| `fad:pipeline` | End-to-end workflow: brainstorm -> plan/build -> review -> optimize -> quality gate -> finish |
+| `fad:optimize` | Mandatory post-review optimization pass (no behavior changes) |
+| `fad:quality-gate` | Strict branch gate combining lint/typecheck/test + security + unresolved-risk checks |
+
 ## PM / Discovery
 
 | Command | Primary Use |
@@ -53,7 +61,7 @@ This package installs command contracts under `.claude/commands`.
 
 | Command | Primary Use |
 |---|---|
-| `pm-delivery-loop` | End-to-end PM -> Build -> QC loop |
+| `pm-delivery-loop` | Legacy wrapper that routes to `fad:pipeline` |
 | `autopilot-loop` | Bounded autonomous cycles |
 | `gen-doc-sheet` | Optional EN/JA spreadsheet export |
 | `careful` / `freeze` / `guard` | Session safety controls |

@@ -31,5 +31,6 @@ Use env vars and local private overrides per machine.
 ## Planning/Audit locations
 
 - `.planning/pm/current/` - PM and gate artifacts
-- `.planning/audit/` - per-step audit logs
+- `.planning/audit/runs/<run-id>/` - per-step audit logs (preferred)
+- `.planning/audit/` - legacy flat audit log location (still supported)
 - `.planning/setup/` - setup diagnostics outputs

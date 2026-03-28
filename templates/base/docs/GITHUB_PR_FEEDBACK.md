@@ -17,10 +17,10 @@ Use this command when input is a PR URL or PR number:
    - `.planning/pm/current/PR-FEEDBACK.md`
 3. Extracts risk signals from comments.
 4. Guides fix implementation with brownfield guardrails.
-5. Runs mandatory code quality gate.
-6. Runs security gate (`security-scan`) for changed scope.
+5. Runs mandatory strict gate (`fad:quality-gate`).
+6. Includes security checks inside strict gate for changed scope.
 7. Runs targeted QC retest + critical smoke checks.
-8. Logs audit evidence to `.planning/audit/`.
+8. Logs audit evidence to `.planning/audit/runs/<run-id>/`.
 
 ## Direct Script Usage
 

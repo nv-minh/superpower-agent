@@ -73,6 +73,7 @@ cp .claude/config/monitoring.json.example .claude/config/monitoring.json
 
 ```bash
 python3 .claude/scripts/setup_doctor.py --pretty
+python3 .claude/scripts/audit_log.py --step setup-smoke --command "onboarding" --goal "validate audit logger" --pretty
 python3 .claude/scripts/atlassian_cli.py --help
 python3 .claude/scripts/github_pr_feedback.py --help
 python3 .claude/scripts/code_quality_gate.py --help
@@ -80,4 +81,10 @@ python3 .claude/scripts/security_scan.py --help
 python3 .claude/scripts/secrets_scan.py --help
 python3 .claude/scripts/health_check.py --help
 python3 .claude/scripts/rollback_plan.py --help
+```
+
+After setup is healthy, start with:
+
+```bash
+/fad:pipeline "<your first requirement>"
 ```

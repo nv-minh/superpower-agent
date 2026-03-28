@@ -31,6 +31,7 @@ npm publish --access public
 ```bash
 npx superpower-agent init --dir /path/to/project
 npx superpower-agent doctor --dir /path/to/project
+/fad:pipeline "<first requirement>"
 ```
 
 Nếu muốn cài luôn browser skills:

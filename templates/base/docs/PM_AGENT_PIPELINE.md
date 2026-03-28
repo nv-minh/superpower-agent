@@ -45,16 +45,11 @@
 
 ## Daily Flow
 1. Run `/setup-monitoring` once per project/environment baseline.
-2. Run `/brownfield-map-style` on new or changed brownfield codebases.
-3. Run `/discovery-ui-handoff <requirement>` for greenfield or brownfield without Figma input.
-4. If using classic PM flow, run `/pm-intake <your requirement>`.
-5. Review/resolve `RISK-IMPACT.md` high-critical decisions.
-6. Run `/pm-to-build <phase-number>`.
-7. Run `/qc-verify-ui <phase-number>`.
-8. Run `/security-scan` before release lane.
-9. Optional: run `/gen-doc-sheet ...` only when document export is needed.
-10. Optional shortcut: `/pm-delivery-loop <phase-number>`.
-11. For PR-driven fix loop: run `/pr-feedback-loop <pr-url-or-number>`.
+2. Run `/fad:pipeline "<requirement or phase>"` as the default end-to-end flow.
+3. Resolve any strict-gate blockers (`review`, `fad:optimize`, `fad:quality-gate`).
+4. Optional: run `/gen-doc-sheet ...` only when document export is needed.
+5. For PR-driven fix loop: run `/pr-feedback-loop <pr-url-or-number>`.
+6. Run `/deploy <env>` only after strict gate passes.
 
 ## Artifact Set
 - `.planning/pm/current/PRD.md`
@@ -65,7 +60,7 @@
 - `.planning/pm/current/QC-REPORT.md`
 - `.planning/discovery/current/*` (structured discovery + UI contract)
 - `.planning/exports/*.xlsx` (optional export)
-- `.planning/audit/*.md` (per-step logs)
+- `.planning/audit/runs/<run-id>/*.md` (per-step logs, preferred)
 
 ## High-Leverage Ops Flows
 - `/feature-swarm <feature>` for parallel implementation across non-overlapping scopes.
@@ -80,6 +75,9 @@
 - `/deploy <env>` for gated release checks and rollout.
 - `/autoplan <feature>` for automated review pipeline before execute.
 - `/autopilot-loop [cycles]` for bounded autonomous delivery cycles.
+- `/fad:pipeline <requirement>` for unified phase orchestration.
+- `/fad:optimize [scope]` for mandatory post-review optimization.
+- `/fad:quality-gate` for strict go/no-go before finish or ship.
 - `/qa-only <context>` for report-only QA when no code mutation is desired.
 - `/setup-doctor` for one-shot setup validation.
 - `/install-browser-skills` to install browser QA skills.

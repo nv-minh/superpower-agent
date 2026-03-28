@@ -34,18 +34,21 @@ Provide a reproducible, auditable agent operating model for daily software deliv
 
 ```text
 Requirement input
-  -> intake/discovery
+  -> fad:pipeline (brainstorm/discovery)
   -> PM artifacts
   -> build + verification
-  -> QC report
-  -> release gates
+  -> review
+  -> optimize
+  -> strict quality gate
   -> deploy/incident/rollback (if needed)
 ```
 
 ## Gate Chain
 
 - Risk gate (high/critical unresolved => block)
-- Quality gate (lint/typecheck/test)
+- Review gate (blocker/high unresolved => block)
+- Optimize gate (no behavior drift allowed)
+- Quality gate (strict lint/typecheck/test)
 - Security gate (dependency/secrets scan)
 - Design evidence gate (Figma when links exist)
 - Health gate (pre/post deploy diagnostics)
@@ -53,5 +56,6 @@ Requirement input
 ## Reliability Patterns
 
 - Every major step must emit audit markdown.
+- Preferred audit layout uses run IDs: `.planning/audit/runs/<run-id>/`.
 - Explicit status protocol: `DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT`.
 - Autopilot loops are bounded and stop on repeated failures/blockers.

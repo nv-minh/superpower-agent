@@ -25,4 +25,4 @@
 - `.planning/pm/current/SECRETS-SCAN.json`
 - `.planning/pm/current/HEALTH-CHECK.json`
 - `.planning/pm/current/ROLLBACK-PLAN.json`
-- `.planning/audit/{timestamp}-{step}.md`
+- `.planning/audit/runs/<run-id>/{timestamp}-{step}.md`

@@ -11,6 +11,7 @@ Adaptive PM -> Build -> QC -> Ops agent system for **Claude, Codex, and Cursor**
 
 - Turn rough requirements into structured delivery artifacts.
 - Enforce brownfield-safe coding decisions with risk/impact gates.
+- Run one strict pipeline (`/fad:pipeline`) with mandatory review and optimize phases.
 - Keep one auditable flow from planning to deploy.
 - Run consistent workflows across Claude, Codex, and Cursor.
 - Use branded command namespace: **`/fad:*`**.
@@ -42,6 +43,7 @@ Start here after install:
 
 ```text
 /fad:help
+/fad:pipeline "<requirement or phase>"
 ```
 
 ## What Gets Installed
@@ -58,11 +60,14 @@ Start here after install:
 
 ```text
 Input (text / Jira / Confluence / Figma / PR)
+  -> /fad:pipeline
   -> PM lane (intake, discovery, PRD, roadmap)
   -> Build lane (plan to execution, fix loops)
-  -> QC lane (browser + flow + spacing verification)
-  -> Ops lane (security, health, deploy, incident, rollback)
-       \-> gates: risk + quality + security + health + design evidence
+  -> Review lane (severity-first findings)
+  -> Optimize lane (maintainability/perf hardening)
+  -> Strict quality lane (lint/typecheck/test + security + risk)
+  -> Ops lane (health, deploy, incident, rollback)
+       \-> gates: risk + review + optimize + quality + security + health + design evidence
 ```
 
 ## Runtime Support Matrix

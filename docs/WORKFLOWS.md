@@ -3,23 +3,20 @@
 ## 1) Standard Delivery Workflow
 
 ```text
-setup-monitoring (once)
-  -> intake/discovery
-  -> pm-to-build
-  -> qc-verify-ui
-  -> security-scan
-  -> deploy
+fad:pipeline
+  -> brainstorm/discovery
+  -> build + tdd
+  -> review
+  -> optimize
+  -> strict quality gate
+  -> finish/ship
 ```
 
 ### Recommended command sequence
 
 1. `/setup-monitoring`
-2. `/brownfield-map-style` (if needed)
-3. `/pm-intake` or `/discovery-ui-handoff`
-4. `/pm-to-build <phase>`
-5. `/qc-verify-ui <phase>`
-6. `/security-scan`
-7. `/deploy <env>`
+2. `/fad:pipeline "<requirement or phase>"`
+3. `/deploy <env>` (only after pipeline strict gate is green)
 
 ## 2) PR Feedback Workflow
 
@@ -67,4 +64,4 @@ Stop conditions are built into the loop:
 
 - unresolved blockers
 - unresolved high/critical risk
-- repeated gate failures without progress
+- repeated strict-gate failures without progress

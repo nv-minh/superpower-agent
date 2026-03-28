@@ -37,6 +37,9 @@
 - Workflow now escalates only blockers/tie-break decisions, agents execute the rest.
 
 ## New Commands Added
+- `/fad:pipeline`
+- `/fad:optimize`
+- `/fad:quality-gate`
 - `/deploy`
 - `/fix-issue`
 - `/review`
@@ -55,10 +58,6 @@
 ## Recommended Operating Sequence
 1. `/brownfield-map-style`
 2. `/setup-monitoring` (one-time baseline)
-3. `/discovery-ui-handoff ...` (or `/pm-intake ...`)
-4. `/feature-swarm ...` or `/pm-to-build <phase>`
-5. `/qc-verify-ui <phase>`
-6. `/security-scan`
-7. Optional: `/gen-doc-sheet ...`
-8. `/review`
-9. `/deploy <env>`
+3. `/fad:pipeline "<requirement or phase>"`
+4. Optional: `/gen-doc-sheet ...`
+5. `/deploy <env>`

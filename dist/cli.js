@@ -171,7 +171,7 @@ Compatibility note:
 
 This directory exposes branded aliases for legacy \`/gsd:*\` commands.
 
-Use \`/fad:help\` as your primary entrypoint.
+Use \`/fad:help\` and \`/fad:pipeline\` as your primary entrypoints.
 `;
     writeFileForce(path.join(fadDir, "README.md"), readme);
     return created;
@@ -349,7 +349,8 @@ async function runInit(args) {
     console.log("Next steps:");
     console.log("1) Configure local secrets/env vars (GitHub, Atlassian, Figma).");
     console.log("2) Run: python3 .claude/scripts/setup_doctor.py --repo-root . --pretty");
-    console.log("3) Run: /fad:help then /setup-monitoring -> /health-check -> /security-scan");
+    console.log('3) Run: /fad:help then /fad:pipeline "<requirement>"');
+    console.log("4) For release lane: /setup-monitoring -> /health-check -> /security-scan -> /deploy <env>");
 }
 function runDoctor(args) {
     const scriptPath = path.join(args.dir, ".claude", "scripts", "setup_doctor.py");

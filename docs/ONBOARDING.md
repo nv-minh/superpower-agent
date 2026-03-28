@@ -60,6 +60,7 @@ npx superpower-agent doctor --dir /path/to/project
 3. Run `/setup-monitoring`
 4. Run `/health-check`
 5. Run `/security-scan`
+6. Run `/fad:pipeline "<first requirement>"` to validate full delivery chain
 
 ## Optional: prepare standalone GitHub repo
 
