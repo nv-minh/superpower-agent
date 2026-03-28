@@ -1,0 +1,92 @@
+generated_from: commands/*.md
+count: 6
+commands:
+- name: discover
+  description: Run a structured discovery flow from problem framing through opportunity
+    mapping and validation planning.
+  argument_hint: <problem, opportunity, or feature area>
+  uses:
+  - discovery-process
+  - problem-framing-canvas
+  - discovery-interview-prep
+  - opportunity-solution-tree
+  - pol-probe-advisor
+  outputs:
+  - Discovery plan
+  - Prioritized assumptions
+  - Validation experiment backlog
+  path: commands/discover.md
+- name: leadership-transition
+  description: Guide PM to Director to VP/CPO transition planning with role-fit diagnostics
+    and onboarding guidance.
+  argument_hint: <current role, target role, and transition scenario>
+  uses:
+  - altitude-horizon-framework
+  - director-readiness-advisor
+  - vp-cpo-readiness-advisor
+  - executive-onboarding-playbook
+  outputs:
+  - Transition diagnosis
+  - Role-readiness plan
+  - 30-60-90 leadership actions
+  path: commands/leadership-transition.md
+- name: plan-roadmap
+  description: Turn strategy and validated opportunities into a sequenced roadmap
+    with clear tradeoffs.
+  argument_hint: <time horizon, goals, and candidate initiatives>
+  uses:
+  - roadmap-planning
+  - epic-hypothesis
+  - prioritization-advisor
+  - user-story-mapping
+  - epic-breakdown-advisor
+  outputs:
+  - Prioritized roadmap
+  - Epic hypotheses
+  - Release slices and sequencing rationale
+  path: commands/plan-roadmap.md
+- name: prioritize
+  description: Select what to work on next using the right prioritization method for
+    your context.
+  argument_hint: <candidate initiatives, constraints, and decision context>
+  uses:
+  - prioritization-advisor
+  - feature-investment-advisor
+  - acquisition-channel-advisor
+  - finance-based-pricing-advisor
+  - recommendation-canvas
+  outputs:
+  - Ranked options
+  - Decision rationale
+  - Explicit tradeoffs and follow-up actions
+  path: commands/prioritize.md
+- name: strategy
+  description: Build product strategy from positioning through opportunity and roadmap
+    decisions.
+  argument_hint: <product, market, and strategic question>
+  uses:
+  - product-strategy-session
+  - positioning-workshop
+  - problem-statement
+  - opportunity-solution-tree
+  - roadmap-planning
+  outputs:
+  - Strategy narrative
+  - Core strategic choices
+  - Sequenced roadmap direction
+  path: commands/strategy.md
+- name: write-prd
+  description: Create a decision-ready PRD by chaining problem framing, requirements
+    definition, and story scaffolding.
+  argument_hint: <feature, initiative, or product change>
+  uses:
+  - prd-development
+  - problem-statement
+  - proto-persona
+  - user-story
+  - user-story-splitting
+  outputs:
+  - Structured PRD
+  - Core personas and requirements
+  - Initial implementation-ready stories
+  path: commands/write-prd.md

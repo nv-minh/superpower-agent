@@ -1,0 +1,501 @@
+generated_from: skills/*/SKILL.md
+count: 46
+skills:
+- name: acquisition-channel-advisor
+  description: Evaluate acquisition channels using unit economics, customer quality,
+    and scalability. Use when deciding whether to scale, test, or kill a growth channel.
+  type: interactive
+  path: skills/acquisition-channel-advisor/SKILL.md
+  intent: Guide product managers through evaluating whether to scale, test, or kill
+    an acquisition channel based on unit economics (CAC, LTV, payback), customer quality
+    (retention, NRR), and scalability (magic number, volume potential). Use this to
+    make data-driven go-to-market decisions and optimize channel mix for sustainable
+    growth.
+- name: ai-shaped-readiness-advisor
+  description: Assess whether your product work is AI-first or AI-shaped. Use when
+    evaluating AI maturity and choosing the next team capability to build.
+  type: interactive
+  path: skills/ai-shaped-readiness-advisor/SKILL.md
+  intent: Assess whether your product work is **"AI-first"** (using AI to automate
+    existing tasks faster) or **"AI-shaped"** (fundamentally redesigning how product
+    teams operate around AI capabilities). Use this to evaluate your readiness across
+    **5 essential PM competencies for 2026**, identify gaps, and get concrete recommendations
+    on which capability to build first.
+- name: altitude-horizon-framework
+  description: Understand the PM-to-Director transition through altitude and horizon
+    thinking. Use when diagnosing scope, time-horizon, or leadership-level gaps.
+  type: component
+  path: skills/altitude-horizon-framework/SKILL.md
+  intent: 'Defines the two-axis mental model that distinguishes Director-level thinking
+    from PM thinking: **Altitude** (how wide you zoom out) and **Horizon** (how far
+    ahead you look). Use this to understand what actually changes in the transition,
+    diagnose which transition zone is creating friction, and apply the Cascading Context
+    Map when organizational direction is vague or absent.'
+- name: business-health-diagnostic
+  description: Diagnose SaaS business health across growth, retention, efficiency,
+    and capital. Use when preparing a business review or prioritizing urgent fixes.
+  type: interactive
+  path: skills/business-health-diagnostic/SKILL.md
+  intent: Diagnose overall SaaS business health by analyzing growth, retention, unit
+    economics, and capital efficiency metrics together. Use this to identify problems
+    early, prioritize actions by urgency, and deliver a comprehensive health scorecard
+    for board meetings, quarterly reviews, or fundraising preparation.
+- name: company-research
+  description: Create a company research brief with executive quotes, product strategy,
+    and org context. Use when preparing for interviews, competitive analysis, partnerships,
+    or market-entry work.
+  type: component
+  path: skills/company-research/SKILL.md
+  intent: Create a comprehensive company profile that extracts executive insights,
+    product strategy, transformation initiatives, and organizational dynamics from
+    publicly available sources. Use this to understand competitive landscape, evaluate
+    partnership opportunities, benchmark best practices, prepare for interviews, or
+    inform market entry decisions by understanding how successful companies think
+    about product management and strategy.
+- name: context-engineering-advisor
+  description: Diagnose context stuffing vs. context engineering. Use when an AI workflow
+    feels bloated, brittle, or hard to steer reliably.
+  type: interactive
+  path: skills/context-engineering-advisor/SKILL.md
+  intent: "Guide product managers through diagnosing whether they're doing **context\
+    \ stuffing** (jamming volume without intent) or **context engineering** (shaping\
+    \ structure for attention). Use this to identify context boundaries, fix \"Context\
+    \ Hoarding Disorder,\" and implement tactical practices like bounded domains,\
+    \ episodic retrieval, and the Research\u2192Plan\u2192Reset\u2192Implement cycle."
+- name: customer-journey-map
+  description: Create a customer journey map across stages, touchpoints, actions,
+    emotions, and metrics. Use when diagnosing a broken experience or aligning a team
+    on the full customer flow.
+  type: component
+  path: skills/customer-journey-map/SKILL.md
+  intent: "Create a comprehensive customer journey map that visualizes how customers\
+    \ interact with your brand across all stages\u2014from awareness to loyalty\u2014\
+    documenting their actions, touchpoints, emotions, KPIs, business goals, and teams\
+    \ involved at each stage. Use this to identify pain points, align cross-functional\
+    \ teams, and systematically improve the customer experience to achieve business\
+    \ objectives."
+- name: customer-journey-mapping-workshop
+  description: Run a customer journey mapping workshop with adaptive questions and
+    outputs. Use when you need to map stages, actions, emotions, pain points, and
+    opportunities for a persona and scenario.
+  type: interactive
+  path: skills/customer-journey-mapping-workshop/SKILL.md
+  intent: "Guide product managers through creating a customer journey map by asking\
+    \ adaptive questions about the actor (persona), scenario/goal, journey phases,\
+    \ actions/emotions, and opportunities for improvement. Use this to visualize the\
+    \ end-to-end customer experience, identify pain points, and create a shared mental\
+    \ model across teams\u2014avoiding surface-level feature lists and ensuring discovery\
+    \ work focuses on real customer problems, not assumed solutions."
+- name: director-readiness-advisor
+  description: Guide the PM-to-Director transition across preparing, interviewing,
+    landing, and recalibrating. Use when leadership scope is changing and you need
+    practical coaching.
+  type: interactive
+  path: skills/director-readiness-advisor/SKILL.md
+  intent: "Guide PMs and Directors through the specific challenges of the PM-to-Director\
+    \ transition using adaptive questions and targeted coaching. Diagnoses where you\
+    \ are in the journey and delivers practical, war-story-backed guidance calibrated\
+    \ to your situation \u2014 not generic leadership advice."
+- name: discovery-interview-prep
+  description: Plan customer discovery interviews with the right goal, segment, constraints,
+    and method. Use when preparing interviews for problem validation, churn research,
+    or new product ideas.
+  type: interactive
+  path: skills/discovery-interview-prep/SKILL.md
+  intent: "Guide product managers through preparing for customer discovery interviews\
+    \ by asking adaptive questions about research goals, customer segments, constraints,\
+    \ and methodologies. Use this to design effective interview plans, craft targeted\
+    \ questions, avoid common biases, and maximize learning from limited customer\
+    \ access\u2014ensuring discovery interviews yield actionable insights rather than\
+    \ confirmation bias or surface-level feedback."
+- name: discovery-process
+  description: Run a full discovery cycle from problem hypothesis to validated solution.
+    Use when a team needs a structured path through framing, interviews, synthesis,
+    and experiments.
+  type: workflow
+  path: skills/discovery-process/SKILL.md
+  intent: "Guide product managers through a complete discovery cycle\u2014from initial\
+    \ problem hypothesis to validated solution\u2014by orchestrating problem framing,\
+    \ customer interviews, synthesis, and experimentation skills into a structured\
+    \ process. Use this to systematically explore problem spaces, validate assumptions,\
+    \ and build confidence before committing to full development\u2014avoiding \"\
+    build it and they will come\" syndrome and ensuring you're solving real customer\
+    \ problems."
+- name: eol-message
+  description: Write a clear, empathetic EOL announcement with rationale, customer
+    impact, and next steps. Use when retiring a product, feature, or plan without
+    creating avoidable confusion.
+  type: component
+  path: skills/eol-message/SKILL.md
+  intent: Craft a clear, empathetic End-of-Life (EOL) message that communicates product
+    or feature discontinuation, explains the rationale, addresses customer impact,
+    provides transition support, and positions the replacement solution. Use this
+    to maintain customer trust during difficult transitions and reduce churn by demonstrating
+    care and offering a clear path forward.
+- name: epic-breakdown-advisor
+  description: Break down epics into user stories with Humanizing Work split patterns.
+    Use when a backlog item is too large to estimate, sequence, or deliver safely.
+  type: interactive
+  path: skills/epic-breakdown-advisor/SKILL.md
+  intent: "Guide product managers through breaking down epics into user stories using\
+    \ Richard Lawrence's complete Humanizing Work methodology\u2014a systematic, flowchart-driven\
+    \ approach that applies 9 splitting patterns sequentially. Use this to identify\
+    \ which pattern applies, split while preserving user value, and evaluate splits\
+    \ based on what they reveal about low-value work you can eliminate. This ensures\
+    \ vertical slicing (end-to-end value) rather than horizontal slicing (technical\
+    \ layers)."
+- name: epic-hypothesis
+  description: Frame an epic as a testable hypothesis with target user, expected outcome,
+    and validation method. Use when defining a major initiative before roadmap, discovery,
+    or delivery planning.
+  type: component
+  path: skills/epic-hypothesis/SKILL.md
+  intent: Frame epics as testable hypotheses using an if/then structure that articulates
+    the action or solution, the target beneficiary, the expected outcome, and how
+    you'll validate success. Use this to manage uncertainty in product development
+    by making assumptions explicit, defining lightweight experiments ("tiny acts of
+    discovery"), and establishing measurable success criteria before committing to
+    full build-out.
+- name: executive-onboarding-playbook
+  description: Plan a VP or CPO 30-60-90 day diagnostic onboarding path. Use when
+    entering a new executive product role and avoiding premature change.
+  type: workflow
+  path: skills/executive-onboarding-playbook/SKILL.md
+  intent: "Structure the first 90 days of a VP or CPO transition as a diagnostic process,\
+    \ not an execution sprint. The single most common failure in senior product leadership\
+    \ transitions is acting before understanding \u2014 changing structures, replacing\
+    \ people, or announcing strategy before building the evidence base that makes\
+    \ those decisions defensible."
+- name: feature-investment-advisor
+  description: Evaluate feature investments using revenue impact, cost structure,
+    ROI, and strategy. Use when deciding whether a feature deserves investment.
+  type: interactive
+  path: skills/feature-investment-advisor/SKILL.md
+  intent: "Guide product managers through evaluating whether to build a feature based\
+    \ on financial impact analysis. Use this to make data-driven prioritization decisions\
+    \ by assessing revenue connection (direct or indirect), cost structure (dev +\
+    \ COGS + OpEx), ROI calculation, and strategic value\u2014then deliver actionable\
+    \ build/don't build recommendations with supporting math."
+- name: finance-based-pricing-advisor
+  description: Evaluate pricing changes using ARPU, conversion, churn risk, NRR, and
+    payback. Use when deciding whether a pricing move should ship.
+  type: interactive
+  path: skills/finance-based-pricing-advisor/SKILL.md
+  intent: Evaluate the **financial impact** of pricing changes (price increases, new
+    tiers, add-ons, discounts) using ARPU/ARPA analysis, conversion impact, churn
+    risk, NRR effects, and CAC payback implications. Use this to make data-driven
+    go/no-go decisions on proposed pricing changes with supporting math and risk assessment.
+- name: finance-metrics-quickref
+  description: Look up SaaS finance metrics, formulas, and benchmarks fast. Use when
+    you need a quick metric definition, formula, or benchmark during analysis.
+  type: component
+  path: skills/finance-metrics-quickref/SKILL.md
+  intent: Quick reference for any SaaS finance metric without deep teaching. Use this
+    when you need a fast formula lookup, benchmark check, or decision framework reminder.
+    For detailed explanations, calculations, and examples, see the related deep-dive
+    skills.
+- name: jobs-to-be-done
+  description: Uncover customer jobs, pains, and gains in a structured JTBD format.
+    Use when clarifying unmet needs, repositioning a product, or improving discovery
+    and messaging.
+  type: component
+  path: skills/jobs-to-be-done/SKILL.md
+  intent: "Systematically explore what customers are trying to accomplish (functional,\
+    \ social, emotional jobs), the pains they experience, and the gains they seek.\
+    \ Use this framework to uncover unmet needs, validate product ideas, and ensure\
+    \ your solution addresses real motivations\u2014not just surface-level feature\
+    \ requests."
+- name: lean-ux-canvas
+  description: Guide teams through Lean UX Canvas v2. Use when framing a business
+    problem, surfacing assumptions, and defining what to learn next.
+  type: interactive
+  path: skills/lean-ux-canvas/SKILL.md
+  intent: "Guide product managers through creating **Jeff Gothelf's Lean UX Canvas\
+    \ (v2)**\u2014a one-page facilitation tool that frames work around a **business\
+    \ problem to solve**, not a **solution to implement**. Use this to align cross-functional\
+    \ teams around core assumptions, craft testable hypotheses, and ensure learning\
+    \ happens every sprint by exposing gaps in understanding (problem, users, value,\
+    \ and why the solution should work)."
+- name: opportunity-solution-tree
+  description: Build an Opportunity Solution Tree from outcomes to opportunities,
+    solutions, and tests. Use when a stakeholder request needs problem framing before
+    you decide what to build.
+  type: interactive
+  path: skills/opportunity-solution-tree/SKILL.md
+  intent: "Guide product managers through creating an Opportunity Solution Tree (OST)\
+    \ by extracting target outcomes from stakeholder requests, generating opportunity\
+    \ options (problems to solve), mapping potential solutions, and selecting the\
+    \ best proof-of-concept (POC) based on feasibility, impact, and market fit. Use\
+    \ this to move from vague product requests to structured discovery, ensuring teams\
+    \ solve the right problems before jumping to solutions\u2014avoiding \"feature\
+    \ factory\" syndrome and premature convergence on ideas."
+- name: pestel-analysis
+  description: Analyze political, economic, social, technological, environmental,
+    and legal forces. Use when external market shifts could materially affect a product,
+    roadmap, or strategy.
+  type: component
+  path: skills/pestel-analysis/SKILL.md
+  intent: "Conduct a systematic analysis of macro-environmental factors\u2014Political,\
+    \ Economic, Social, Technological, Environmental, and Legal\u2014that could impact\
+    \ your product or project. Use this to identify external opportunities and threats,\
+    \ inform strategic planning, assess market entry risks, and make data-driven decisions\
+    \ about product direction in the context of broader forces beyond your control."
+- name: pol-probe
+  description: Define a Proof of Life probe to test a risky hypothesis cheaply. Use
+    when you need harsh truth before building real product.
+  type: component
+  path: skills/pol-probe/SKILL.md
+  intent: "Define and document a **Proof of Life (PoL) probe**\u2014a lightweight,\
+    \ disposable validation artifact designed to surface harsh truths before expensive\
+    \ development. Use this when you need to eliminate a specific risk or test a narrow\
+    \ hypothesis **without building production-quality software**. PoL probes are\
+    \ reconnaissance missions, not MVPs\u2014they're meant to be deleted, not scaled."
+- name: pol-probe-advisor
+  description: Select the right Proof of Life (PoL) probe based on hypothesis, risk,
+    and resources. Use this to match the validation method to the real learning goal,
+    not tooling comfort.
+  type: interactive
+  path: skills/pol-probe-advisor/SKILL.md
+  intent: "Guide product managers through selecting the right **Proof of Life (PoL)\
+    \ probe** type (of 5 flavors) based on their hypothesis, risk, and available resources.\
+    \ Use this when you need to eliminate a specific risk or test a narrow hypothesis,\
+    \ but aren't sure which validation method to use. This interactive skill ensures\
+    \ you match the cheapest prototype to the harshest truth\u2014not the prototype\
+    \ you're most comfortable building."
+- name: positioning-statement
+  description: Create a Geoffrey Moore-style positioning statement. Use when clarifying
+    who you serve, what problem you solve, your category, and why you're different
+    from alternatives.
+  type: component
+  path: skills/positioning-statement/SKILL.md
+  intent: Create a Geoffrey Moore-style positioning statement that clearly articulates
+    who your product serves, what need it addresses, how it's categorized, what benefit
+    it delivers, and how it differs from alternatives. Use this when you need to align
+    stakeholders on product strategy, guide messaging, or test if your value proposition
+    is crisp and defensible.
+- name: positioning-workshop
+  description: Run a positioning workshop that surfaces target customer, unmet need,
+    category, benefits, and differentiation. Use when your product messaging feels
+    fuzzy, generic, or misaligned.
+  type: interactive
+  path: skills/positioning-workshop/SKILL.md
+  intent: "Guide product managers through discovering and articulating product positioning\
+    \ by asking adaptive questions about target customers, unmet needs, product category,\
+    \ benefits, and competitive differentiation. Use this to align stakeholders on\
+    \ strategic positioning before writing PRDs, launch plans, or marketing materials\u2014\
+    ensuring you've made deliberate choices about who you serve, what need you address,\
+    \ and how you differ from alternatives."
+- name: prd-development
+  description: Build a structured PRD that connects problem, users, solution, and
+    success criteria. Use when turning discovery notes into an engineering-ready document
+    for a major initiative.
+  type: workflow
+  path: skills/prd-development/SKILL.md
+  intent: "Guide product managers through structured PRD (Product Requirements Document)\
+    \ creation by orchestrating problem framing, user research synthesis, solution\
+    \ definition, and success criteria into a cohesive document. Use this to move\
+    \ from scattered notes and Slack threads to a clear, comprehensive PRD that aligns\
+    \ stakeholders, provides engineering context, and serves as a source of truth\u2014\
+    avoiding ambiguity, scope creep, and the \"build what's in my head\" trap."
+- name: press-release
+  description: Write an Amazon-style press release that defines customer value before
+    building. Use when aligning stakeholders on a new product, feature, or strategic
+    bet.
+  type: component
+  path: skills/press-release/SKILL.md
+  intent: "Create a visionary press release following Amazon's \"Working Backwards\"\
+    \ methodology to define and communicate a product or feature before building it.\
+    \ Use this to align stakeholders on the customer value proposition, clarify the\
+    \ problem being solved, and test if the product story resonates\u2014treating\
+    \ the press release as a forcing function for clarity and customer-centricity."
+- name: prioritization-advisor
+  description: Choose a prioritization framework based on stage, team context, and
+    stakeholder needs. Use when deciding between RICE, ICE, value/effort, or another
+    scoring approach.
+  type: interactive
+  path: skills/prioritization-advisor/SKILL.md
+  intent: Guide product managers in choosing the right prioritization framework by
+    asking adaptive questions about product stage, team context, decision-making needs,
+    and stakeholder dynamics. Use this to avoid "framework whiplash" (switching frameworks
+    constantly) or applying the wrong framework (e.g., using RICE for strategic bets
+    or ICE for data-driven decisions). Outputs a recommended framework with implementation
+    guidance tailored to your context.
+- name: problem-framing-canvas
+  description: Guide teams through MITRE's Problem Framing Canvas. Use when you need
+    a clearer problem statement before jumping to solutions.
+  type: interactive
+  path: skills/problem-framing-canvas/SKILL.md
+  intent: "Guide product managers through the MITRE Problem Framing Canvas process\
+    \ by asking structured questions across three phases: Look Inward (examine your\
+    \ own assumptions and biases), Look Outward (understand who experiences the problem\
+    \ and who doesn't), and Reframe (synthesize insights into an actionable problem\
+    \ statement and \"How Might We\" question). Use this to ensure you're solving\
+    \ the right problem before jumping to solutions\u2014avoiding confirmation bias,\
+    \ overlooked stakeholders, and solution-first thinking."
+- name: problem-statement
+  description: Write a user-centered problem statement with who is blocked, what they
+    are trying to do, why it matters, and how it feels. Use when framing discovery,
+    prioritization, or a PRD.
+  type: component
+  path: skills/problem-statement/SKILL.md
+  intent: Articulate a problem from the user's perspective using an empathy-driven
+    framework that captures who they are, what they're trying to do, what's blocking
+    them, why, and how it makes them feel. Use this to align stakeholders on the problem
+    before jumping to solutions, and to frame product work around user outcomes rather
+    than feature requests.
+- name: product-strategy-session
+  description: Run an end-to-end product strategy session across positioning, discovery,
+    and roadmap planning. Use when a team needs validated direction before committing
+    to execution.
+  type: workflow
+  path: skills/product-strategy-session/SKILL.md
+  intent: "Guide product managers through a comprehensive product strategy session\
+    \ by orchestrating positioning, problem framing, customer discovery, and roadmap\
+    \ planning skills into a cohesive end-to-end process. Use this to move from vague\
+    \ strategic direction to concrete, validated product strategy with clear positioning,\
+    \ target customers, problem statements, and prioritized roadmap\u2014ensuring\
+    \ alignment across stakeholders before committing to execution."
+- name: proto-persona
+  description: Create a proto-persona from current research, market signals, and team
+    knowledge. Use when you need a working customer profile before deeper validation.
+  type: component
+  path: skills/proto-persona/SKILL.md
+  intent: Create an initial, assumption-based persona profile that synthesizes available
+    user research, market data, and stakeholder knowledge into a working hypothesis
+    about your target user. Use this to align teams early in product development,
+    guide initial design decisions, and identify gaps in understanding that require
+    validation through research.
+- name: recommendation-canvas
+  description: Evaluate an AI product idea across outcomes, hypotheses, risks, and
+    positioning. Use when deciding whether an AI solution deserves investment or recommendation.
+  type: component
+  path: skills/recommendation-canvas/SKILL.md
+  intent: "Evaluate and propose AI product solutions using a structured canvas that\
+    \ assesses business outcomes, customer outcomes, problem framing, solution hypotheses,\
+    \ positioning, risks, and value justification. Use this to build a comprehensive,\
+    \ defensible recommendation for stakeholders and decision-makers\u2014especially\
+    \ when proposing AI-powered features or products that carry higher uncertainty\
+    \ and risk."
+- name: roadmap-planning
+  description: Plan a strategic roadmap across prioritization, epic definition, stakeholder
+    alignment, and sequencing. Use when turning strategy into a release plan that
+    teams can execute.
+  type: workflow
+  path: skills/roadmap-planning/SKILL.md
+  intent: "Guide product managers through strategic roadmap planning by orchestrating\
+    \ prioritization, epic definition, stakeholder alignment, and release sequencing\
+    \ skills into a structured process. Use this to move from disconnected feature\
+    \ requests to a cohesive, outcome-driven roadmap that aligns stakeholders, sequences\
+    \ work logically, and communicates strategic intent\u2014avoiding \"feature factory\"\
+    \ roadmaps that lack strategic narrative or customer-centric framing."
+- name: saas-economics-efficiency-metrics
+  description: Evaluate SaaS unit economics and capital efficiency. Use when deciding
+    whether the business can scale efficiently or needs correction.
+  type: component
+  path: skills/saas-economics-efficiency-metrics/SKILL.md
+  intent: Determine whether your SaaS business model is fundamentally viable and capital-efficient.
+    Use this to calculate unit economics, assess profitability, manage cash runway,
+    and decide when to scale vs. optimize. Essential for fundraising, board reporting,
+    and making smart investment trade-offs.
+- name: saas-revenue-growth-metrics
+  description: Calculate SaaS revenue, retention, and growth metrics. Use when diagnosing
+    momentum, churn, expansion, or product-market-fit signals.
+  type: component
+  path: skills/saas-revenue-growth-metrics/SKILL.md
+  intent: Master revenue and retention metrics to understand SaaS business momentum,
+    evaluate product-market fit, and make data-driven decisions about growth investments.
+    Use this to calculate key metrics, interpret trends, identify problems early,
+    and communicate business health to stakeholders.
+- name: skill-authoring-workflow
+  description: Turn raw PM content into a compliant, publish-ready skill. Use when
+    creating or updating a repo skill without breaking standards.
+  type: workflow
+  path: skills/skill-authoring-workflow/SKILL.md
+  intent: Create or update PM skills without chaos. This workflow turns rough notes,
+    workshop content, or half-baked prompt dumps into compliant `skills/<skill-name>/SKILL.md`
+    assets that actually pass validation and belong in this repo.
+- name: storyboard
+  description: Create a six-frame storyboard that shows a user's journey from problem
+    to solution. Use when you need a fast narrative for alignment, concept reviews,
+    or demos.
+  type: component
+  path: skills/storyboard/SKILL.md
+  intent: Create a 6-frame visual narrative that tells the story of a user's journey
+    from problem to solution, using the classic storytelling arc to build empathy,
+    illustrate value, and make abstract product concepts concrete. Use this to align
+    stakeholders, pitch features, communicate vision, or test if your solution resonates
+    emotionally before building it.
+- name: tam-sam-som-calculator
+  description: Calculate TAM, SAM, and SOM with explicit assumptions, methods, and
+    caveats. Use when sizing a market for a product idea, business case, or executive
+    review.
+  type: interactive
+  path: skills/tam-sam-som-calculator/SKILL.md
+  intent: "Guide product managers through calculating Total Addressable Market (TAM),\
+    \ Serviceable Available Market (SAM), and Serviceable Obtainable Market (SOM)\
+    \ for a product idea by asking adaptive, contextually relevant questions. Use\
+    \ this to build defensible market size estimates backed by real-world citations,\
+    \ economic projections, and population data\u2014essential for pitching to investors,\
+    \ securing budget, or validating product-market fit."
+- name: user-story
+  description: Create user stories with Mike Cohn format and Gherkin acceptance criteria.
+    Use when turning user needs into development-ready work with clear outcomes and
+    testable conditions.
+  type: component
+  path: skills/user-story/SKILL.md
+  intent: Create clear, concise user stories that combine Mike Cohn's user story format
+    with Gherkin-style acceptance criteria. Use this to translate user needs into
+    actionable development work that focuses on outcomes, ensures shared understanding
+    between product and engineering, and provides testable success criteria.
+- name: user-story-mapping
+  description: Create a user story map that lays out activities, steps, tasks, and
+    release slices. Use when planning a workflow, backlog, or MVP around the user
+    journey.
+  type: component
+  path: skills/user-story-mapping/SKILL.md
+  intent: Visualize the user journey by creating a hierarchical map that breaks down
+    high-level activities into steps and tasks, organized left-to-right as a narrative
+    flow. Use this to build shared understanding across product, design, and engineering,
+    prioritize features based on user workflows, and identify gaps or opportunities
+    in the user experience.
+- name: user-story-mapping-workshop
+  description: Run a user story mapping workshop with adaptive questions and a structured
+    map output. Use when you need backbone activities, tasks, and release slices for
+    a workflow.
+  type: interactive
+  path: skills/user-story-mapping-workshop/SKILL.md
+  intent: "Guide product managers through creating a user story map by asking adaptive\
+    \ questions about the system, users, workflow, and priorities\u2014then generating\
+    \ a two-dimensional map with backbone (activities), user tasks, and release slices.\
+    \ Use this to move from flat backlogs to visual story maps that communicate the\
+    \ big picture, identify missing functionality, and enable meaningful release planning\u2014\
+    avoiding \"context-free mulch\" where stories lose connection to the overall system\
+    \ narrative."
+- name: user-story-splitting
+  description: Break a large story or epic into smaller deliverable stories using
+    proven split patterns. Use when backlog items are too big for estimation, sequencing,
+    or independent release.
+  type: component
+  path: skills/user-story-splitting/SKILL.md
+  intent: Break down large user stories, epics, or features into smaller, independently
+    deliverable stories using systematic splitting patterns. Use this to make work
+    more manageable, reduce risk, enable faster feedback cycles, and maintain flow
+    in agile development. This skill applies to user stories, epics, and any work
+    that's too large to complete in a single sprint.
+- name: vp-cpo-readiness-advisor
+  description: Guide the transition to VP or CPO across preparing, interviewing, landing,
+    and recalibrating. Use when executive product scope is changing fast.
+  type: interactive
+  path: skills/vp-cpo-readiness-advisor/SKILL.md
+  intent: "Guide Directors and senior product leaders through the specific challenges\
+    \ of the transition to VP or CPO using adaptive questions and targeted coaching.\
+    \ Diagnoses where you are in the journey and delivers practical, lived-experience\
+    \ coaching calibrated to your situation \u2014 not generic executive advice."
+- name: workshop-facilitation
+  description: Facilitate workshop sessions in a one-step, multi-turn flow. Use when
+    an interactive skill needs consistent pacing, options, and progress tracking.
+  type: interactive
+  path: skills/workshop-facilitation/SKILL.md
+  intent: 'Provide the canonical facilitation pattern for interactive skills: one
+    step at a time, with clear progress, adaptive recommendations at decision points,
+    and predictable interruption handling.'
