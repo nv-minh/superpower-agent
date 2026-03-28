@@ -1,0 +1,56 @@
+{
+  "name": "superpower-agent",
+  "version": "0.1.0",
+  "description": "Adaptive multi-runtime installer for a PM->Build->QC->Ops agent operating system.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_ORG/superpower-agent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_ORG/superpower-agent/issues"
+  },
+  "homepage": "https://github.com/YOUR_ORG/superpower-agent#readme",
+  "type": "module",
+  "bin": {
+    "superpower-agent": "bin/superpower-agent.js"
+  },
+  "files": [
+    "bin",
+    "templates",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    "SECURITY.md",
+    "SUPPORT.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "exports": {
+    ".": "./bin/superpower-agent.js"
+  },
+  "scripts": {
+    "start": "node bin/superpower-agent.js --help",
+    "test": "node tests/smoke-init.test.mjs",
+    "check": "npm run test && node bin/superpower-agent.js --help >/dev/null",
+    "sync-template": "bash scripts/sync-template.sh",
+    "export-standalone": "bash scripts/export-standalone-repo.sh"
+  },
+  "keywords": [
+    "claude-code",
+    "agent",
+    "workflow",
+    "pm",
+    "tdd",
+    "brownfield",
+    "qc",
+    "ops"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
