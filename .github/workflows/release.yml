@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish to npm"
+        required: false
+        default: "false"
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve project directory
+        id: paths
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            echo "workdir=." >> "$GITHUB_OUTPUT"
+          elif [ -f packages/superpower-agent/package.json ]; then
+            echo "workdir=packages/superpower-agent" >> "$GITHUB_OUTPUT"
+          else
+            echo "Unable to locate package.json for superpower-agent"
+            exit 1
+          fi
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ${{ steps.paths.outputs.workdir }}
+
+      - name: Run checks
+        run: npm run check
+        working-directory: ${{ steps.paths.outputs.workdir }}
+
+      - name: Validate package
+        run: npm pack --dry-run
+        working-directory: ${{ steps.paths.outputs.workdir }}
+
+      - name: Publish to npm
+        if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish == 'true')
+        run: npm publish --access public --provenance
+        working-directory: ${{ steps.paths.outputs.workdir }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
