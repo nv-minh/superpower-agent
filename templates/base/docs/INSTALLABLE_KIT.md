@@ -15,7 +15,7 @@ Bạn có thể đóng gói toàn bộ agent config này thành package npm đ�
 ## Chạy local thử ngay
 
 ```bash
-node packages/superpower-agent/bin/superpower-agent.js init --dir /tmp/superpower-agent-test --claude --codex --cursor --no-prompt
+node packages/superpower-agent/bin/superpower-agent.js init --dir /tmp/superpower-agent-test --all --no-prompt
 node packages/superpower-agent/bin/superpower-agent.js doctor --dir /tmp/superpower-agent-test
 ```
 
@@ -37,8 +37,21 @@ npx superpower-agent doctor --dir /path/to/project
 Nếu muốn cài luôn browser skills:
 
 ```bash
-npx superpower-agent init --dir /path/to/project --with-browser-skills --claude --codex --cursor --no-prompt
+npx superpower-agent init --dir /path/to/project --with-browser-skills --all --no-prompt
 ```
+
+## Runtime adapter matrix
+
+Installer hiện support:
+
+- Claude Code
+- OpenCode
+- Gemini CLI
+- Codex
+- Copilot
+- Cursor
+- Windsurf
+- Antigravity
 
 ## Push thành repo riêng trên GitHub
 

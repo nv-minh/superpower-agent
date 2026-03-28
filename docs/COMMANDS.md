@@ -28,6 +28,7 @@ This package installs command contracts under `.claude/commands`.
 
 Reference docs:
 - [`BUNDLES.md`](./BUNDLES.md)
+- [`RUNTIME_ADAPTERS.md`](./RUNTIME_ADAPTERS.md)
 - [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
 - [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md)
 

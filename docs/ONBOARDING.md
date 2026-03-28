@@ -36,7 +36,8 @@ npx superpower-agent init --dir /path/to/project --with-browser-skills
 Optional runtime flags:
 
 ```bash
-npx superpower-agent init --dir /path/to/project --claude --codex --cursor --no-prompt
+npx superpower-agent init --dir /path/to/project --all --no-prompt
+npx superpower-agent init --dir /path/to/project --claude --opencode --gemini --codex --copilot --cursor --windsurf --antigravity --no-prompt
 ```
 
 ## Configure local environment
@@ -72,6 +73,7 @@ npx superpower-agent doctor --dir /path/to/project
 Deep-dive docs:
 
 - [`BUNDLES.md`](./BUNDLES.md)
+- [`RUNTIME_ADAPTERS.md`](./RUNTIME_ADAPTERS.md)
 - [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
 - [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md)
 

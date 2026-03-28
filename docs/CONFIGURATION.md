@@ -10,6 +10,15 @@
 - `.claude/config/monitoring.json` - monitoring baseline
 - `.planning/setup/superpower-agent-install.json` - installed bundle + feature metadata
 - `.planning/setup/context-index.json` - local command/doc/script inventory with estimated tokens
+- Optional runtime bridges:
+  - `.opencode/commands/`
+  - `.gemini/commands/fad/`
+  - `.codex/skills/`
+  - `.github/copilot-instructions.md` and `.github/prompts/`
+  - `.cursor/rules/`
+  - `.windsurf/skills/` and `.windsurf/workflows/`
+  - `.agent/skills/`
+  - `AGENTS.md`, `GEMINI.md`, `CODEX.md`
 
 ## MCP
 
@@ -39,3 +48,4 @@ Use env vars and local private overrides per machine.
 
 For audit schema and logging conventions, see [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md).
 For bundle selection and footprint strategy, see [`BUNDLES.md`](./BUNDLES.md).
+For runtime-specific command shapes and adapter paths, see [`RUNTIME_ADAPTERS.md`](./RUNTIME_ADAPTERS.md).

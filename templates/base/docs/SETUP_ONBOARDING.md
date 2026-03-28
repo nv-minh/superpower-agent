@@ -89,8 +89,15 @@ After setup is healthy, start with:
 /fad:pipeline "<your first requirement>"
 ```
 
+Nếu project cần dùng nhiều runtime, cài adapter bằng:
+
+```bash
+npx superpower-agent init --dir /path/to/project --all --no-prompt
+```
+
 For operating details:
 
 - `docs/BUNDLES.md`
+- `docs/RUNTIME_ADAPTERS.md`
 - `docs/FAD_PIPELINE.md`
 - `docs/AUDIT_LOGGING.md`

@@ -8,7 +8,7 @@ Provide a reproducible, auditable agent operating model for daily software deliv
 - Brownfield-safe implementation.
 - Quality and security verification.
 - Operational reliability and release safety.
-- Runtime-adaptive installation for Claude, Codex, and Cursor.
+- Runtime-adaptive installation for Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Cursor, Windsurf, and Antigravity.
 
 ## Logical Layers
 
@@ -69,5 +69,6 @@ Requirement input
 Related references:
 
 - `./BUNDLES.md`
+- `./RUNTIME_ADAPTERS.md`
 - `./FAD_PIPELINE.md`
 - `./AUDIT_LOGGING.md`

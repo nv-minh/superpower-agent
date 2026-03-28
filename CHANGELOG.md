@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog and this project follows Semantic Versioning.
 
+## [0.2.0] - 2026-03-28
+
+### Added
+
+- Runtime bridge generation for OpenCode, Gemini CLI, Copilot, Windsurf, and Antigravity.
+- Root bridge docs (`AGENTS.md`, `GEMINI.md`, `CODEX.md`) for cross-runtime instruction discovery.
+- Runtime adapter reference docs and updated onboarding/install guidance.
+
+### Changed
+
+- Expanded runtime-adaptive installation from Claude/Codex/Cursor to the full multi-runtime matrix.
+- Updated smoke tests to validate `--all` installs and generated adapter files.
+- Removed `.claude-analysis` from published/installable default bundle surfaces.
+
 ## [0.1.0] - 2026-03-28
 
 ### Added

@@ -1,7 +1,7 @@
 {
   "name": "superpower-agent",
-  "version": "0.1.0",
-  "description": "Adaptive multi-runtime installer for a PM->Build->QC->Ops agent operating system.",
+  "version": "0.2.0",
+  "description": "Adaptive PM->Build->QC->Ops agent system for Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Cursor, Windsurf, and Antigravity.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
     "bin",
     "dist",
     "templates/base/CLAUDE.md",
-    "templates/base/.claude-analysis/**/*",
     "templates/base/.claude/AGENTS.md",
     "templates/base/.claude/STRUCTURE.md",
     "templates/base/.claude/commands/*.md",
@@ -87,11 +86,17 @@
   },
   "keywords": [
     "claude-code",
+    "opencode",
+    "gemini-cli",
     "agent",
     "workflow",
+    "copilot",
     "pm",
     "tdd",
     "brownfield",
+    "cursor",
+    "windsurf",
+    "antigravity",
     "qc",
     "ops"
   ],

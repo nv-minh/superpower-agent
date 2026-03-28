@@ -1,7 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
 export const DEFAULT_BUNDLE = "standard";
-export const SUPPORTED_RUNTIMES = ["claude", "codex", "cursor"];
+export const SUPPORTED_RUNTIMES = [
+    "claude",
+    "opencode",
+    "gemini",
+    "codex",
+    "copilot",
+    "cursor",
+    "windsurf",
+    "antigravity"
+];
 export const GSD_SHIMS = [
     ".claude/commands/gsd/help.md",
     ".claude/commands/gsd/map-codebase.md",
@@ -105,7 +114,7 @@ export const BUNDLE_SPECS = {
     },
     standard: {
         description: "Default team bundle with PM/build/QC/ops flows and lightweight compatibility shims.",
-        includeRoots: ["CLAUDE.md", ".claude", ".claude-analysis", ".planning", "docs"],
+        includeRoots: ["CLAUDE.md", ".claude", ".planning", "docs"],
         excludePrefixes: [
             ".claude/commands/gsd/",
             ".claude/agents/",
@@ -130,7 +139,7 @@ export const BUNDLE_SPECS = {
     },
     full: {
         description: "Standard bundle plus archived legacy GSD/PM vendor assets extracted on demand.",
-        includeRoots: ["CLAUDE.md", ".claude", ".claude-analysis", ".planning", "docs"],
+        includeRoots: ["CLAUDE.md", ".claude", ".planning", "docs"],
         excludePrefixes: [
             ".claude/commands/gsd/",
             ".claude/agents/",

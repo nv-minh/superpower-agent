@@ -47,6 +47,12 @@ interface VendorManifestEntry {
   };
 }
 
+interface FadCommandSpec {
+  name: string;
+  description: string;
+  runtimeAgent: "plan" | "build";
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PKG_ROOT = path.resolve(__dirname, "..");
@@ -56,11 +62,60 @@ const PKG_JSON = JSON.parse(
   fs.readFileSync(path.join(PKG_ROOT, "package.json"), "utf-8")
 ) as { version: string };
 
+const FAD_COMMAND_SPECS: FadCommandSpec[] = [
+  {
+    name: "help",
+    description: "Show the FAD command surface and entrypoints.",
+    runtimeAgent: "plan"
+  },
+  {
+    name: "pipeline",
+    description: "Run the full requirement to delivery pipeline.",
+    runtimeAgent: "plan"
+  },
+  {
+    name: "map-codebase",
+    description: "Map a brownfield codebase before planning changes.",
+    runtimeAgent: "plan"
+  },
+  {
+    name: "optimize",
+    description: "Run the post-review optimization phase without behavior drift.",
+    runtimeAgent: "build"
+  },
+  {
+    name: "pr-branch",
+    description: "Prepare a PR branch with validation context and evidence.",
+    runtimeAgent: "build"
+  },
+  {
+    name: "quality-gate",
+    description: "Run lint, types, tests, security, and risk gates.",
+    runtimeAgent: "build"
+  },
+  {
+    name: "ship",
+    description: "Finish verification and shipping checks for the branch.",
+    runtimeAgent: "build"
+  }
+];
+
+const INTERACTIVE_RUNTIMES: Array<{ runtime: Runtime; label: string }> = [
+  { runtime: "claude", label: "Claude" },
+  { runtime: "opencode", label: "OpenCode" },
+  { runtime: "gemini", label: "Gemini CLI" },
+  { runtime: "codex", label: "Codex" },
+  { runtime: "copilot", label: "Copilot" },
+  { runtime: "cursor", label: "Cursor" },
+  { runtime: "windsurf", label: "Windsurf" },
+  { runtime: "antigravity", label: "Antigravity" }
+];
+
 function printHelp(): void {
   console.log(`${APP_NAME}
 
 Usage:
-  ${APP_NAME} init [--dir <target>] [--bundle <core|standard|full>] [--force] [--with-browser-skills] [--claude] [--codex] [--cursor] [--all]
+  ${APP_NAME} init [--dir <target>] [--bundle <core|standard|full>] [--force] [--with-browser-skills] [--claude] [--opencode] [--gemini] [--codex] [--copilot] [--cursor] [--windsurf] [--antigravity] [--all]
   ${APP_NAME} doctor [--dir <target>]
   ${APP_NAME} inspect [--dir <target>] [--json]
   ${APP_NAME} estimate [--bundle <core|standard|full>] [--json]
@@ -81,8 +136,13 @@ Options:
   --force                   Overwrite existing files
   --with-browser-skills     Auto-install agent-browser + playwright skills via npx
   --claude                  Configure Claude runtime adapter
+  --opencode                Configure OpenCode runtime adapter
+  --gemini                  Configure Gemini CLI runtime adapter
   --codex                   Configure Codex runtime adapter
+  --copilot                 Configure GitHub Copilot runtime adapter
   --cursor                  Configure Cursor runtime adapter
+  --windsurf                Configure Windsurf runtime adapter
+  --antigravity             Configure Antigravity runtime adapter
   --all                     Configure all supported runtime adapters
   --no-prompt               Disable interactive runtime selection (defaults to claude)
   --json                    Emit JSON for inspect/estimate
@@ -91,6 +151,10 @@ Options:
 
 function isBundle(value: string): value is Bundle {
   return value === "core" || value === "standard" || value === "full";
+}
+
+function isRuntime(value: string): value is Runtime {
+  return SUPPORTED_RUNTIMES.includes(value as Runtime);
 }
 
 function parseArgs(argv: string[]): ParsedArgs {
@@ -149,7 +213,7 @@ function parseArgs(argv: string[]): ParsedArgs {
       args.runtimes = [...SUPPORTED_RUNTIMES];
       continue;
     }
-    if (token === "--claude" || token === "--codex" || token === "--cursor") {
+    if (token.startsWith("--") && isRuntime(token.slice(2))) {
       const rt = token.slice(2) as Runtime;
       if (!args.runtimes.includes(rt)) {
         args.runtimes.push(rt);
@@ -194,7 +258,67 @@ function writeFileForce(filePath: string, content: string): void {
   fs.writeFileSync(filePath, content, "utf-8");
 }
 
-function createCodexAdapter(targetDir: string): void {
+function writeFileIfAllowed(filePath: string, content: string, force: boolean): void {
+  if (fs.existsSync(filePath) && !force) {
+    return;
+  }
+  writeFileForce(filePath, content);
+}
+
+function buildCrossRuntimeInstructions(): string {
+  return `# FAD Cross-Runtime Contract
+
+This repository is installed with Superpower Agent.
+
+- Primary workflow namespace: \`/fad:*\`
+- Source of truth: \`CLAUDE.md\` and \`.claude/commands/fad/*.md\`
+- Delivery artifacts: \`.planning/pm/current/\`
+- Audit logs: \`.planning/audit/\`
+- Brownfield work must start with codebase mapping, style alignment, and explicit risk/impact review.
+- If a requirement includes Figma, Jira, Confluence, or PR links, ingest those inputs before planning or coding.
+- Do not skip review, optimize, or quality-gate phases.
+`;
+}
+
+function buildGeminiInstructions(): string {
+  return `# FAD For Gemini
+
+Use \`CLAUDE.md\` and the matching file in \`.claude/commands/fad/\` as the contract for each FAD workflow.
+
+Defaults:
+- Start with \`/fad:help\`
+- Use \`/fad:pipeline\` for requirement intake through PM -> Build -> QC -> Ops
+- Keep artifacts in \`.planning/\`
+- Keep audit evidence in \`.planning/audit/\`
+`;
+}
+
+function buildCodexInstructions(): string {
+  return `# FAD For Codex
+
+Use the Codex skill at \`.codex/skills/fad-operator/SKILL.md\` and the source contracts in \`.claude/commands/fad/\`.
+
+Defaults:
+- Prefer the branded FAD namespace over legacy GSD shims
+- Keep outputs in \`.planning/\`
+- Preserve audit evidence in \`.planning/audit/\`
+`;
+}
+
+function createSharedBridgeDocs(targetDir: string, runtimes: Runtime[], force: boolean): void {
+  const hasNonClaudeRuntime = runtimes.some((runtime) => runtime !== "claude");
+  if (hasNonClaudeRuntime) {
+    writeFileIfAllowed(path.join(targetDir, "AGENTS.md"), buildCrossRuntimeInstructions(), force);
+  }
+  if (runtimes.includes("gemini") || runtimes.includes("antigravity")) {
+    writeFileIfAllowed(path.join(targetDir, "GEMINI.md"), buildGeminiInstructions(), force);
+  }
+  if (runtimes.includes("codex")) {
+    writeFileIfAllowed(path.join(targetDir, "CODEX.md"), buildCodexInstructions(), force);
+  }
+}
+
+function createCodexAdapter(targetDir: string, force: boolean): void {
   const skillPath = path.join(
     targetDir,
     ".codex",
@@ -217,7 +341,7 @@ Use this skill when users request FAD workflows in Codex.
 3. Treat legacy \`/gsd:*\` aliases as migration-only and prefer \`/fad:*\`.
 4. Keep audit traces under \`.planning/audit\`.
 `;
-  writeFileForce(skillPath, skill);
+  writeFileIfAllowed(skillPath, skill, force);
 
   const agentsPath = path.join(targetDir, ".codex", "AGENTS.md");
   const agents = `# Codex Runtime Adapter (FAD)
@@ -229,10 +353,10 @@ This project is installed with Superpower Agent.
 - Delivery artifacts: \`.planning/pm/current\`
 - Audit trail: \`.planning/audit\`
 `;
-  writeFileForce(agentsPath, agents);
+  writeFileIfAllowed(agentsPath, agents, force);
 }
 
-function createCursorAdapter(targetDir: string): void {
+function createCursorAdapter(targetDir: string, force: boolean): void {
   const rulePath = path.join(targetDir, ".cursor", "rules", "fad.mdc");
   const rule = `---
 description: Superpower Agent runtime rule for Cursor.
@@ -243,7 +367,159 @@ Use \`/fad:*\` command namespace for planning, build, QC, and ops orchestration.
 Prefer contracts in \`.claude/commands/fad\`.
 Write audit logs to \`.planning/audit\` for major steps.
 `;
-  writeFileForce(rulePath, rule);
+  writeFileIfAllowed(rulePath, rule, force);
+}
+
+function createOpenCodeAdapter(targetDir: string, force: boolean): void {
+  for (const spec of FAD_COMMAND_SPECS) {
+    const commandPath = path.join(targetDir, ".opencode", "commands", `fad-${spec.name}.md`);
+    const content = `---
+description: ${spec.description}
+agent: ${spec.runtimeAgent}
+---
+
+Use @CLAUDE.md and @.claude/commands/fad/${spec.name}.md as the source of truth.
+
+Runtime bridge:
+- OpenCode alias: /fad-${spec.name}
+- Canonical FAD command: /fad:${spec.name}
+
+Treat $ARGUMENTS as the active user request or follow-up context.
+Keep artifacts in \`.planning/\` and audit logs in \`.planning/audit/\`.
+`;
+    writeFileIfAllowed(commandPath, content, force);
+  }
+
+  const readmePath = path.join(targetDir, ".opencode", "README.md");
+  const readme = `# FAD Runtime Adapter For OpenCode
+
+- Use \`/fad-help\` to discover the workflow surface
+- Use \`/fad-pipeline <requirement>\` to run the end-to-end flow
+- Source contracts remain in \`.claude/commands/fad/\`
+`;
+  writeFileIfAllowed(readmePath, readme, force);
+}
+
+function createGeminiAdapter(targetDir: string, force: boolean): void {
+  for (const spec of FAD_COMMAND_SPECS) {
+    const commandPath = path.join(targetDir, ".gemini", "commands", "fad", `${spec.name}.toml`);
+    const content = `description = "${spec.description}"
+prompt = """
+Use @{CLAUDE.md} and @{.claude/commands/fad/${spec.name}.md} as the source of truth.
+
+Runtime bridge:
+- Gemini command: /fad:${spec.name}
+- Delivery artifacts: .planning/
+- Audit logs: .planning/audit/
+
+Treat any free-form text appended to this command as the active user request or follow-up context.
+"""
+`;
+    writeFileIfAllowed(commandPath, content, force);
+  }
+}
+
+function createCopilotAdapter(targetDir: string, force: boolean): void {
+  const instructionsPath = path.join(targetDir, ".github", "copilot-instructions.md");
+  const instructions = `# FAD Runtime Adapter For GitHub Copilot
+
+This repository uses Superpower Agent.
+
+- Primary source of truth: \`CLAUDE.md\` and \`.claude/commands/fad/\`
+- Preferred prompt aliases: \`/fad-help\`, \`/fad-pipeline\`, \`/fad-quality-gate\`
+- Delivery artifacts live in \`.planning/\`
+- Audit evidence lives in \`.planning/audit/\`
+- Brownfield work must include style mapping plus risk/impact analysis before coding
+- Do not skip review, optimize, or quality-gate phases
+`;
+  writeFileIfAllowed(instructionsPath, instructions, force);
+
+  for (const spec of FAD_COMMAND_SPECS) {
+    const promptPath = path.join(targetDir, ".github", "prompts", `fad-${spec.name}.prompt.md`);
+    const content = `---
+agent: 'agent'
+description: '${spec.description}'
+---
+
+Use [CLAUDE.md](../../CLAUDE.md) and [fad:${spec.name}](../../.claude/commands/fad/${spec.name}.md) as the source of truth.
+
+Keep delivery artifacts in \`.planning/\` and audit evidence in \`.planning/audit/\`.
+
+User request:
+\${input:request:Paste the requirement, phase request, or follow-up}
+`;
+    writeFileIfAllowed(promptPath, content, force);
+  }
+}
+
+function buildWindsurfWorkflow(spec: FadCommandSpec): string {
+  return `# fad-${spec.name}
+
+Use \`CLAUDE.md\` and \`.claude/commands/fad/${spec.name}.md\` as the source of truth for this workflow.
+
+## Goal
+${spec.description}
+
+## Steps
+1. Load the source contract and align to the current repository state.
+2. Ask for missing context only if it blocks execution.
+3. Execute the workflow exactly against the FAD contract.
+4. Keep artifacts in \`.planning/\` and audit evidence in \`.planning/audit/\`.
+`;
+}
+
+function createWindsurfAdapter(targetDir: string, force: boolean): void {
+  const skillPath = path.join(targetDir, ".windsurf", "skills", "fad-operator", "SKILL.md");
+  const skill = `# FAD Operator
+
+Use this skill when users request FAD workflows in Windsurf.
+
+## Trigger phrases
+- "run fad"
+- "fad pipeline"
+- "fad review"
+
+## Rules
+1. Use \`CLAUDE.md\` and \`.claude/commands/fad/\` as the source of truth.
+2. Prefer the branded FAD namespace over legacy GSD shims.
+3. Keep outputs in \`.planning/\`.
+4. Keep audit evidence in \`.planning/audit/\`.
+`;
+  writeFileIfAllowed(skillPath, skill, force);
+
+  for (const spec of FAD_COMMAND_SPECS) {
+    const workflowPath = path.join(targetDir, ".windsurf", "workflows", `fad-${spec.name}.md`);
+    writeFileIfAllowed(workflowPath, buildWindsurfWorkflow(spec), force);
+  }
+}
+
+function createAntigravityAdapter(targetDir: string, force: boolean): void {
+  const skillPath = path.join(targetDir, ".agent", "skills", "fad-operator", "SKILL.md");
+  const skill = `# FAD Operator
+
+Use this skill when users request FAD workflows in Antigravity.
+
+## Trigger phrases
+- "run fad"
+- "fad pipeline"
+- "fad quality gate"
+
+## Rules
+1. Use \`GEMINI.md\`, \`CLAUDE.md\`, and \`.claude/commands/fad/\` as the source of truth.
+2. Keep delivery artifacts in \`.planning/\`.
+3. Keep audit evidence in \`.planning/audit/\`.
+4. Treat legacy \`/gsd:*\` aliases as migration-only.
+`;
+  writeFileIfAllowed(skillPath, skill, force);
+
+  const readmePath = path.join(targetDir, ".agent", "README.md");
+  const readme = `# FAD Runtime Adapter For Antigravity
+
+- Skill entrypoint: \`.agent/skills/fad-operator/SKILL.md\`
+- Source contracts: \`.claude/commands/fad/\`
+- Suggested first command: \`fad:pipeline\`
+`;
+  writeFileIfAllowed(readmePath, readme, force);
 }
 
 function runCommand(command: string, args: string[], cwd: string): boolean {
@@ -337,9 +613,9 @@ async function promptRuntimesInteractive(): Promise<Runtime[]> {
   try {
     console.log("");
     console.log("Select runtime adapters to install:");
-    console.log("  1) claude");
-    console.log("  2) codex");
-    console.log("  3) cursor");
+    INTERACTIVE_RUNTIMES.forEach((item, index) => {
+      console.log(`  ${index + 1}) ${item.runtime} (${item.label})`);
+    });
     const raw = await rl.question("Choice (comma-separated, default: 1): ");
     const text = raw.trim();
     if (!text) {
@@ -352,16 +628,13 @@ async function promptRuntimesInteractive(): Promise<Runtime[]> {
       .filter(Boolean);
     const resolved = new Set<Runtime>();
     for (const value of values) {
-      if (value === "1" || value === "claude") {
-        resolved.add("claude");
+      const indexed = Number(value);
+      if (Number.isInteger(indexed) && indexed >= 1 && indexed <= INTERACTIVE_RUNTIMES.length) {
+        resolved.add(INTERACTIVE_RUNTIMES[indexed - 1].runtime);
         continue;
       }
-      if (value === "2" || value === "codex") {
-        resolved.add("codex");
-        continue;
-      }
-      if (value === "3" || value === "cursor") {
-        resolved.add("cursor");
+      if (isRuntime(value)) {
+        resolved.add(value);
       }
     }
     if (!resolved.size) {
@@ -383,14 +656,35 @@ async function resolveRuntimes(args: ParsedArgs): Promise<Runtime[]> {
   return promptRuntimesInteractive();
 }
 
-function installRuntimeAdapters(targetDir: string, runtimes: Runtime[]): void {
+function installRuntimeAdapters(targetDir: string, runtimes: Runtime[], force: boolean): void {
+  createSharedBridgeDocs(targetDir, runtimes, force);
   for (const runtime of runtimes) {
+    if (runtime === "opencode") {
+      createOpenCodeAdapter(targetDir, force);
+      continue;
+    }
+    if (runtime === "gemini") {
+      createGeminiAdapter(targetDir, force);
+      continue;
+    }
     if (runtime === "codex") {
-      createCodexAdapter(targetDir);
+      createCodexAdapter(targetDir, force);
+      continue;
+    }
+    if (runtime === "copilot") {
+      createCopilotAdapter(targetDir, force);
       continue;
     }
     if (runtime === "cursor") {
-      createCursorAdapter(targetDir);
+      createCursorAdapter(targetDir, force);
+      continue;
+    }
+    if (runtime === "windsurf") {
+      createWindsurfAdapter(targetDir, force);
+      continue;
+    }
+    if (runtime === "antigravity") {
+      createAntigravityAdapter(targetDir, force);
     }
   }
 }
@@ -468,7 +762,7 @@ async function runInit(args: ParsedArgs): Promise<void> {
   const report = copyBundleFiles(TEMPLATE_ROOT, args.dir, args.bundle, args.force);
   const archiveReport = installBundleArchives(args.bundle, args.dir);
   fixScriptModes(args.dir);
-  installRuntimeAdapters(args.dir, runtimes);
+  installRuntimeAdapters(args.dir, runtimes, args.force);
   writeInstallMetadata(
     args.dir,
     args.bundle,

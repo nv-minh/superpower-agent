@@ -1,5 +1,7 @@
 # AI Delivery Pipeline (PM -> Build -> QC)
 
+Claude-native contracts in this repo are also bridged into OpenCode, Gemini CLI, Codex, Copilot, Cursor, Windsurf, and Antigravity when those adapters are installed.
+
 This repository is configured for a multi-agent workflow:
 
 1. `brownfield-map-style` maps codebase and curates approved/anti patterns.
@@ -141,6 +143,7 @@ Global concern rules live in `.claude/rules/`:
 ## Agent Ops Assets
 
 - `.claude/AGENTS.md` - operating contract for PM/build/QC/ops agents
+- `AGENTS.md` / `GEMINI.md` / `CODEX.md` - optional cross-runtime bridge docs created by the installer
 - `.claude/instructions/ORCHESTRATION.md` - coordination logic
 - `.claude/instructions/EXPERIMENTS.md` - instruction tuning log
 - `.claude/memory/` - continuous loop memory state

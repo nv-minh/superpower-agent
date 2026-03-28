@@ -22,6 +22,11 @@ function main() {
   assert.equal(help.status, 0, "help command should exit 0");
   assert.match(help.stdout, /Usage:/, "help output should include usage");
   assert.match(help.stdout, /--claude/, "help should include runtime flags");
+  assert.match(help.stdout, /--opencode/, "help should include opencode flag");
+  assert.match(help.stdout, /--gemini/, "help should include gemini flag");
+  assert.match(help.stdout, /--copilot/, "help should include copilot flag");
+  assert.match(help.stdout, /--windsurf/, "help should include windsurf flag");
+  assert.match(help.stdout, /--antigravity/, "help should include antigravity flag");
   assert.match(help.stdout, /--bundle/, "help should include bundle flag");
 
   const version = runNode(["--version"], pkgRoot);
@@ -34,7 +39,7 @@ function main() {
 
   const tmpStandard = fs.mkdtempSync(path.join(os.tmpdir(), "superpower-agent-standard-"));
   const initStandard = runNode(
-    ["init", "--dir", tmpStandard, "--claude", "--codex", "--cursor", "--no-prompt"],
+    ["init", "--dir", tmpStandard, "--all", "--no-prompt"],
     pkgRoot
   );
   assert.equal(initStandard.status, 0, "default init should exit 0");
@@ -52,8 +57,22 @@ function main() {
     ".claude/scripts/audit_log.py",
     ".planning/audit/runs/.gitkeep",
     ".planning/setup/context-index.json",
+    "AGENTS.md",
+    "GEMINI.md",
+    "CODEX.md",
+    ".opencode/commands/fad-help.md",
+    ".opencode/commands/fad-pipeline.md",
+    ".gemini/commands/fad/help.toml",
+    ".gemini/commands/fad/pipeline.toml",
     ".codex/skills/fad-operator/SKILL.md",
+    ".github/copilot-instructions.md",
+    ".github/prompts/fad-help.prompt.md",
+    ".github/prompts/fad-pipeline.prompt.md",
     ".cursor/rules/fad.mdc",
+    ".windsurf/skills/fad-operator/SKILL.md",
+    ".windsurf/workflows/fad-help.md",
+    ".windsurf/workflows/fad-pipeline.md",
+    ".agent/skills/fad-operator/SKILL.md",
     ".planning/setup/superpower-agent-install.json",
     ".claude/pm/commands/write-prd.md",
     "docs/PM_AGENT_PIPELINE.md"
@@ -80,6 +99,11 @@ function main() {
   assert.equal(inspect.status, 0, "inspect command should exit 0");
   assert.match(inspect.stdout, /"type":\s*"context_index"/, "inspect should return context_index payload");
   assert.match(inspect.stdout, /"bundle":\s*"standard"/, "inspect should report standard bundle");
+  assert.match(inspect.stdout, /"opencode"/, "inspect should record opencode runtime");
+  assert.match(inspect.stdout, /"gemini"/, "inspect should record gemini runtime");
+  assert.match(inspect.stdout, /"copilot"/, "inspect should record copilot runtime");
+  assert.match(inspect.stdout, /"windsurf"/, "inspect should record windsurf runtime");
+  assert.match(inspect.stdout, /"antigravity"/, "inspect should record antigravity runtime");
 
   const doctor = runNode(["doctor", "--dir", tmpStandard], pkgRoot);
   assert.ok([0, 1].includes(doctor.status), "doctor should return 0 or 1");

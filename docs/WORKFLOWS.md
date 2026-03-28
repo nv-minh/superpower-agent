@@ -21,6 +21,7 @@ fad:pipeline
 Detailed phase contract:
 
 - See [`BUNDLES.md`](./BUNDLES.md) for install surface by bundle
+- See [`RUNTIME_ADAPTERS.md`](./RUNTIME_ADAPTERS.md) for runtime-specific entrypoints
 - See [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
 - See [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md) for run-id tracing
 

@@ -1,4 +1,4 @@
-export type Runtime = "claude" | "codex" | "cursor";
+export type Runtime = "claude" | "opencode" | "gemini" | "codex" | "copilot" | "cursor" | "windsurf" | "antigravity";
 export type Bundle = "core" | "standard" | "full";
 export interface BundleSpec {
     description: string;

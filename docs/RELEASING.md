@@ -43,6 +43,6 @@ npm publish --access public
 
 ```bash
 npx superpower-agent@latest --version
-npx superpower-agent@latest init --dir /tmp/superpower-agent-smoke --claude --no-prompt
+npx superpower-agent@latest init --dir /tmp/superpower-agent-smoke --all --no-prompt
 npx superpower-agent@latest doctor --dir /tmp/superpower-agent-smoke
 ```

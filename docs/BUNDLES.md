@@ -7,7 +7,7 @@ Superpower Agent now installs by bundle instead of copying the full workspace by
 | Bundle | Purpose | Includes | Excludes |
 |---|---|---|---|
 | `core` | Lean FAD delivery runtime | PM/build/QC/review/gate essentials | advanced ops, PR feedback, browser skill installer, legacy vendor payloads |
-| `standard` | Default team install | `core` + ops flows, PR feedback, doc export, runtime extras | heavy legacy vendor trees and upstream PM source repo |
+| `standard` | Default team install | `core` + ops flows, PR feedback, doc export, runtime extras for Claude/OpenCode/Gemini/Codex/Copilot/Cursor/Windsurf/Antigravity | heavy legacy vendor trees and upstream PM source repo |
 | `full` | Maximum compatibility | `standard` + archived legacy vendor payloads extracted during install | nothing at install time, but legacy payloads are no longer shipped as raw trees in npm |
 
 ## Recommended Usage

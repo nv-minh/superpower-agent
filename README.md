@@ -1,6 +1,6 @@
 # Superpower Agent
 
-Adaptive PM -> Build -> QC -> Ops agent system for **Claude, Codex, and Cursor**.
+Adaptive PM -> Build -> QC -> Ops development system for **Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Cursor, Windsurf, and Antigravity**.
 
 `superpower-agent` gives teams a repeatable delivery operating system instead of ad-hoc prompting.
 It is a custom FAD-branded system built by extracting and adapting the strongest ideas from:
@@ -34,7 +34,7 @@ Superpower Agent takes a different approach:
 - Enforce brownfield-safe coding decisions with risk/impact gates.
 - Run one strict pipeline (`/fad:pipeline`) with mandatory review and optimize phases.
 - Keep one auditable flow from planning to deploy.
-- Run consistent workflows across Claude, Codex, and Cursor.
+- Run consistent workflows across Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Cursor, Windsurf, and Antigravity.
 - Use branded command namespace: **`/fad:*`**.
 
 ## Install In 60 Seconds
@@ -53,13 +53,19 @@ npx superpower-agent init --dir /path/to/your-project --bundle full
 
 During install, the CLI asks which runtime adapters to configure:
 - Claude
+- OpenCode
+- Gemini CLI
 - Codex
+- Copilot
 - Cursor
+- Windsurf
+- Antigravity
 
 Non-interactive examples:
 
 ```bash
-npx superpower-agent init --dir /path/to/your-project --claude --codex --cursor --no-prompt
+npx superpower-agent init --dir /path/to/your-project --all --no-prompt
+npx superpower-agent init --dir /path/to/your-project --claude --opencode --gemini --codex --copilot --cursor --windsurf --antigravity --no-prompt
 npx superpower-agent doctor --dir /path/to/your-project
 npx superpower-agent estimate --bundle standard
 npx superpower-agent inspect --dir /path/to/your-project
@@ -84,11 +90,17 @@ Start here after install:
 - `.claude/` workflows, scripts, rules, hooks, commands
 - `.planning/` artifacts, install metadata, and audit scaffolding
 - `.planning/setup/context-index.json` for local context visibility
-- `.claude-analysis/` audit packs in `standard` and `full`
+- `.claude-analysis/` kept as maintainer-only analysis context, not shipped in installed bundles
 - `templates/vendor/*.tgz` are used internally so npm publish stays lean while `full` still extracts legacy assets
 - Runtime adapters:
+  - `.opencode/commands/fad-*.md` (if OpenCode selected)
+  - `.gemini/commands/fad/*.toml` (if Gemini CLI selected)
   - `.codex/skills/fad-operator/SKILL.md` (if Codex selected)
+  - `.github/copilot-instructions.md` and `.github/prompts/fad-*.prompt.md` (if Copilot selected)
   - `.cursor/rules/fad.mdc` (if Cursor selected)
+  - `.windsurf/skills/fad-operator/SKILL.md` and `.windsurf/workflows/fad-*.md` (if Windsurf selected)
+  - `.agent/skills/fad-operator/SKILL.md` (if Antigravity selected)
+  - `AGENTS.md`, `GEMINI.md`, `CODEX.md` bridge docs when relevant runtimes are selected
 
 ## Optimization Highlights
 
@@ -96,11 +108,13 @@ Start here after install:
 - Local context visibility with `superpower-agent estimate` and `superpower-agent inspect`
 - Project-local context index written to `.planning/setup/context-index.json`
 - Publish surface reduced from the raw vendor-tree approach to a lean npm artifact
+- Runtime bridges are generated only for the runtimes you select at install time
 - `full` compatibility preserved through archive-backed extraction instead of shipping the entire legacy tree raw
 
 Current packaging result after optimization:
 
-- publish artifact: `185 files`
+- publish artifact: `178 files`
+- tarball size: about `3.7 MB`
 - unpacked package size: about `4.2 MB`
 - `full` bundle still restores legacy assets when explicitly requested
 
@@ -123,8 +137,13 @@ Input (text / Jira / Confluence / Figma / PR)
 | Runtime | Install Mode | Adapter |
 |---|---|---|
 | Claude | Native | `.claude` command contracts |
+| OpenCode | Adapter | `.opencode/commands/fad-*.md` -> `/fad-help`, `/fad-pipeline`, ... |
+| Gemini CLI | Adapter | `.gemini/commands/fad/*.toml` -> `/fad:help`, `/fad:pipeline`, ... |
 | Codex | Adapter | `.codex/skills/fad-operator/SKILL.md` |
+| Copilot | Adapter | `.github/copilot-instructions.md` + `.github/prompts/fad-*.prompt.md` |
 | Cursor | Adapter | `.cursor/rules/fad.mdc` |
+| Windsurf | Adapter | `.windsurf/skills/fad-operator/SKILL.md` + `.windsurf/workflows/fad-*.md` |
+| Antigravity | Adapter | `.agent/skills/fad-operator/SKILL.md` + `GEMINI.md` bridge |
 
 ## Professional Docs
 
@@ -132,6 +151,7 @@ Input (text / Jira / Confluence / Figma / PR)
 - [Bundles](./docs/BUNDLES.md)
 - [Commands](./docs/COMMANDS.md)
 - [Workflows](./docs/WORKFLOWS.md)
+- [Runtime Adapters](./docs/RUNTIME_ADAPTERS.md)
 - [FAD Pipeline](./docs/FAD_PIPELINE.md)
 - [Audit Logging](./docs/AUDIT_LOGGING.md)
 - [Onboarding](./docs/ONBOARDING.md)

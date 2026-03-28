@@ -1,7 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export type Runtime = "claude" | "codex" | "cursor";
+export type Runtime =
+  | "claude"
+  | "opencode"
+  | "gemini"
+  | "codex"
+  | "copilot"
+  | "cursor"
+  | "windsurf"
+  | "antigravity";
 export type Bundle = "core" | "standard" | "full";
 
 export interface BundleSpec {
@@ -20,7 +28,16 @@ export interface VendorArchive {
 }
 
 export const DEFAULT_BUNDLE: Bundle = "standard";
-export const SUPPORTED_RUNTIMES: Runtime[] = ["claude", "codex", "cursor"];
+export const SUPPORTED_RUNTIMES: Runtime[] = [
+  "claude",
+  "opencode",
+  "gemini",
+  "codex",
+  "copilot",
+  "cursor",
+  "windsurf",
+  "antigravity"
+];
 
 export const GSD_SHIMS = [
   ".claude/commands/gsd/help.md",
@@ -128,7 +145,7 @@ export const BUNDLE_SPECS: Record<Bundle, BundleSpec> = {
   },
   standard: {
     description: "Default team bundle with PM/build/QC/ops flows and lightweight compatibility shims.",
-    includeRoots: ["CLAUDE.md", ".claude", ".claude-analysis", ".planning", "docs"],
+    includeRoots: ["CLAUDE.md", ".claude", ".planning", "docs"],
     excludePrefixes: [
       ".claude/commands/gsd/",
       ".claude/agents/",
@@ -153,7 +170,7 @@ export const BUNDLE_SPECS: Record<Bundle, BundleSpec> = {
   },
   full: {
     description: "Standard bundle plus archived legacy GSD/PM vendor assets extracted on demand.",
-    includeRoots: ["CLAUDE.md", ".claude", ".claude-analysis", ".planning", "docs"],
+    includeRoots: ["CLAUDE.md", ".claude", ".planning", "docs"],
     excludePrefixes: [
       ".claude/commands/gsd/",
       ".claude/agents/",
