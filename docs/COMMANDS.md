@@ -23,7 +23,7 @@ Decision guides:
 
 | Command | Primary Use |
 |---|---|
-| `fad:pipeline` | End-to-end workflow: brainstorm -> plan/build -> review -> optimize -> quality gate -> finish |
+| `fad:pipeline` | Staged end-to-end workflow with user confirmation at each major phase |
 | `fad:help` | Primary branded entrypoint and command map |
 | `fad:map-codebase` | Brownfield mapping without full legacy vendor dependency |
 | `fad:pr-branch` | Prepare a review-safe branch |
@@ -41,8 +41,8 @@ Reference docs:
 
 | Command | Primary Use |
 |---|---|
-| `pm-intake` | Requirement discussion and PM handoff pack generation |
-| `discovery-ui-handoff` | Structured discovery for raw/greenfield/no-figma input |
+| `pm-intake` | Clarify-first PM intake, then generate the PM handoff pack after approval |
+| `discovery-ui-handoff` | Brainstorm-first discovery for raw/greenfield/no-figma input, then optional handoff generation |
 | `pm-discover` | PM discovery process entrypoint |
 | `pm-write-prd` | PRD generation |
 | `pm-plan-roadmap` | Roadmap/sprint sequencing |

@@ -41,6 +41,7 @@ High-leverage orchestration commands:
 
 The PM handoff pack is always stored in `.planning/pm/current/`:
 
+- `LANGUAGE.md` - working language lock for conversation and generated artifacts.
 - `PRD.md` - product requirement with explicit requirement IDs.
 - `SPRINT.md` - current sprint scope (one sprint maps to one phase).
 - `STORIES.md` - implementation-ready user stories and acceptance criteria.
@@ -51,11 +52,35 @@ The PM handoff pack is always stored in `.planning/pm/current/`:
 Requirement ID format: `REQ-<DOMAIN>-<NNN>` (example: `REQ-AUTH-001`).
 
 Discovery artifacts for structured intake are stored in `.planning/discovery/current/`:
+- `LANGUAGE.md`
 - `IDEA-BRIEF.md`
 - `PREMISE-CHECK.md`
 - `ALTERNATIVES.md`
 - `UI-CONCEPT.md`
 - `UI-CONTRACT.md`
+
+## Interactive Workflow Rules
+
+- `discovery-ui-handoff`, `pm-intake`, and `fad:pipeline` are staged workflows, not fire-and-forget generators.
+- When the requirement is still ambiguous, start with discussion and clarification. Do not jump straight to PRD, sprint, or build artifacts.
+- After each major step, stop and provide:
+  - what was understood or changed,
+  - what the user should verify,
+  - the recommended next step or command.
+- Ask for explicit user confirmation before moving to the next major step.
+- If the user wants brainstorming or requirement discussion only, stop after the approved discovery/intake checkpoint.
+- Use short question rounds. Prefer batched clarifying questions over long interrogations.
+
+## Language Lock Rules
+
+- Detect the dominant user language from the latest request unless a language is already locked in `LANGUAGE.md`.
+- Keep questions, summaries, and working artifacts in that same language.
+- Do not mix Vietnamese and English in the same artifact unless code identifiers, API names, or source evidence require it.
+- Only switch output language when the user explicitly asks, or when optional export is requested through `gen-doc-sheet`.
+- When discovery or PM intake starts, write/update:
+  - `.planning/discovery/current/LANGUAGE.md`
+  - `.planning/pm/current/LANGUAGE.md`
+- Downstream commands must read these files first and honor the locked working language.
 
 ## Alignment Rules
 
@@ -92,6 +117,7 @@ Discovery artifacts for structured intake are stored in `.planning/discovery/cur
 - Spreadsheet export is optional and must be user-triggered.
 - Use `.claude/commands/gen-doc-sheet.md` for `.xlsx` output.
 - Default output mode is one workbook with `DELIVERY_EN` + `DELIVERY_JA`.
+- Export language does not change the working language of the main PM/discovery artifacts unless the user explicitly asks for that switch.
 
 ## Audit Logging Rules
 
@@ -99,6 +125,11 @@ Discovery artifacts for structured intake are stored in `.planning/discovery/cur
 - Preferred layout: `.planning/audit/runs/<run-id>/` for each pipeline run (legacy flat logs still supported).
 - Use `.claude/scripts/audit_log.py` as the default writer with `.claude/templates/AUDIT-STEP-TEMPLATE.md`.
 - Minimum audit fields: metadata, inputs, MCP evidence, risk decisions, outputs, next action.
+- For staged workflows, audit logs must also record:
+  - working language,
+  - current checkpoint,
+  - explicit user approval state,
+  - recommended next step.
 
 ## Context Index Rules
 

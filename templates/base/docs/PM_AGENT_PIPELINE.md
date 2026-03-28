@@ -49,18 +49,21 @@
 ## Daily Flow
 1. Run `/setup-monitoring` once per project/environment baseline.
 2. Run `/fad:pipeline "<requirement or phase>"` as the default end-to-end flow.
+   It should start with discussion, then stop after each major step for user confirmation.
 3. Resolve any strict-gate blockers (`review`, `fad:optimize`, `fad:quality-gate`).
 4. Optional: run `/gen-doc-sheet ...` only when document export is needed.
 5. For PR-driven fix loop: run `/pr-feedback-loop <pr-url-or-number>`.
 6. Run `/deploy <env>` only after strict gate passes.
 
 ## Artifact Set
+- `.planning/pm/current/LANGUAGE.md`
 - `.planning/pm/current/PRD.md`
 - `.planning/pm/current/SPRINT.md`
 - `.planning/pm/current/STORIES.md`
 - `.planning/pm/current/HANDOFF.md`
 - `.planning/pm/current/RISK-IMPACT.md`
 - `.planning/pm/current/QC-REPORT.md`
+- `.planning/discovery/current/LANGUAGE.md`
 - `.planning/discovery/current/*` (structured discovery + UI contract)
 - `.planning/exports/*.xlsx` (optional export)
 - `.planning/audit/runs/<run-id>/*.md` (per-step logs, preferred)
@@ -125,3 +128,14 @@ Current local settings include:
   - deploy-time health checks are configured and passing,
   - QC report has no functional or DS-critical blockers,
   - required audit logs are written per step.
+
+## Interaction And Language Expectations
+
+- Discovery and PM intake should begin as a discussion, not as immediate document generation.
+- After each major step, the workflow should tell the user:
+  - what changed,
+  - what to verify,
+  - what the next recommended command is.
+- The workflow should ask for explicit confirmation before moving to the next major step.
+- Working artifacts should stay in the same language as the user's conversation unless the user explicitly requests another language.
+- Optional spreadsheet export may use EN/JA separately without changing the main working artifact language.

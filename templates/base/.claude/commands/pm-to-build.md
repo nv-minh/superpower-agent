@@ -52,43 +52,54 @@ Planning references:
 </context>
 
 <process>
-1. Validate PM inputs exist and requirement IDs are consistent across files.
-2. Re-evaluate `.planning/pm/current/RISK-IMPACT.md` against current codebase for the target phase:
+1. Resolve the working language from:
+   - `.planning/pm/current/LANGUAGE.md`,
+   - `.planning/discovery/current/LANGUAGE.md`,
+   - otherwise infer from the latest user message.
+   Keep all build summaries and reports in that language.
+2. Validate PM inputs exist and requirement IDs are consistent across files.
+3. Re-evaluate `.planning/pm/current/RISK-IMPACT.md` against current codebase for the target phase:
    - update impacted modules/files,
    - confirm severity for each in-scope risk.
-3. Risk gate:
+4. Risk gate:
    - if any in-scope `high` or `critical` risk is unresolved, stop execution,
    - discuss options with user, request explicit decision, and update `RISK-IMPACT.md` before continuing.
-4. Validate brownfield guardrail artifacts exist.
+5. Validate brownfield guardrail artifacts exist.
    - if missing or placeholder-only, run `/brownfield-map-style` first and stop this flow.
-5. Build or update phase context so planner can consume PM artifacts.
-6. UI context gate:
+6. Before code changes, present a build-entry checkpoint:
+   - target phase,
+   - in-scope stories/requirements,
+   - major risks,
+   - modules likely to change,
+   - what the user should verify before implementation starts.
+7. Ask the user to approve, revise, or stop.
+   - only continue after explicit approval.
+8. Build or update phase context so planner can consume PM artifacts.
+9. UI context gate:
    - if HANDOFF includes Figma links:
      - require Figma MCP evidence before UI structure implementation,
      - refresh evidence if missing/stale and append to `HANDOFF.md`,
    - else require `.planning/discovery/current/UI-CONTRACT.md` and use it as design source.
-7. Run the local planning -> execution -> verification loop for the target phase using the PM sprint pack and requirement trace.
-8. Enforce policy while planning/executing:
+10. Run the local planning -> execution loop for the target phase using the PM sprint pack and requirement trace.
+11. Enforce policy while planning/executing:
    - every task traces requirement IDs
    - domain/API tasks use TDD
    - UI tasks respect HANDOFF/UI-CONTRACT design constraints
    - tasks include mitigation actions for in-scope risks
    - new code follows approved patterns and avoids anti-patterns
-9. Run mandatory review and optimization phases:
-   - run `review` for changed scope,
-   - run `fad:optimize` for post-review hardening.
-10. Run strict quality gate:
-   - run `fad:quality-gate`,
-   - block phase completion if strict gate is blocked.
-11. Write a step audit log in `.planning/audit/` using `AUDIT-STEP-TEMPLATE`:
-   - include risk decisions, Figma evidence, execution gates, and blockers.
-12. Produce a short build report:
+12. Run a local build-exit check:
+   - run `code-quality-gate`,
+   - report failures or skipped checks,
+   - do not silently continue if the build is obviously broken.
+13. Write a step audit log in `.planning/audit/` using `AUDIT-STEP-TEMPLATE`:
+   - include working language, risk decisions, Figma evidence, execution gates, and blockers.
+14. Produce a short build checkpoint report:
    - phase status
    - requirement coverage summary
    - risk gate status
-   - review status
-   - optimize status
-   - strict quality gate summary
+   - local code-quality-gate summary
    - failing checks and blockers
-   - next command to run
+   - what the user should verify now
+   - recommended next command to run (`qc-verify-ui` or `review`, depending on scope)
+15. Explicitly ask whether to continue to the next step, revise the build work, or stop.
 </process>

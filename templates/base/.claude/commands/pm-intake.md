@@ -40,37 +40,59 @@ Output directory:
 </context>
 
 <process>
-1. Ask clarifying questions until requirement scope, user segment, KPI, constraints, and timeline are concrete.
-2. Parse external links from requirement context:
+1. Resolve the working language:
+   - detect the dominant language from the latest user message,
+   - if `.planning/pm/current/LANGUAGE.md` exists, reuse it unless the user explicitly asks to switch,
+   - keep all questions, summaries, and generated PM artifacts in that working language.
+2. Start in conversation mode:
+   - ask short clarifying questions until requirement scope, user segment, KPI, constraints, and timeline are concrete,
+   - keep the question rounds compact and focused,
+   - do not generate the full PM pack yet.
+3. Parse external links from requirement context:
    - if Jira/Confluence links exist, fetch context via `.claude/scripts/atlassian_cli.py fetch`,
    - include extracted summary/acceptance details in PM discovery context.
-3. Build requirement IDs using `REQ-<DOMAIN>-<NNN>`.
-4. Extract all external design links from requirement context. If any link is Figma:
+4. Present an intake checkpoint in the working language:
+   - scope summary,
+   - intended users and success criteria,
+   - constraints and timeline,
+   - unresolved questions,
+   - notable risks/assumptions.
+5. Ask the user to approve, revise, or stop.
+   - only continue after explicit approval,
+   - if the user only wants requirement discussion, stop here.
+6. Build requirement IDs using `REQ-<DOMAIN>-<NNN>`.
+7. Extract all external design links from requirement context. If any link is Figma:
    - call Figma MCP for each unique link before finalizing artifacts,
    - capture evidence (`file/key`, page/frame names, key tokens/components used),
    - if Figma MCP fails, mark build readiness as blocked.
-5. Produce a concise PRD with measurable success criteria and explicit non-goals.
-6. Produce one sprint pack mapped to one implementation phase.
-7. Generate implementation-ready stories and acceptance criteria with requirement trace.
-8. Generate `.planning/pm/current/RISK-IMPACT.md` using `RISK-IMPACT-TEMPLATE`:
+8. Produce the PM pack in the working language:
+   - `.planning/pm/current/LANGUAGE.md`
+   - a concise PRD with measurable success criteria and explicit non-goals,
+   - one sprint pack mapped to one implementation phase,
+   - implementation-ready stories and acceptance criteria with requirement trace.
+9. Generate `.planning/pm/current/RISK-IMPACT.md` using `RISK-IMPACT-TEMPLATE`:
    - include risk register + brownfield impact map,
    - classify severity (`low/medium/high/critical`),
    - list required user decisions for unresolved high/critical risks.
-9. Update `.claude/memory/DECISIONS.md` with:
+10. Update `.claude/memory/DECISIONS.md` with:
    - key scope decisions,
    - accepted/rejected options,
    - unresolved decision owners.
-10. Write these files:
-   - `.planning/pm/current/PRD.md`
-   - `.planning/pm/current/SPRINT.md`
-   - `.planning/pm/current/STORIES.md`
-   - `.planning/pm/current/HANDOFF.md`
-   - `.planning/pm/current/RISK-IMPACT.md`
-11. Write one step audit log in `.planning/audit/` using `AUDIT-STEP-TEMPLATE`:
-   - include questions asked, requirement assumptions, link-ingest evidence, Figma MCP evidence, and risk gate state.
-12. End with a short readiness report:
+11. Write these files:
+    - `.planning/pm/current/LANGUAGE.md`
+    - `.planning/pm/current/PRD.md`
+    - `.planning/pm/current/SPRINT.md`
+    - `.planning/pm/current/STORIES.md`
+    - `.planning/pm/current/HANDOFF.md`
+    - `.planning/pm/current/RISK-IMPACT.md`
+12. Write one step audit log in `.planning/audit/` using `AUDIT-STEP-TEMPLATE`:
+    - include questions asked, requirement assumptions, working language, checkpoint approval state, link-ingest evidence, Figma MCP evidence, and risk gate state.
+13. End with a staged readiness report in the working language:
    - ready for build: yes/no
    - risk gate: pass/blocked
    - blockers
    - open questions
+   - what the user should verify now
+   - recommended next command
+14. Explicitly ask whether to continue to `pm-to-build`, revise the PM pack, or stop.
 </process>

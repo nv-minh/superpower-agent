@@ -38,6 +38,7 @@ Then list key non-namespaced support commands:
 
 End with:
 - recommended starting command
+- note that major workflows are staged and should stop for user confirmation after each major phase
 - where audit logs live
 - note that the `full` bundle adds more advanced `/fad:*` commands, but the primary entrypoint stays `/fad:pipeline`
 </process>

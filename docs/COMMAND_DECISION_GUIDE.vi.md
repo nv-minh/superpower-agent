@@ -14,9 +14,9 @@ Nếu runtime của bạn không phải Claude và cú pháp command khác đi, 
 
 | Tình huống | Command nên dùng |
 |---|---|
-| Tôi có ý tưởng còn thô và muốn brainstorm có cấu trúc | `/discovery-ui-handoff "<ý tưởng>"` |
-| Tôi đã có requirement khá rõ và muốn ra PRD + sprint + stories + risk | `/pm-intake "<requirement>"` |
-| Tôi muốn một command chạy toàn bộ flow PM -> Build -> QC -> Review -> Optimize -> Gate | `/fad:pipeline "<requirement>"` |
+| Tôi có ý tưởng còn thô và muốn brainstorm có cấu trúc trước | `/discovery-ui-handoff "<ý tưởng>"` |
+| Tôi đã có requirement khá rõ và muốn discuss trước khi sinh PRD + sprint + stories + risk | `/pm-intake "<requirement>"` |
+| Tôi muốn một command staged chạy toàn bộ flow PM -> Build -> QC -> Review -> Optimize -> Gate có checkpoint | `/fad:pipeline "<requirement>"` |
 | Tôi đang ở repo brownfield và cần map kiến trúc/style trước | `/fad:map-codebase` hoặc `/brownfield-map-style` |
 | Tôi chỉ cần PRD | `/pm-write-prd "<requirement>"` |
 | Tôi chỉ cần roadmap/sprint sequencing | `/pm-plan-roadmap "<initiative>"` |
@@ -41,7 +41,7 @@ Nếu runtime của bạn không phải Claude và cú pháp command khác đi, 
 | Command | Dùng khi nào | Tác dụng |
 |---|---|---|
 | `/fad:help` | Bạn cần bản đồ ngắn nhất của command surface hiện tại | Hiển thị entrypoint FAD khuyến nghị và các command support chính |
-| `/fad:pipeline` | Bạn muốn một flow delivery strict end-to-end | Chạy brainstorming/intake -> build -> QC -> review -> optimize -> gate -> finish và ghi audit log |
+| `/fad:pipeline` | Bạn muốn một flow delivery strict end-to-end | Chạy brainstorming/intake -> build -> QC -> review -> optimize -> gate -> finish, có dừng theo từng phase để user xác nhận |
 | `/fad:map-codebase` | Bạn cần map nhanh codebase brownfield | Tạo codebase map tập trung vào kiến trúc, convention, testing signals |
 | `/fad:optimize` | Review đã pass nhưng vẫn muốn giảm complexity/debt/perf issue | Chạy phase optimize bắt buộc sau review, không chủ đích đổi behavior |
 | `/fad:quality-gate` | Bạn cần cổng go/no-go cứng | Gom lint, typecheck, test, security, unresolved-risk thành một gate |
@@ -52,8 +52,8 @@ Nếu runtime của bạn không phải Claude và cú pháp command khác đi, 
 
 | Command | Dùng khi nào | Tác dụng |
 |---|---|---|
-| `/pm-intake` | Requirement đã tương đối rõ và bạn muốn artifact PM | Sinh PRD, sprint, stories, handoff, risk-impact pack |
-| `/discovery-ui-handoff` | Requirement còn thô, greenfield, hoặc brownfield không có Figma | Chạy brainstorming -> alternatives -> UI concept -> UI contract -> handoff |
+| `/pm-intake` | Requirement đã tương đối rõ và bạn muốn artifact PM | Discuss và clarify trước, rồi mới sinh PRD, sprint, stories, handoff, risk-impact pack sau khi user duyệt |
+| `/discovery-ui-handoff` | Requirement còn thô, greenfield, hoặc brownfield không có Figma | Chạy brainstorming -> alternatives -> UI concept -> UI contract trước, rồi mới hỏi user có muốn sinh handoff pack hay không |
 | `/pm-discover` | Bạn chỉ muốn PM discovery | Chạy workflow discovery từ local PM skills |
 | `/pm-write-prd` | Bạn chỉ muốn PRD | Sinh PRD theo PM workflow assets |
 | `/pm-plan-roadmap` | Bạn muốn roadmap và sprint sequencing | Xây roadmap và tiến trình sprint |

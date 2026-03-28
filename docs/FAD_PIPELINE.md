@@ -13,6 +13,12 @@ It standardizes one strict path:
 5. Strict quality gate
 6. Finish branch / ship readiness
 
+The intended behavior is staged, not fire-and-forget:
+
+- brainstorm or intake should discuss with the user first,
+- every major phase should end with a concise summary,
+- the user should be asked to confirm before the pipeline moves to the next phase.
+
 ## Command
 
 ```bash
@@ -30,6 +36,23 @@ It standardizes one strict path:
 | Optimize | `fad:optimize` | Behavior-changing refactor request |
 | Strict Gate | `fad:quality-gate` | lint/type/test/security/risk failure |
 | Finish | `fad:pr-branch` or `fad:ship` | Any strict gate still red |
+
+## Interactive Checkpoints
+
+Each major phase should end with:
+
+- what changed,
+- what the user should verify,
+- blockers or open decisions,
+- the recommended next command.
+
+The pipeline should then explicitly ask whether to:
+
+- continue,
+- revise the current step,
+- stop after the current step.
+
+The pipeline should not auto-generate later artifacts while the current phase is still unapproved.
 
 ## Brownfield and Greenfield
 
@@ -60,6 +83,12 @@ Result must be explicit:
 
 - `DONE`: all strict checks passed
 - `BLOCKED`: at least one strict check failed
+
+## Language Behavior
+
+- Working artifacts should use the same language as the user conversation by default.
+- Discovery and PM lanes should lock the working language in `LANGUAGE.md`.
+- Optional document export (`gen-doc-sheet`) can use `en` or `ja`, but that should not silently change the language of PRD, sprint, stories, handoff, or discovery artifacts.
 
 ## Example Runs
 

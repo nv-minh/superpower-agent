@@ -14,9 +14,9 @@ For runtime-specific syntax differences, see [RUNTIME_ADAPTERS.md](./RUNTIME_ADA
 
 | Situation | Recommended command |
 |---|---|
-| I have a raw idea and want structured brainstorming | `/discovery-ui-handoff "<idea>"` |
-| I have a clear requirement and want PRD + sprint + stories + risk | `/pm-intake "<requirement>"` |
-| I want one command that runs the full PM -> Build -> QC -> Review -> Optimize -> Gate flow | `/fad:pipeline "<requirement>"` |
+| I have a raw idea and want structured brainstorming first | `/discovery-ui-handoff "<idea>"` |
+| I have a clear requirement and want a discussion before PRD + sprint + stories + risk are generated | `/pm-intake "<requirement>"` |
+| I want one staged command that runs PM -> Build -> QC -> Review -> Optimize -> Gate with checkpoints | `/fad:pipeline "<requirement>"` |
 | I am in a brownfield repo and need architecture/style mapping first | `/fad:map-codebase` or `/brownfield-map-style` |
 | I only need a PRD | `/pm-write-prd "<requirement>"` |
 | I only need roadmap/sprint sequencing | `/pm-plan-roadmap "<initiative>"` |
@@ -41,7 +41,7 @@ For runtime-specific syntax differences, see [RUNTIME_ADAPTERS.md](./RUNTIME_ADA
 | Command | Use when | Effect |
 |---|---|---|
 | `/fad:help` | You need the shortest map of the active command surface | Shows the recommended FAD entrypoints and key support commands |
-| `/fad:pipeline` | You want one strict end-to-end delivery flow | Runs brainstorming/intake -> build -> QC -> review -> optimize -> gate -> finish with audit logs |
+| `/fad:pipeline` | You want one strict end-to-end delivery flow | Runs brainstorming/intake -> build -> QC -> review -> optimize -> gate -> finish with audit logs, pausing for user confirmation at each major phase |
 | `/fad:map-codebase` | You need a brownfield architecture/testing/convention map | Builds a focused codebase map for safe implementation |
 | `/fad:optimize` | Review passed but you still want cleanup/perf/maintainability work | Runs the mandatory post-review optimization pass without intended behavior change |
 | `/fad:quality-gate` | You need a hard go/no-go gate | Combines lint, types, tests, security, and unresolved-risk checks |
@@ -52,8 +52,8 @@ For runtime-specific syntax differences, see [RUNTIME_ADAPTERS.md](./RUNTIME_ADA
 
 | Command | Use when | Effect |
 |---|---|---|
-| `/pm-intake` | Requirement is mostly known and you want PM artifacts | Produces PRD, sprint, stories, handoff, and risk-impact pack |
-| `/discovery-ui-handoff` | Requirement is still raw, greenfield, or brownfield-without-Figma | Runs brainstorming -> alternatives -> UI concept -> UI contract -> handoff |
+| `/pm-intake` | Requirement is mostly known and you want PM artifacts | Discusses and clarifies first, then produces PRD, sprint, stories, handoff, and risk-impact pack after approval |
+| `/discovery-ui-handoff` | Requirement is still raw, greenfield, or brownfield-without-Figma | Runs brainstorming -> alternatives -> UI concept -> UI contract first, then asks before generating the handoff pack |
 | `/pm-discover` | You want PM-only discovery work | Runs the local PM discovery workflow |
 | `/pm-write-prd` | You only want a decision-ready PRD | Generates a PRD from local PM workflow assets |
 | `/pm-plan-roadmap` | You want roadmap and sprint sequencing | Builds roadmap structure and sprint progression |
