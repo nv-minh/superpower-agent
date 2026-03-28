@@ -17,6 +17,8 @@
   },
   "files": [
     "bin",
+    "dist",
+    "src",
     "templates",
     "docs",
     "README.md",
@@ -31,12 +33,14 @@
     "node": ">=18"
   },
   "exports": {
-    ".": "./bin/superpower-agent.js"
+    ".": "./dist/cli.js"
   },
   "scripts": {
-    "start": "node bin/superpower-agent.js --help",
-    "test": "node tests/smoke-init.test.mjs",
-    "check": "npm run test && node bin/superpower-agent.js --help >/dev/null",
+    "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build",
+    "start": "npm run build && node bin/superpower-agent.js --help",
+    "test": "npm run build && node tests/smoke-init.test.mjs",
+    "check": "npm run test && node dist/cli.js --help >/dev/null",
     "sync-template": "bash scripts/sync-template.sh",
     "export-standalone": "bash scripts/export-standalone-repo.sh"
   },
@@ -50,6 +54,10 @@
     "qc",
     "ops"
   ],
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.3"
+  },
   "publishConfig": {
     "access": "public"
   }
