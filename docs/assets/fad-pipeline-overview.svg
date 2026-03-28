@@ -40,9 +40,10 @@
   <text x="95" y="282" class="card-text">Confluence / Figma</text>
 
   <rect x="340" y="185" width="270" height="110" rx="16" fill="url(#card)"/>
-  <text x="365" y="230" class="card-title">Brainstorm + Discovery</text>
-  <text x="365" y="258" class="card-text">/discovery-ui-handoff</text>
-  <text x="365" y="282" class="card-text">or /pm-intake</text>
+  <text x="365" y="222" class="card-title">Brainstorm +</text>
+  <text x="365" y="248" class="card-title">Discover</text>
+  <text x="365" y="272" class="card-text">/discovery-ui-handoff</text>
+  <text x="365" y="294" class="card-text">or /pm-intake</text>
 
   <rect x="660" y="185" width="240" height="110" rx="16" fill="url(#card)"/>
   <text x="685" y="230" class="card-title">Build</text>
