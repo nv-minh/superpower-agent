@@ -1,40 +1,64 @@
-# Bundle Runbook
+# Bundles
 
-This project may be installed with one of three Superpower Agent bundles:
+Superpower Agent now installs by bundle instead of copying the full workspace by default.
 
-- `core`
-- `standard`
-- `full`
+## Available Bundles
 
-## Intent
+| Bundle | Purpose | Includes | Excludes |
+|---|---|---|---|
+| `core` | Lean FAD delivery runtime | PM/build/QC/review/gate essentials | advanced ops, PR feedback, browser skill installer, legacy vendor payloads |
+| `standard` | Default team install | `core` + ops flows, PR feedback, doc export, runtime extras for Claude/OpenCode/Gemini/Codex/Copilot/Cursor/Windsurf/Antigravity | archived upstream assets and full PM source repo |
+| `full` | Maximum compatibility | `standard` + archived upstream payloads extracted during install as extended FAD assets | nothing at install time, but upstream payloads are no longer shipped as raw trees in npm |
 
-- `core`: lean PM/build/QC/review gate
-- `standard`: default bundle for most teams
-- `full`: restores legacy vendor compatibility assets from packaged archives during install
+## Recommended Usage
 
-## Local Visibility
-
-Check install metadata:
+Use `standard` unless you have a specific reason to optimize aggressively or restore the archived upstream asset set.
 
 ```bash
-cat .planning/setup/superpower-agent-install.json
-cat .planning/setup/context-index.json
+npx superpower-agent init --dir /path/to/project --bundle standard
 ```
 
-Or use the CLI:
+Lean install:
 
 ```bash
-superpower-agent inspect --dir .
+npx superpower-agent init --dir /path/to/project --bundle core
 ```
 
-## Practical Rule
+Compatibility-heavy install:
 
-If your workflow runs entirely through `/fad:*`, `standard` is usually enough.
-Only use `full` when you explicitly need legacy vendor assets present on disk.
+```bash
+npx superpower-agent init --dir /path/to/project --bundle full
+```
 
-## Maintainer Note
+`full` now restores archived upstream assets from `templates/vendor/*.tgz`. This keeps the published npm package significantly smaller while preserving compatibility for teams that still need the heavier reference stacks on disk.
 
-The published npm package keeps heavy legacy assets in `templates/vendor/*.tgz` instead of shipping raw vendor trees. If you refresh upstream embedded vendor content, rebuild those archives before publishing:
+## Visibility Commands
+
+Estimate before install:
+
+```bash
+superpower-agent estimate --bundle standard
+```
+
+Inspect an installed project:
+
+```bash
+superpower-agent inspect --dir /path/to/project
+```
+
+## Project-Local Index Files
+
+Each install writes:
+
+- `.planning/setup/superpower-agent-install.json`
+- `.planning/setup/context-index.json`
+- `.planning/setup/context-index.md`
+
+These files make bundle contents and approximate context footprint visible without rescanning manually.
+
+## Maintainer Workflow
+
+If you update embedded upstream vendor material, refresh the packaged archives before publishing:
 
 ```bash
 npm run vendor:refresh

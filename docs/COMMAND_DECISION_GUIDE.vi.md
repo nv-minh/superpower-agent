@@ -6,7 +6,7 @@ Quy tắc mặc định:
 
 - Ưu tiên surface chính: `/fad:*`
 - Dùng các command PM/discovery/build/QC/ops khi bạn chỉ cần một lát cắt của workflow
-- Chỉ dùng legacy `/gsd:*` khi cần migration hoặc khi bạn chủ động cài `full` bundle
+- Chỉ dùng nhóm `/fad:*` mở rộng của `full` bundle khi bạn thật sự cần milestone, workstream, hoặc planning sâu
 
 Nếu runtime của bạn không phải Claude và cú pháp command khác đi, xem thêm [RUNTIME_ADAPTERS.md](./RUNTIME_ADAPTERS.md).
 
@@ -99,79 +99,68 @@ Nếu runtime của bạn không phải Claude và cú pháp command khác đi, 
 | `/unfreeze` | Bạn muốn bỏ giới hạn edit hiện tại | Xóa freeze state |
 | `/unguard` | Bạn muốn tắt full safety mode | Gỡ trạng thái safety tổng |
 
-## Legacy GSD compatibility shims
+## Các command FAD mở rộng (full bundle)
 
-Các command này vẫn hữu ích cho migration, nhưng nên ưu tiên FAD equivalent.
-
-| Command | Dùng khi nào | Tác dụng |
-|---|---|---|
-| `/gsd:help` | Bạn lỡ gõ entrypoint cũ | Route sang FAD help surface |
-| `/gsd:map-codebase` | Bạn gõ entrypoint map codebase cũ | Route sang `/fad:map-codebase` |
-| `/gsd:pr-branch` | Bạn gõ entrypoint PR branch cũ | Route sang `/fad:pr-branch` |
-| `/gsd:ship` | Bạn gõ entrypoint ship cũ | Route sang `/fad:ship` |
-
-## Legacy GSD commands (chỉ cho full bundle / migration)
-
-Các command dưới đây chủ yếu dành cho team cố ý giữ workflow GSD kiểu upstream trong `full` bundle.
+Các command này chỉ được cài khi bạn chủ động chọn `full` bundle.
 
 ### Backlog, milestone và planning
 
 | Command | Dùng khi nào | Tác dụng |
 |---|---|---|
-| `/gsd:add-backlog` | Bạn muốn cất một ý tưởng để làm sau | Thêm ý tưởng vào backlog parking lot |
-| `/gsd:add-phase` | Bạn muốn thêm phase vào cuối milestone hiện tại | Thêm phase mới ở cuối roadmap milestone |
-| `/gsd:add-tests` | Implementation đã có nhưng test còn thiếu | Sinh test từ UAT criteria và implementation hiện có |
-| `/gsd:add-todo` | Bạn muốn ghi nhanh một task nhỏ từ context hiện tại | Lưu ý tưởng thành todo |
-| `/gsd:audit-milestone` | Milestone đã "xong" và cần audit cuối | Audit mức hoàn thành so với intent ban đầu |
-| `/gsd:audit-uat` | Bạn muốn sweep toàn bộ verification/UAT còn thiếu | Audit các UAT và verification item còn tồn |
-| `/gsd:autonomous` | Bạn muốn GSD tiếp tục chạy các phase còn lại | Tự động chạy discuss -> plan -> execute cho các phase tiếp theo |
-| `/gsd:check-todos` | Bạn muốn xem danh sách todo | Liệt kê todos còn pending và hỗ trợ chọn việc |
-| `/gsd:cleanup` | Artifact planning đã tích lại sau các milestone cũ | Archive các phase directories cũ |
-| `/gsd:complete-milestone` | Một milestone đã hoàn thành và cần archive | Archive milestone và chuẩn bị version tiếp theo |
-| `/gsd:discuss-phase` | Bạn muốn agent hỏi đáp adaptive trước khi plan phase | Gather context và assumption trước khi planning |
-| `/gsd:do` | Bạn có text tự do và muốn GSD tự route | Tự động chọn command GSD phù hợp |
-| `/gsd:execute-phase` | Phase đã plan xong và sẵn sàng thực thi | Chạy toàn bộ plan trong phase với wave-based parallelization |
-| `/gsd:insert-phase` | Có việc gấp cần chen giữa các phase hiện có | Chèn decimal phase vào giữa roadmap |
-| `/gsd:list-phase-assumptions` | Bạn muốn thấy các assumption hiện tại trước khi plan | Liệt kê assumption của Claude về phase |
-| `/gsd:milestone-summary` | Bạn cần summary để onboarding hoặc review | Sinh tóm tắt dự án từ milestone artifacts |
-| `/gsd:new-milestone` | Bạn bắt đầu chu kỳ milestone mới | Mở milestone mới và route sang requirements |
-| `/gsd:new-project` | Bạn muốn bootstrap project theo flow GSD gốc | Khởi tạo project mới với context gathering sâu |
-| `/gsd:next` | Bạn muốn GSD tự chọn bước tiếp theo | Route sang bước logical tiếp theo |
-| `/gsd:pause-work` | Bạn cần dừng giữa phase và giữ lại context | Tạo handoff để resume về sau |
-| `/gsd:plan-milestone-gaps` | Audit chỉ ra milestone còn lỗ hổng | Tạo phase để đóng các gap đó |
-| `/gsd:plan-phase` | Bạn muốn PLAN.md chi tiết cho một phase | Tạo plan phase chi tiết có verification loop |
-| `/gsd:progress` | Bạn muốn một view trạng thái/progress | Hiển thị context hiện tại và route tiếp sang execute hoặc plan |
-| `/gsd:quick` | Task nhỏ nhưng bạn vẫn muốn guarantees kiểu GSD | Chạy quick task với state tracking và safety nhẹ |
-| `/gsd:remove-phase` | Một phase tương lai cần bị xóa | Xóa phase và renumber các phase sau |
-| `/gsd:research-phase` | Bạn muốn research implementation trước khi plan | Nghiên cứu cách implement phase |
-| `/gsd:resume-work` | Bạn quay lại sau một session trước đó | Khôi phục context của công việc trước |
-| `/gsd:review-backlog` | Bạn muốn promote backlog items | Review backlog và kéo item vào active work |
-| `/gsd:review` | Bạn muốn cross-AI peer review cho phase plan | Yêu cầu review từ external AI CLIs |
-| `/gsd:session-report` | Bạn muốn báo cáo tổng kết session hiện tại | Tạo report về token/work/outcome |
-| `/gsd:stats` | Bạn muốn planning/project metrics | Hiển thị phases, requirements, git metrics, timeline |
-| `/gsd:ui-phase` | Bạn cần UI contract cho frontend phase | Sinh UI-SPEC-style design contract |
-| `/gsd:ui-review` | UI đã có và cần visual audit hồi tố | Chạy six-pillar visual audit cho frontend code |
-| `/gsd:validate-phase` | Một phase đã xong cần vá các validation gap | Audit và fill Nyquist validation gaps |
-| `/gsd:verify-work` | Bạn muốn UAT dạng hội thoại cho feature đã build | Validate completed work theo kiểu conversational UAT |
+| `/fad:add-backlog` | Bạn muốn cất một ý tưởng để làm sau | Thêm ý tưởng vào backlog parking lot |
+| `/fad:add-phase` | Bạn muốn thêm phase vào cuối milestone hiện tại | Thêm phase mới ở cuối roadmap milestone |
+| `/fad:add-tests` | Implementation đã có nhưng test còn thiếu | Sinh test từ UAT criteria và implementation hiện có |
+| `/fad:add-todo` | Bạn muốn ghi nhanh một task nhỏ từ context hiện tại | Lưu ý tưởng thành todo |
+| `/fad:audit-milestone` | Milestone đã "xong" và cần audit cuối | Audit mức hoàn thành so với intent ban đầu |
+| `/fad:audit-uat` | Bạn muốn sweep toàn bộ verification/UAT còn thiếu | Audit các UAT và verification item còn tồn |
+| `/fad:autonomous` | Bạn muốn FAD tiếp tục chạy các phase còn lại | Tự động chạy discuss -> plan -> execute cho các phase tiếp theo |
+| `/fad:check-todos` | Bạn muốn xem danh sách todo | Liệt kê todos còn pending và hỗ trợ chọn việc |
+| `/fad:cleanup` | Artifact planning đã tích lại sau các milestone cũ | Archive các phase directories cũ |
+| `/fad:complete-milestone` | Một milestone đã hoàn thành và cần archive | Archive milestone và chuẩn bị version tiếp theo |
+| `/fad:discuss-phase` | Bạn muốn agent hỏi đáp adaptive trước khi plan phase | Gather context và assumption trước khi planning |
+| `/fad:do` | Bạn có text tự do và muốn FAD tự route | Tự động chọn command FAD phù hợp trong full bundle |
+| `/fad:execute-phase` | Phase đã plan xong và sẵn sàng thực thi | Chạy toàn bộ plan trong phase với wave-based parallelization |
+| `/fad:insert-phase` | Có việc gấp cần chen giữa các phase hiện có | Chèn decimal phase vào giữa roadmap |
+| `/fad:list-phase-assumptions` | Bạn muốn thấy các assumption hiện tại trước khi plan | Liệt kê assumption của Claude về phase |
+| `/fad:milestone-summary` | Bạn cần summary để onboarding hoặc review | Sinh tóm tắt dự án từ milestone artifacts |
+| `/fad:new-milestone` | Bạn bắt đầu chu kỳ milestone mới | Mở milestone mới và route sang requirements |
+| `/fad:new-project` | Bạn muốn bootstrap project theo full flow sâu hơn | Khởi tạo project mới với context gathering sâu |
+| `/fad:next` | Bạn muốn FAD tự chọn bước tiếp theo | Route sang bước logical tiếp theo |
+| `/fad:pause-work` | Bạn cần dừng giữa phase và giữ lại context | Tạo handoff để resume về sau |
+| `/fad:plan-milestone-gaps` | Audit chỉ ra milestone còn lỗ hổng | Tạo phase để đóng các gap đó |
+| `/fad:plan-phase` | Bạn muốn PLAN.md chi tiết cho một phase | Tạo plan phase chi tiết có verification loop |
+| `/fad:progress` | Bạn muốn một view trạng thái/progress | Hiển thị context hiện tại và route tiếp sang execute hoặc plan |
+| `/fad:quick` | Task nhỏ nhưng bạn vẫn muốn guarantees mạnh | Chạy quick task với state tracking và safety nhẹ |
+| `/fad:remove-phase` | Một phase tương lai cần bị xóa | Xóa phase và renumber các phase sau |
+| `/fad:research-phase` | Bạn muốn research implementation trước khi plan | Nghiên cứu cách implement phase |
+| `/fad:resume-work` | Bạn quay lại sau một session trước đó | Khôi phục context của công việc trước |
+| `/fad:review-backlog` | Bạn muốn promote backlog items | Review backlog và kéo item vào active work |
+| `/fad:review` | Bạn muốn cross-AI peer review cho phase plan | Yêu cầu review từ external AI CLIs |
+| `/fad:session-report` | Bạn muốn báo cáo tổng kết session hiện tại | Tạo report về token/work/outcome |
+| `/fad:stats` | Bạn muốn planning/project metrics | Hiển thị phases, requirements, git metrics, timeline |
+| `/fad:ui-phase` | Bạn cần UI contract cho frontend phase | Sinh UI-SPEC-style design contract |
+| `/fad:ui-review` | UI đã có và cần visual audit hồi tố | Chạy six-pillar visual audit cho frontend code |
+| `/fad:validate-phase` | Một phase đã xong cần vá các validation gap | Audit và fill Nyquist validation gaps |
+| `/fad:verify-work` | Bạn muốn UAT dạng hội thoại cho feature đã build | Validate completed work theo kiểu conversational UAT |
 
 ### Debug, workspace, profile và system control
 
 | Command | Dùng khi nào | Tác dụng |
 |---|---|---|
-| `/gsd:debug` | Bạn cần debug có state bền vững | Chạy workflow debug có lưu state |
-| `/gsd:forensics` | Workflow GSD thất bại và bạn cần post-mortem | Phân tích git history, artifacts và workflow state |
-| `/gsd:health` | Bạn muốn kiểm tra planning directory của GSD | Diagnose vùng planning và gợi ý repair |
-| `/gsd:join-discord` | Bạn muốn community link của GSD gốc | Route tới flow tham gia GSD Discord |
-| `/gsd:list-workspaces` | Bạn quản lý nhiều GSD workspace | Liệt kê active workspaces và trạng thái |
-| `/gsd:manager` | Bạn muốn terminal command center | Mở flow quản lý nhiều phase từ một chỗ |
-| `/gsd:new-workspace` | Bạn cần workspace/worktree tách biệt | Tạo workspace mới với planning state riêng |
-| `/gsd:note` | Bạn muốn ghi chú cực nhanh | Append, list, hoặc promote note thành todo |
-| `/gsd:plant-seed` | Bạn muốn cất ý tưởng tương lai kèm trigger | Lưu idea forward-looking và trigger condition |
-| `/gsd:profile-user` | Bạn muốn profile cách làm việc của developer | Tạo user-profile artifacts để Claude discover |
-| `/gsd:reapply-patches` | Update GSD làm mất local modifications | Reapply lại local patches sau update |
-| `/gsd:remove-workspace` | Một workspace không còn cần nữa | Xóa workspace và cleanup worktrees liên quan |
-| `/gsd:set-profile` | Bạn muốn đổi mode cost/quality của model | Chuyển GSD model profile đang active |
-| `/gsd:settings` | Bạn muốn chỉnh workflow toggles của GSD | Cấu hình settings và model-profile behavior |
-| `/gsd:thread` | Bạn muốn có context thread xuyên session | Quản lý workflow context threads |
-| `/gsd:update` | Bạn muốn update embedded GSD layer | Cập nhật GSD và hiển thị changelog |
-| `/gsd:workstreams` | Bạn muốn quản lý parallel workstreams | Liệt kê, tạo, switch, resume và complete workstreams |
+| `/fad:debug` | Bạn cần debug có state bền vững | Chạy workflow debug có lưu state |
+| `/fad:forensics` | Full-bundle workflow thất bại và bạn cần post-mortem | Phân tích git history, artifacts và workflow state |
+| `/fad:health` | Bạn muốn kiểm tra planning directory health | Diagnose vùng planning và gợi ý repair |
+| `/fad:join-discord` | Bạn muốn community link upstream | Route tới flow tham gia Discord upstream |
+| `/fad:list-workspaces` | Bạn quản lý nhiều workspace | Liệt kê active workspaces và trạng thái |
+| `/fad:manager` | Bạn muốn terminal command center | Mở flow quản lý nhiều phase từ một chỗ |
+| `/fad:new-workspace` | Bạn cần workspace/worktree tách biệt | Tạo workspace mới với planning state riêng |
+| `/fad:note` | Bạn muốn ghi chú cực nhanh | Append, list, hoặc promote note thành todo |
+| `/fad:plant-seed` | Bạn muốn cất ý tưởng tương lai kèm trigger | Lưu idea forward-looking và trigger condition |
+| `/fad:profile-user` | Bạn muốn profile cách làm việc của developer | Tạo user-profile artifacts để Claude discover |
+| `/fad:reapply-patches` | Full-bundle update làm mất local modifications | Reapply lại local patches sau update |
+| `/fad:remove-workspace` | Một workspace không còn cần nữa | Xóa workspace và cleanup worktrees liên quan |
+| `/fad:set-profile` | Bạn muốn đổi mode cost/quality của model | Chuyển model profile đang active |
+| `/fad:settings` | Bạn muốn chỉnh workflow toggles | Cấu hình settings và model-profile behavior |
+| `/fad:thread` | Bạn muốn có context thread xuyên session | Quản lý workflow context threads |
+| `/fad:update` | Bạn muốn update lớp workflow mở rộng trong full bundle | Cập nhật lớp workflow mở rộng và hiển thị changelog |
+| `/fad:workstreams` | Bạn muốn quản lý parallel workstreams | Liệt kê, tạo, switch, resume và complete workstreams |

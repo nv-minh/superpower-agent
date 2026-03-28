@@ -6,7 +6,7 @@ Default rule:
 
 - Prefer the branded FAD surface first: `/fad:*`
 - Use PM/discovery/build/QC/ops helper commands when you need only one slice of the workflow
-- Use legacy `/gsd:*` commands only for migration or when you intentionally install the `full` bundle
+- Use the extended `full`-bundle `/fad:*` commands only when you intentionally need milestone, workstream, or deep planning workflows
 
 For runtime-specific syntax differences, see [RUNTIME_ADAPTERS.md](./RUNTIME_ADAPTERS.md).
 
@@ -99,79 +99,68 @@ For runtime-specific syntax differences, see [RUNTIME_ADAPTERS.md](./RUNTIME_ADA
 | `/unfreeze` | You want to remove the current directory edit boundary | Clears the freeze state |
 | `/unguard` | You want to disable the combined safety mode | Removes full safety state |
 
-## Legacy GSD compatibility shims
+## Extended FAD commands (full bundle)
 
-These are still useful for migration, but FAD equivalents should be preferred.
-
-| Command | Use when | Effect |
-|---|---|---|
-| `/gsd:help` | You typed the old entrypoint | Routes to the FAD help surface |
-| `/gsd:map-codebase` | You typed the old brownfield mapping entrypoint | Routes to `/fad:map-codebase` |
-| `/gsd:pr-branch` | You typed the old PR-branch entrypoint | Routes to `/fad:pr-branch` |
-| `/gsd:ship` | You typed the old ship entrypoint | Routes to `/fad:ship` |
-
-## Legacy GSD commands (full bundle / migration only)
-
-These commands mainly exist for teams that intentionally keep the upstream-style GSD workflow in the `full` bundle.
+These commands are installed only when you intentionally choose the `full` bundle.
 
 ### Backlog, milestones, and planning
 
 | Command | Use when | Effect |
 |---|---|---|
-| `/gsd:add-backlog` | You want to park an idea for later | Adds an idea to the backlog parking lot |
-| `/gsd:add-phase` | You want to append a phase to the current milestone | Adds a new phase at the end of the roadmap milestone |
-| `/gsd:add-tests` | Implementation exists and test coverage is missing | Generates tests from UAT criteria and implementation |
-| `/gsd:add-todo` | You want to capture a small task from the current context | Saves the idea as a todo |
-| `/gsd:audit-milestone` | A milestone is "done" and needs a final audit | Audits milestone completion against original intent |
-| `/gsd:audit-uat` | You want one cross-phase verification sweep | Audits outstanding UAT and verification items across phases |
-| `/gsd:autonomous` | You want GSD to continue remaining phases automatically | Runs discuss -> plan -> execute across remaining phases |
-| `/gsd:check-todos` | You want to inspect the todo list | Lists pending todos and helps select one |
-| `/gsd:cleanup` | Planning artifacts accumulated after completed milestones | Archives old phase directories |
-| `/gsd:complete-milestone` | A milestone is complete and you want to archive it | Archives the milestone and prepares the next version |
-| `/gsd:discuss-phase` | You want adaptive questioning before phase planning | Gathers context and assumptions before planning |
-| `/gsd:do` | You have freeform text and want GSD to route it | Automatically picks the right legacy GSD command |
-| `/gsd:execute-phase` | The phase is planned and ready for execution | Executes all plans in the phase with wave-based parallelization |
-| `/gsd:insert-phase` | Urgent work must fit between planned phases | Inserts a decimal phase between existing phases |
-| `/gsd:list-phase-assumptions` | You want to surface current planning assumptions | Lists Claude's assumptions before planning |
-| `/gsd:milestone-summary` | You want a summary for onboarding or review | Generates a project summary from milestone artifacts |
-| `/gsd:new-milestone` | You are starting a new milestone cycle | Opens a new milestone and routes to requirements work |
-| `/gsd:new-project` | You want the original GSD project bootstrap flow | Initializes a new project with deep context gathering |
-| `/gsd:next` | You want GSD to choose the next logical step | Routes to the next workflow step automatically |
-| `/gsd:pause-work` | You need to stop mid-phase and preserve context | Creates a handoff for later resumption |
-| `/gsd:plan-milestone-gaps` | An audit identified milestone gaps | Creates phases to close those gaps |
-| `/gsd:plan-phase` | You want a detailed PLAN.md for a phase | Creates a detailed phase plan with verification loop |
-| `/gsd:progress` | You want one progress/status view | Shows context and routes to execute or plan |
-| `/gsd:quick` | A task is small but you still want GSD guarantees | Executes a quick task with state tracking and lightweight safety |
-| `/gsd:remove-phase` | A future phase should be deleted | Removes the phase and renumbers later phases |
-| `/gsd:research-phase` | You want implementation research before planning | Researches how to implement a phase |
-| `/gsd:resume-work` | You are coming back from a previous session | Restores previous work context |
-| `/gsd:review-backlog` | You want to promote backlog items | Reviews the backlog and moves items into active work |
-| `/gsd:review` | You want cross-AI peer review of a phase plan | Requests review from external AI CLIs |
-| `/gsd:session-report` | You want a report of the current session | Produces token/work/outcome summary |
-| `/gsd:stats` | You want planning and project metrics | Displays phases, requirements, git metrics, and timeline |
-| `/gsd:ui-phase` | You need a UI contract for a frontend phase | Generates a UI-SPEC-style design contract |
-| `/gsd:ui-review` | UI exists and needs a retroactive visual audit | Runs a six-pillar visual audit of frontend code |
-| `/gsd:validate-phase` | A finished phase needs validation gap repair | Audits and fills Nyquist validation gaps |
-| `/gsd:verify-work` | You want conversational UAT for built features | Validates completed work through UAT-style review |
+| `/fad:add-backlog` | You want to park an idea for later | Adds an idea to the backlog parking lot |
+| `/fad:add-phase` | You want to append a phase to the current milestone | Adds a new phase at the end of the roadmap milestone |
+| `/fad:add-tests` | Implementation exists and test coverage is missing | Generates tests from UAT criteria and implementation |
+| `/fad:add-todo` | You want to capture a small task from the current context | Saves the idea as a todo |
+| `/fad:audit-milestone` | A milestone is "done" and needs a final audit | Audits milestone completion against original intent |
+| `/fad:audit-uat` | You want one cross-phase verification sweep | Audits outstanding UAT and verification items across phases |
+| `/fad:autonomous` | You want FAD to continue remaining phases automatically | Runs discuss -> plan -> execute across remaining phases |
+| `/fad:check-todos` | You want to inspect the todo list | Lists pending todos and helps select one |
+| `/fad:cleanup` | Planning artifacts accumulated after completed milestones | Archives old phase directories |
+| `/fad:complete-milestone` | A milestone is complete and you want to archive it | Archives the milestone and prepares the next version |
+| `/fad:discuss-phase` | You want adaptive questioning before phase planning | Gathers context and assumptions before planning |
+| `/fad:do` | You have freeform text and want FAD to route it | Automatically picks the right full-bundle FAD command |
+| `/fad:execute-phase` | The phase is planned and ready for execution | Executes all plans in the phase with wave-based parallelization |
+| `/fad:insert-phase` | Urgent work must fit between planned phases | Inserts a decimal phase between existing phases |
+| `/fad:list-phase-assumptions` | You want to surface current planning assumptions | Lists Claude's assumptions before planning |
+| `/fad:milestone-summary` | You want a summary for onboarding or review | Generates a project summary from milestone artifacts |
+| `/fad:new-milestone` | You are starting a new milestone cycle | Opens a new milestone and routes to requirements work |
+| `/fad:new-project` | You want the original deep bootstrap flow | Initializes a new project with deep context gathering |
+| `/fad:next` | You want FAD to choose the next logical step | Routes to the next workflow step automatically |
+| `/fad:pause-work` | You need to stop mid-phase and preserve context | Creates a handoff for later resumption |
+| `/fad:plan-milestone-gaps` | An audit identified milestone gaps | Creates phases to close those gaps |
+| `/fad:plan-phase` | You want a detailed PLAN.md for a phase | Creates a detailed phase plan with verification loop |
+| `/fad:progress` | You want one progress/status view | Shows context and routes to execute or plan |
+| `/fad:quick` | A task is small but you still want strong guarantees | Executes a quick task with state tracking and lightweight safety |
+| `/fad:remove-phase` | A future phase should be deleted | Removes the phase and renumbers later phases |
+| `/fad:research-phase` | You want implementation research before planning | Researches how to implement a phase |
+| `/fad:resume-work` | You are coming back from a previous session | Restores previous work context |
+| `/fad:review-backlog` | You want to promote backlog items | Reviews the backlog and moves items into active work |
+| `/fad:review` | You want cross-AI peer review of a phase plan | Requests review from external AI CLIs |
+| `/fad:session-report` | You want a report of the current session | Produces token/work/outcome summary |
+| `/fad:stats` | You want planning and project metrics | Displays phases, requirements, git metrics, and timeline |
+| `/fad:ui-phase` | You need a UI contract for a frontend phase | Generates a UI-SPEC-style design contract |
+| `/fad:ui-review` | UI exists and needs a retroactive visual audit | Runs a six-pillar visual audit of frontend code |
+| `/fad:validate-phase` | A finished phase needs validation gap repair | Audits and fills Nyquist validation gaps |
+| `/fad:verify-work` | You want conversational UAT for built features | Validates completed work through UAT-style review |
 
 ### Debugging, workspace, profile, and system control
 
 | Command | Use when | Effect |
 |---|---|---|
-| `/gsd:debug` | You need systematic debugging with persistent state | Runs a stateful debugging workflow |
-| `/gsd:forensics` | A GSD workflow failed and you need a post-mortem | Analyzes git history, artifacts, and workflow state |
-| `/gsd:health` | You want to diagnose GSD planning directory health | Checks the planning area and can suggest repairs |
-| `/gsd:join-discord` | You want the original GSD community link | Routes to the GSD Discord community flow |
-| `/gsd:list-workspaces` | You manage multiple GSD workspaces | Lists active workspaces and status |
-| `/gsd:manager` | You want a terminal command center | Opens an interactive management flow across multiple phases |
-| `/gsd:new-workspace` | You need an isolated workspace or worktree | Creates a new workspace with independent planning state |
-| `/gsd:note` | You want zero-friction note capture | Appends, lists, or promotes notes to todos |
-| `/gsd:plant-seed` | You want to capture a future idea with triggers | Saves a forward-looking idea and trigger condition |
-| `/gsd:profile-user` | You want developer behavior profiling | Builds user-profile artifacts that Claude can discover |
-| `/gsd:reapply-patches` | A GSD update overwrote local modifications | Reapplies local patches after an update |
-| `/gsd:remove-workspace` | A workspace is no longer needed | Removes the workspace and cleans related worktrees |
-| `/gsd:set-profile` | You want to switch model cost/quality mode | Changes the active GSD model profile |
-| `/gsd:settings` | You want to configure GSD workflow toggles | Changes settings and model-profile behavior |
-| `/gsd:thread` | You want persistent cross-session context threads | Manages workflow context threads |
-| `/gsd:update` | You want to update the embedded GSD layer | Updates GSD and shows the changelog |
-| `/gsd:workstreams` | You want to manage parallel workstreams | Lists, creates, switches, resumes, and completes workstreams |
+| `/fad:debug` | You need systematic debugging with persistent state | Runs a stateful debugging workflow |
+| `/fad:forensics` | A full-bundle workflow failed and you need a post-mortem | Analyzes git history, artifacts, and workflow state |
+| `/fad:health` | You want to diagnose planning directory health | Checks the planning area and can suggest repairs |
+| `/fad:join-discord` | You want the original upstream community link | Routes to the upstream Discord community flow |
+| `/fad:list-workspaces` | You manage multiple workspaces | Lists active workspaces and status |
+| `/fad:manager` | You want a terminal command center | Opens an interactive management flow across multiple phases |
+| `/fad:new-workspace` | You need an isolated workspace or worktree | Creates a new workspace with independent planning state |
+| `/fad:note` | You want zero-friction note capture | Appends, lists, or promotes notes to todos |
+| `/fad:plant-seed` | You want to capture a future idea with triggers | Saves a forward-looking idea and trigger condition |
+| `/fad:profile-user` | You want developer behavior profiling | Builds user-profile artifacts that Claude can discover |
+| `/fad:reapply-patches` | A full-bundle update overwrote local modifications | Reapplies local patches after an update |
+| `/fad:remove-workspace` | A workspace is no longer needed | Removes the workspace and cleans related worktrees |
+| `/fad:set-profile` | You want to switch model cost/quality mode | Changes the active model profile |
+| `/fad:settings` | You want to configure workflow toggles | Changes settings and model-profile behavior |
+| `/fad:thread` | You want persistent cross-session context threads | Manages workflow context threads |
+| `/fad:update` | You want to update the embedded full-bundle layer | Updates the extended workflow layer and shows the changelog |
+| `/fad:workstreams` | You want to manage parallel workstreams | Lists, creates, switches, resumes, and completes workstreams |

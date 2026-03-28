@@ -11,12 +11,6 @@ export const SUPPORTED_RUNTIMES = [
     "windsurf",
     "antigravity"
 ];
-export const GSD_SHIMS = [
-    ".claude/commands/gsd/help.md",
-    ".claude/commands/gsd/map-codebase.md",
-    ".claude/commands/gsd/pr-branch.md",
-    ".claude/commands/gsd/ship.md"
-];
 export const PM_CORE_REFERENCES = [
     ".claude/pm/commands/README.md",
     ".claude/pm/commands/discover.md",
@@ -42,10 +36,10 @@ export const FULL_VENDOR_ARCHIVES = [
     {
         id: "claude_full_addon",
         archivePath: "templates/vendor/claude-full-addon.tgz",
-        description: "Delta archive with legacy GSD commands, PM extras, agents, and embedded GSD assets.",
+        description: "Delta archive with extended FAD commands, PM extras, agents, and embedded legacy assets.",
         roots: [
             ".claude/agents",
-            ".claude/commands/gsd",
+            ".claude/commands/fad",
             ".claude/get-shit-done",
             ".claude/gsd-file-manifest.json",
             ".claude/pm"
@@ -102,7 +96,7 @@ export const BUNDLE_SPECS = {
             "docs/INSTALLABLE_KIT.md",
             "docs/OPS_HARDENING_RUNBOOK.md"
         ],
-        includeExact: [...GSD_SHIMS, ...PM_CORE_REFERENCES],
+        includeExact: [...PM_CORE_REFERENCES],
         features: [
             "fad_pipeline",
             "pm_handoff",
@@ -113,17 +107,16 @@ export const BUNDLE_SPECS = {
         ]
     },
     standard: {
-        description: "Default team bundle with PM/build/QC/ops flows and lightweight compatibility shims.",
+        description: "Default team bundle with PM/build/QC/ops flows and lightweight runtime bridges.",
         includeRoots: ["CLAUDE.md", ".claude", ".planning", "docs"],
         excludePrefixes: [
-            ".claude/commands/gsd/",
             ".claude/agents/",
             ".claude/get-shit-done/",
             ".claude/gsd-file-manifest.json",
             ".claude/pm/",
             ".claude/scripts/sync-pm-assets.sh"
         ],
-        includeExact: [...GSD_SHIMS, ...PM_CORE_REFERENCES],
+        includeExact: [...PM_CORE_REFERENCES],
         features: [
             "fad_pipeline",
             "pm_handoff",
@@ -138,17 +131,16 @@ export const BUNDLE_SPECS = {
         ]
     },
     full: {
-        description: "Standard bundle plus archived legacy GSD/PM vendor assets extracted on demand.",
+        description: "Standard bundle plus archived extended FAD/PM vendor assets extracted on demand.",
         includeRoots: ["CLAUDE.md", ".claude", ".planning", "docs"],
         excludePrefixes: [
-            ".claude/commands/gsd/",
             ".claude/agents/",
             ".claude/get-shit-done/",
             ".claude/gsd-file-manifest.json",
             ".claude/pm/",
             ".claude/scripts/sync-pm-assets.sh"
         ],
-        includeExact: [...GSD_SHIMS, ...PM_CORE_REFERENCES],
+        includeExact: [...PM_CORE_REFERENCES],
         features: [
             "fad_pipeline",
             "pm_handoff",

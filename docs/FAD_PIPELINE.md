@@ -78,5 +78,5 @@ Greenfield from rough idea:
 ## Compatibility and Migration
 
 - `/pm-delivery-loop` remains available as a wrapper.
-- Legacy `/gsd:*` aliases continue to work as migration shims in lean bundles.
-- Branding and default entrypoint are now `/fad:*`.
+- `full` bundle adds deeper planning/workstream commands under the same `/fad:*` namespace.
+- Branding and default entrypoint remain `/fad:*`.

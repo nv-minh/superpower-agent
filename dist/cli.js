@@ -234,7 +234,7 @@ function buildCodexInstructions() {
 Use the Codex skill at \`.codex/skills/fad-operator/SKILL.md\` and the source contracts in \`.claude/commands/fad/\`.
 
 Defaults:
-- Prefer the branded FAD namespace over legacy GSD shims
+- Use only the branded FAD namespace
 - Keep outputs in \`.planning/\`
 - Preserve audit evidence in \`.planning/audit/\`
 `;
@@ -265,8 +265,7 @@ Use this skill when users request FAD workflows in Codex.
 ## Rules
 1. Use branded command namespace \`/fad:*\`.
 2. Resolve command contracts from \`.claude/commands/fad\`.
-3. Treat legacy \`/gsd:*\` aliases as migration-only and prefer \`/fad:*\`.
-4. Keep audit traces under \`.planning/audit\`.
+3. Keep audit traces under \`.planning/audit\`.
 `;
     writeFileIfAllowed(skillPath, skill, force);
     const agentsPath = path.join(targetDir, ".codex", "AGENTS.md");
@@ -399,7 +398,7 @@ Use this skill when users request FAD workflows in Windsurf.
 
 ## Rules
 1. Use \`CLAUDE.md\` and \`.claude/commands/fad/\` as the source of truth.
-2. Prefer the branded FAD namespace over legacy GSD shims.
+2. Use only the branded FAD namespace.
 3. Keep outputs in \`.planning/\`.
 4. Keep audit evidence in \`.planning/audit/\`.
 `;
@@ -424,7 +423,6 @@ Use this skill when users request FAD workflows in Antigravity.
 1. Use \`GEMINI.md\`, \`CLAUDE.md\`, and \`.claude/commands/fad/\` as the source of truth.
 2. Keep delivery artifacts in \`.planning/\`.
 3. Keep audit evidence in \`.planning/audit/\`.
-4. Treat legacy \`/gsd:*\` aliases as migration-only.
 `;
     writeFileIfAllowed(skillPath, skill, force);
     const readmePath = path.join(targetDir, ".agent", "README.md");
@@ -658,7 +656,6 @@ async function runInit(args) {
     console.log(`Skipped: ${report.skipped.length} file(s)`);
     console.log(`Runtimes: ${runtimes.join(", ")}`);
     console.log(`FAD commands: ${countCommands(args.dir, "fad")}`);
-    console.log(`Legacy alias shims: ${countCommands(args.dir, "gsd")}`);
     if (report.skipped.length) {
         console.log("Use --force to overwrite existing files.");
     }

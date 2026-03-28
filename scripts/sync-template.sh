@@ -20,12 +20,19 @@ rsync -a \
   --exclude '.git' \
   --exclude 'settings.local.json' \
   --exclude 'CLAUDE.local.md' \
+  --exclude 'commands/gsd' \
   --exclude 'scripts/__pycache__' \
   --exclude 'skills/agent-browser' \
   --exclude 'state/careful.enabled' \
   --exclude 'state/freeze-dir.txt' \
   "${SOURCE_ROOT}/.claude" \
   "${TARGET_ROOT}/"
+
+mkdir -p "${TARGET_ROOT}/.claude-legacy/commands"
+if [ -d "${SOURCE_ROOT}/.claude/commands/gsd" ]; then
+  rsync -a "${SOURCE_ROOT}/.claude/commands/gsd" "${TARGET_ROOT}/.claude-legacy/commands/"
+fi
+rm -rf "${TARGET_ROOT}/.claude/commands/gsd"
 
 mkdir -p "${TARGET_ROOT}/.claude-analysis"
 rsync -a "${SOURCE_ROOT}/.claude-analysis/vn-system-audit" "${TARGET_ROOT}/.claude-analysis/"

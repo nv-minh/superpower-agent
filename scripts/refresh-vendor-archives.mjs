@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const TEMPLATE_ROOT = path.join(ROOT, "templates", "base");
+const LEGACY_ROOT = path.join(ROOT, "templates", "base", ".claude-legacy");
 const VENDOR_ROOT = path.join(ROOT, "templates", "vendor");
 
 const TEXT_EXTENSIONS = new Set([
@@ -30,11 +31,11 @@ const TEXT_EXTENSIONS = new Set([
   ".yml"
 ]);
 
-const GSD_SHIMS = new Set([
-  ".claude/commands/gsd/help.md",
-  ".claude/commands/gsd/map-codebase.md",
-  ".claude/commands/gsd/pr-branch.md",
-  ".claude/commands/gsd/ship.md"
+const FAD_CORE_COLLISIONS = new Set([
+  "help.md",
+  "map-codebase.md",
+  "pr-branch.md",
+  "ship.md"
 ]);
 
 const PM_CORE_REFERENCES = new Set([
@@ -114,6 +115,20 @@ function copyDirectoryRelative(sourceRoot, relPath, targetRoot) {
   fs.cpSync(src, dst, { recursive: true });
 }
 
+function writeFileRelative(targetRoot, relPath, content) {
+  const dst = path.join(targetRoot, relPath);
+  ensureDir(path.dirname(dst));
+  fs.writeFileSync(dst, content, "utf-8");
+}
+
+function transformLegacyCommandContent(content) {
+  return content
+    .replace(/^name:\s*gsd:/m, "name: fad:")
+    .replace(/\/gsd:/g, "/fad:")
+    .replace(/\/gsd-/g, "/fad-")
+    .replace(/\.claude\/commands\/gsd\//g, ".claude/commands/fad/");
+}
+
 function summarizeRoot(rootDir) {
   const summary = { files: 0, bytes: 0, estimated_tokens: 0 };
   for (const relPath of listFiles(rootDir)) {
@@ -148,11 +163,18 @@ function buildClaudeAddonStage() {
   copyDirectoryRelative(TEMPLATE_ROOT, ".claude/get-shit-done", stageRoot);
   copyFileRelative(TEMPLATE_ROOT, ".claude/gsd-file-manifest.json", stageRoot);
 
-  for (const relPath of listFiles(path.join(TEMPLATE_ROOT, ".claude", "commands", "gsd"))) {
-    const fullRel = `.claude/commands/gsd/${relPath}`;
-    if (!GSD_SHIMS.has(fullRel)) {
-      copyFileRelative(TEMPLATE_ROOT, fullRel, stageRoot);
+  const legacyCommandsRoot = path.join(LEGACY_ROOT, "commands", "gsd");
+  for (const relPath of listFiles(legacyCommandsRoot)) {
+    if (FAD_CORE_COLLISIONS.has(relPath)) {
+      continue;
     }
+    const sourcePath = path.join(legacyCommandsRoot, relPath);
+    const content = fs.readFileSync(sourcePath, "utf-8");
+    writeFileRelative(
+      stageRoot,
+      `.claude/commands/fad/${relPath}`,
+      transformLegacyCommandContent(content)
+    );
   }
 
   for (const relPath of listFiles(path.join(TEMPLATE_ROOT, ".claude", "pm"))) {

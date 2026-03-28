@@ -74,8 +74,8 @@ npx superpower-agent inspect --dir /path/to/your-project
 ## Command Namespace
 
 - Primary namespace: `/fad:*`
-- Legacy `/gsd:*` aliases remain available for migration only
-- `full` bundle restores the heavy legacy vendor tree from packaged archives on demand
+- `full` bundle adds more advanced `/fad:*` commands without exposing a second command namespace
+- `full` bundle restores archived upstream assets on demand while keeping `/fad:*` canonical
 
 Start here after install:
 

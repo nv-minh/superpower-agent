@@ -25,7 +25,7 @@ When you run `superpower-agent init`, the installer can generate lightweight bri
 - FAD branding stays canonical even when a runtime needs a different slash-command format.
 - Runtime bridges are generated only for the runtimes selected during install.
 - Brownfield-safe behavior, audit logging, review, optimize, and quality-gate expectations stay identical across runtimes.
-- Legacy `/gsd:*` aliases remain migration-only.
+- `full` bundle still extends the system with more `/fad:*` commands, not a second namespace.
 
 ## Recommended install patterns
 

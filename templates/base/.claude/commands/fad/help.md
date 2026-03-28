@@ -4,7 +4,7 @@ description: Show the primary FAD command surface and bundle-aware workflow entr
 ---
 
 <objective>
-Give users one concise map of the FAD operating surface without exposing the full legacy vendor tree.
+Give users one concise map of the FAD operating surface without exposing the archived upstream vendor tree.
 </objective>
 
 <context>
@@ -39,5 +39,5 @@ Then list key non-namespaced support commands:
 End with:
 - recommended starting command
 - where audit logs live
-- note that legacy `/gsd:*` aliases may still exist for migration, but users should stay on `/fad:*`
+- note that the `full` bundle adds more advanced `/fad:*` commands, but the primary entrypoint stays `/fad:pipeline`
 </process>

@@ -52,7 +52,6 @@ function main() {
     ".claude/commands/fad/ship.md",
     ".claude/commands/fad/optimize.md",
     ".claude/commands/fad/quality-gate.md",
-    ".claude/commands/gsd/help.md",
     ".claude/scripts/setup_doctor.py",
     ".claude/scripts/audit_log.py",
     ".planning/audit/runs/.gitkeep",
@@ -121,7 +120,7 @@ function main() {
   assert.equal(initFull.status, 0, "full init should exit 0");
   assert.ok(fs.existsSync(path.join(tmpFull, ".claude", "agents", "gsd-planner.md")), "full bundle should extract .claude/agents");
   assert.ok(fs.existsSync(path.join(tmpFull, ".claude", "get-shit-done")), "full bundle should include .claude/get-shit-done");
-  assert.ok(fs.existsSync(path.join(tmpFull, ".claude", "commands", "gsd", "plan-phase.md")), "full bundle should include archived gsd commands");
+  assert.ok(fs.existsSync(path.join(tmpFull, ".claude", "commands", "fad", "plan-phase.md")), "full bundle should include archived extended fad commands");
   assert.ok(fs.existsSync(path.join(tmpFull, ".claude", "pm", "commands", "leadership-transition.md")), "full bundle should include archived pm extras");
   assert.ok(fs.existsSync(path.join(tmpFull, "get-shit-done")), "full bundle should include get-shit-done");
   assert.ok(fs.existsSync(path.join(tmpFull, "Product-Manager-Skills")), "full bundle should include Product-Manager-Skills");

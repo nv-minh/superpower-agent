@@ -10,7 +10,7 @@ Decision guides:
 ## Namespace
 
 - Primary command namespace: `/fad:*`
-- Legacy alias namespace: `/gsd:*` remains available for migration, but the documented workflow surface is `/fad:*`
+- `full` bundle adds extended `/fad:*` planning and workstream commands
 
 ## CLI Visibility
 

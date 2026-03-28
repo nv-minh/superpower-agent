@@ -7,12 +7,12 @@ Superpower Agent now installs by bundle instead of copying the full workspace by
 | Bundle | Purpose | Includes | Excludes |
 |---|---|---|---|
 | `core` | Lean FAD delivery runtime | PM/build/QC/review/gate essentials | advanced ops, PR feedback, browser skill installer, legacy vendor payloads |
-| `standard` | Default team install | `core` + ops flows, PR feedback, doc export, runtime extras for Claude/OpenCode/Gemini/Codex/Copilot/Cursor/Windsurf/Antigravity | heavy legacy vendor trees and upstream PM source repo |
-| `full` | Maximum compatibility | `standard` + archived legacy vendor payloads extracted during install | nothing at install time, but legacy payloads are no longer shipped as raw trees in npm |
+| `standard` | Default team install | `core` + ops flows, PR feedback, doc export, runtime extras for Claude/OpenCode/Gemini/Codex/Copilot/Cursor/Windsurf/Antigravity | archived upstream assets and full PM source repo |
+| `full` | Maximum compatibility | `standard` + archived upstream payloads extracted during install as extended FAD assets | nothing at install time, but upstream payloads are no longer shipped as raw trees in npm |
 
 ## Recommended Usage
 
-Use `standard` unless you have a specific reason to optimize aggressively or preserve the full legacy vendor tree.
+Use `standard` unless you have a specific reason to optimize aggressively or restore the archived upstream asset set.
 
 ```bash
 npx superpower-agent init --dir /path/to/project --bundle standard
@@ -30,7 +30,7 @@ Compatibility-heavy install:
 npx superpower-agent init --dir /path/to/project --bundle full
 ```
 
-`full` now restores heavy legacy assets from `templates/vendor/*.tgz`. This keeps the published npm package significantly smaller while preserving compatibility for teams that still need the legacy reference stacks on disk.
+`full` now restores archived upstream assets from `templates/vendor/*.tgz`. This keeps the published npm package significantly smaller while preserving compatibility for teams that still need the heavier reference stacks on disk.
 
 ## Visibility Commands
 
@@ -58,7 +58,7 @@ These files make bundle contents and approximate context footprint visible witho
 
 ## Maintainer Workflow
 
-If you update embedded legacy vendor material, refresh the packaged archives before publishing:
+If you update embedded upstream vendor material, refresh the packaged archives before publishing:
 
 ```bash
 npm run vendor:refresh
