@@ -181,6 +181,8 @@ npm run check
 npm publish --access public
 ```
 
+For GitHub Actions publishing, set repository secret `NPM_TOKEN` or migrate the release workflow to npm trusted publishing.
+
 ## License
 
 MIT - see [LICENSE](./LICENSE).

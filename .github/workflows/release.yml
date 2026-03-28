@@ -39,6 +39,7 @@ jobs:
         with:
           node-version: 20
           registry-url: "https://registry.npmjs.org"
+          always-auth: true
 
       - name: Install dependencies
         run: npm install
@@ -51,6 +52,20 @@ jobs:
       - name: Validate package
         run: npm pack --dry-run
         working-directory: ${{ steps.paths.outputs.workdir }}
+
+      - name: Verify npm auth configuration
+        if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish == 'true')
+        shell: bash
+        working-directory: ${{ steps.paths.outputs.workdir }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -n "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "NPM_TOKEN detected. Proceeding with npm publish."
+            exit 0
+          fi
+          echo "::error::Missing NPM_TOKEN repository secret. Configure Settings > Secrets and variables > Actions > New repository secret named NPM_TOKEN with an npm automation/granular publish token, or switch this workflow to npm trusted publishing."
+          exit 1
 
       - name: Publish to npm
         if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish == 'true')

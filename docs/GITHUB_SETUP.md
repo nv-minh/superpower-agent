@@ -38,7 +38,7 @@ git push -u origin main
 
 Required for npm publishing:
 
-- `NPM_TOKEN`
+- `NPM_TOKEN` (npm automation or granular token with publish permission)
 
 Optional for extended checks:
 
@@ -66,6 +66,9 @@ This repository is already configured for `nv-minh/superpower-agent`. If you pub
 ```bash
 npx superpower-agent@latest --version
 ```
+
+If the workflow fails with `ENEEDAUTH`, the repository does not have a usable `NPM_TOKEN` secret.
+Add it under `Settings -> Secrets and variables -> Actions`, or migrate the workflow to npm trusted publishing.
 
 ## 7) Recommended governance controls
 
