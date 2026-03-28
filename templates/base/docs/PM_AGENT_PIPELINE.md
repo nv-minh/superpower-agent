@@ -1,0 +1,119 @@
+# PM Agent Pipeline Runbook
+
+## What Was Added
+- Custom Claude commands in `.claude/commands/`:
+  - `brownfield-map-style`
+  - `feature-swarm`
+  - `discovery-ui-handoff`
+  - `install-browser-skills`
+  - `setup-doctor`
+  - `code-quality-gate`
+  - `security-scan`
+  - `dependency-audit`
+  - `secrets-scan`
+  - `health-check`
+  - `setup-monitoring`
+  - `incident-response`
+  - `rollback`
+  - `pr-feedback-loop`
+  - `gen-doc-sheet`
+  - `pm-intake`
+  - `pm-discover`
+  - `pm-write-prd`
+  - `pm-plan-roadmap`
+  - `pm-prioritize`
+  - `pm-strategy`
+  - `pm-story`
+  - `pm-to-build`
+  - `qc-verify-ui`
+  - `qa-only`
+  - `pm-delivery-loop`
+  - `fix-issue`
+  - `review`
+  - `deploy`
+  - `autoplan`
+  - `autopilot-loop`
+  - `careful`
+  - `freeze`
+  - `guard`
+  - `unfreeze`
+  - `unguard`
+- Local PM framework vendor path: `.claude/pm/{commands,skills}` (synced from `Product-Manager-Skills`)
+- FAD agent skill policies in `skills/` for planner, executor, checker, verifier.
+- PM handoff artifact contract in `.planning/pm/current/`.
+- FAD config with `agent_skills` mapping in `.planning/config.json`.
+
+## Daily Flow
+1. Run `/setup-monitoring` once per project/environment baseline.
+2. Run `/brownfield-map-style` on new or changed brownfield codebases.
+3. Run `/discovery-ui-handoff <requirement>` for greenfield or brownfield without Figma input.
+4. If using classic PM flow, run `/pm-intake <your requirement>`.
+5. Review/resolve `RISK-IMPACT.md` high-critical decisions.
+6. Run `/pm-to-build <phase-number>`.
+7. Run `/qc-verify-ui <phase-number>`.
+8. Run `/security-scan` before release lane.
+9. Optional: run `/gen-doc-sheet ...` only when document export is needed.
+10. Optional shortcut: `/pm-delivery-loop <phase-number>`.
+11. For PR-driven fix loop: run `/pr-feedback-loop <pr-url-or-number>`.
+
+## Artifact Set
+- `.planning/pm/current/PRD.md`
+- `.planning/pm/current/SPRINT.md`
+- `.planning/pm/current/STORIES.md`
+- `.planning/pm/current/HANDOFF.md`
+- `.planning/pm/current/RISK-IMPACT.md`
+- `.planning/pm/current/QC-REPORT.md`
+- `.planning/discovery/current/*` (structured discovery + UI contract)
+- `.planning/exports/*.xlsx` (optional export)
+- `.planning/audit/*.md` (per-step logs)
+
+## High-Leverage Ops Flows
+- `/feature-swarm <feature>` for parallel implementation across non-overlapping scopes.
+- `/fix-issue <issue>` for root-cause-first remediation.
+- `/pr-feedback-loop <pr>` for GitHub review-comment intake -> fix -> QC.
+- `/code-quality-gate` for standalone lint/typecheck/test verification.
+- `/security-scan` for release security gate with local-first scanners.
+- `/health-check` for deep pre/post deploy diagnostics.
+- `/incident-response <summary>` for incident containment and recovery logging.
+- `/rollback [target]` for rollback readiness + guarded execution.
+- `/review [scope]` for severity-first review output.
+- `/deploy <env>` for gated release checks and rollout.
+- `/autoplan <feature>` for automated review pipeline before execute.
+- `/autopilot-loop [cycles]` for bounded autonomous delivery cycles.
+- `/qa-only <context>` for report-only QA when no code mutation is desired.
+- `/setup-doctor` for one-shot setup validation.
+- `/install-browser-skills` to install browser QA skills.
+
+## Prerequisites
+- FAD commands installed and available in Claude Code.
+- PM assets synced locally (run `.claude/scripts/sync-pm-assets.sh` after updating Product-Manager-Skills).
+- MCP servers enabled:
+  - `figma`
+  - `browser`
+- Atlassian API credentials for Jira/Confluence ingest and optional Jira transition:
+  - `ATLASSIAN_BASE_URL`
+  - `ATLASSIAN_EMAIL`
+  - `ATLASSIAN_API_TOKEN`
+- GitHub CLI authenticated (`gh auth status`) for PR feedback ingestion.
+- Ops config templates copied:
+  - `.claude/config/health-check.json`
+  - `.claude/config/monitoring.json`
+
+Current local settings include:
+- `postgresql`
+- `figma`
+- `browser`
+
+## Gate Definition
+- Build/ship is considered ready only when:
+  - brownfield guardrails are curated and current,
+  - PM requirement trace is complete,
+  - no unresolved in-scope high/critical risk remains,
+  - if Figma links exist, Figma MCP evidence is captured,
+  - if Jira/Confluence links were provided, ingest evidence is captured,
+  - implementation verification passes,
+  - code quality gate (`lint`, `typecheck` if TS, `test`) passes,
+  - security gate (`security-scan`) is not blocked,
+  - deploy-time health checks are configured and passing,
+  - QC report has no functional or DS-critical blockers,
+  - required audit logs are written per step.
