@@ -18,6 +18,11 @@ fad:pipeline
 2. `/fad:pipeline "<requirement or phase>"`
 3. `/deploy <env>` (only after pipeline strict gate is green)
 
+Detailed phase contract:
+
+- See [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
+- See [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md) for run-id tracing
+
 ## 2) PR Feedback Workflow
 
 ```text

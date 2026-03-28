@@ -2,6 +2,9 @@
 
 ## What Was Added
 - Custom Claude commands in `.claude/commands/`:
+  - `fad/pipeline`
+  - `fad/optimize`
+  - `fad/quality-gate`
   - `brownfield-map-style`
   - `feature-swarm`
   - `discovery-ui-handoff`
@@ -61,6 +64,11 @@
 - `.planning/discovery/current/*` (structured discovery + UI contract)
 - `.planning/exports/*.xlsx` (optional export)
 - `.planning/audit/runs/<run-id>/*.md` (per-step logs, preferred)
+
+## New Runbooks
+
+- `docs/FAD_PIPELINE.md`
+- `docs/AUDIT_LOGGING.md`
 
 ## High-Leverage Ops Flows
 - `/feature-swarm <feature>` for parallel implementation across non-overlapping scopes.

@@ -88,3 +88,8 @@ After setup is healthy, start with:
 ```bash
 /fad:pipeline "<your first requirement>"
 ```
+
+For operating details:
+
+- `docs/FAD_PIPELINE.md`
+- `docs/AUDIT_LOGGING.md`

@@ -59,3 +59,8 @@ Requirement input
 - Preferred audit layout uses run IDs: `.planning/audit/runs/<run-id>/`.
 - Explicit status protocol: `DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT`.
 - Autopilot loops are bounded and stop on repeated failures/blockers.
+
+Related references:
+
+- `./FAD_PIPELINE.md`
+- `./AUDIT_LOGGING.md`

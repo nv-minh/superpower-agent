@@ -34,3 +34,5 @@ Use env vars and local private overrides per machine.
 - `.planning/audit/runs/<run-id>/` - per-step audit logs (preferred)
 - `.planning/audit/` - legacy flat audit log location (still supported)
 - `.planning/setup/` - setup diagnostics outputs
+
+For audit schema and logging conventions, see [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md).

@@ -15,6 +15,10 @@ This package installs command contracts under `.claude/commands`.
 | `fad:optimize` | Mandatory post-review optimization pass (no behavior changes) |
 | `fad:quality-gate` | Strict branch gate combining lint/typecheck/test + security + unresolved-risk checks |
 
+Reference docs:
+- [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
+- [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md)
+
 ## PM / Discovery
 
 | Command | Primary Use |

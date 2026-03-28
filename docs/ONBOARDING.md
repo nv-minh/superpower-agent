@@ -62,6 +62,11 @@ npx superpower-agent doctor --dir /path/to/project
 5. Run `/security-scan`
 6. Run `/fad:pipeline "<first requirement>"` to validate full delivery chain
 
+Deep-dive docs:
+
+- [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
+- [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md)
+
 ## Optional: prepare standalone GitHub repo
 
 ```bash
