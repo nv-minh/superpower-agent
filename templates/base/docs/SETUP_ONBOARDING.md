@@ -98,6 +98,8 @@ npx superpower-agent init --dir /path/to/project --all --no-prompt
 For operating details:
 
 - `docs/BUNDLES.md`
+- `docs/COMMAND_DECISION_GUIDE.en.md`
+- `docs/COMMAND_DECISION_GUIDE.vi.md`
 - `docs/RUNTIME_ADAPTERS.md`
 - `docs/FAD_PIPELINE.md`
 - `docs/AUDIT_LOGGING.md`

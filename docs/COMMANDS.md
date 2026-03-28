@@ -2,6 +2,11 @@
 
 This package installs command contracts under `.claude/commands`.
 
+Decision guides:
+
+- [`COMMAND_DECISION_GUIDE.en.md`](./COMMAND_DECISION_GUIDE.en.md)
+- [`COMMAND_DECISION_GUIDE.vi.md`](./COMMAND_DECISION_GUIDE.vi.md)
+
 ## Namespace
 
 - Primary command namespace: `/fad:*`
