@@ -1,0 +1,66 @@
+# Commands Reference
+
+This package installs command contracts under `.claude/commands`.
+
+## Namespace
+
+- Primary command namespace: `/fad:*`
+- Compatibility namespace: `/gsd:*` (hidden, generated for backward compatibility)
+
+## PM / Discovery
+
+| Command | Primary Use |
+|---|---|
+| `pm-intake` | Requirement discussion and PM handoff pack generation |
+| `discovery-ui-handoff` | Structured discovery for raw/greenfield/no-figma input |
+| `pm-discover` | PM discovery process entrypoint |
+| `pm-write-prd` | PRD generation |
+| `pm-plan-roadmap` | Roadmap/sprint sequencing |
+| `pm-prioritize` | Prioritization workflow |
+| `pm-strategy` | Strategy framing workflow |
+| `pm-story` | User story generation/splitting |
+| `brownfield-map-style` | Approved/anti pattern curation for brownfield |
+| `autoplan` | Automated plan-review pipeline |
+
+## Build / Review / QC
+
+| Command | Primary Use |
+|---|---|
+| `pm-to-build` | Convert PM pack to execution |
+| `feature-swarm` | Parallelized feature implementation |
+| `fix-issue` | Root-cause-first issue remediation |
+| `review` | Severity-first code review |
+| `qc-verify-ui` | Browser and DS-critical QC gate |
+| `qa-only` | Report-only QA mode (no code mutation) |
+| `pr-feedback-loop` | GitHub PR comments -> fix -> re-verify |
+| `code-quality-gate` | Standalone lint/typecheck/test gate |
+
+## Ops / Security / Reliability
+
+| Command | Primary Use |
+|---|---|
+| `setup-doctor` | Setup diagnostics for CLI/MCP/credentials |
+| `setup-monitoring` | Provider-agnostic monitoring baseline |
+| `security-scan` | Security gate (dependency + optional SAST + secrets flow) |
+| `dependency-audit` | Dependency-focused vulnerability check |
+| `secrets-scan` | Secret leakage detection |
+| `health-check` | Deep health diagnostics |
+| `deploy` | Gated deployment workflow |
+| `incident-response` | Incident triage and recovery |
+| `rollback` | Rollback readiness + execution workflow |
+
+## Orchestration / Safety
+
+| Command | Primary Use |
+|---|---|
+| `pm-delivery-loop` | End-to-end PM -> Build -> QC loop |
+| `autopilot-loop` | Bounded autonomous cycles |
+| `gen-doc-sheet` | Optional EN/JA spreadsheet export |
+| `careful` / `freeze` / `guard` | Session safety controls |
+| `unfreeze` / `unguard` | Safety control release |
+
+## Skill/Environment utility
+
+| Command | Primary Use |
+|---|---|
+| `install-browser-skills` | Install `agent-browser` + `playwright` skill bundles |
