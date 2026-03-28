@@ -5,7 +5,7 @@ This package installs command contracts under `.claude/commands`.
 ## Namespace
 
 - Primary command namespace: `/fad:*`
-- Compatibility namespace: `/gsd:*` (small shim surface in `core/standard`, broader in `full`)
+- Legacy alias namespace: `/gsd:*` remains available for migration, but the documented workflow surface is `/fad:*`
 
 ## CLI Visibility
 
@@ -20,7 +20,7 @@ This package installs command contracts under `.claude/commands`.
 |---|---|
 | `fad:pipeline` | End-to-end workflow: brainstorm -> plan/build -> review -> optimize -> quality gate -> finish |
 | `fad:help` | Primary branded entrypoint and command map |
-| `fad:map-codebase` | Brownfield mapping without full GSD vendor dependency |
+| `fad:map-codebase` | Brownfield mapping without full legacy vendor dependency |
 | `fad:pr-branch` | Prepare a review-safe branch |
 | `fad:ship` | Ship-readiness workflow after strict gate passes |
 | `fad:optimize` | Mandatory post-review optimization pass (no behavior changes) |

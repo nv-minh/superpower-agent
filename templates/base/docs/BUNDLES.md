@@ -10,7 +10,7 @@ This project may be installed with one of three Superpower Agent bundles:
 
 - `core`: lean PM/build/QC/review gate
 - `standard`: default bundle for most teams
-- `full`: restores legacy GSD/vendor compatibility assets from packaged archives during install
+- `full`: restores legacy vendor compatibility assets from packaged archives during install
 
 ## Local Visibility
 
@@ -30,7 +30,7 @@ superpower-agent inspect --dir .
 ## Practical Rule
 
 If your workflow runs entirely through `/fad:*`, `standard` is usually enough.
-Only use `full` when you explicitly need legacy GSD/vendor assets present on disk.
+Only use `full` when you explicitly need legacy vendor assets present on disk.
 
 ## Maintainer Note
 

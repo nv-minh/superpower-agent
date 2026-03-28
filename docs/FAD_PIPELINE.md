@@ -78,5 +78,5 @@ Greenfield from rough idea:
 ## Compatibility and Migration
 
 - `/pm-delivery-loop` remains available as a wrapper.
-- Legacy `/gsd:*` commands continue to work as compatibility shims in lean bundles.
+- Legacy `/gsd:*` aliases continue to work as migration shims in lean bundles.
 - Branding and default entrypoint are now `/fad:*`.

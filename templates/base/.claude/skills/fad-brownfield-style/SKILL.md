@@ -1,10 +1,10 @@
 ---
-name: gsd-brownfield-style
+name: fad-brownfield-style
 description: Enforce curated brownfield guardrails so agents adopt only approved conventions and avoid legacy anti-patterns.
 type: workflow
 ---
 
-# gsd-brownfield-style
+# fad-brownfield-style
 
 ## Purpose
 In brownfield codebases, match architecture and style quality without inheriting bad legacy patterns.
@@ -35,4 +35,3 @@ In brownfield codebases, match architecture and style quality without inheriting
 ## Checker/Verifier Expectations
 - Fail when task actions clearly copy anti-patterns.
 - Warn when new code violates declared guardrails without justification.
-

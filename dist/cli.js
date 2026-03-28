@@ -155,7 +155,7 @@ Use this skill when users request FAD workflows in Codex.
 ## Rules
 1. Use branded command namespace \`/fad:*\`.
 2. Resolve command contracts from \`.claude/commands/fad\`.
-3. Fall back to legacy \`/gsd:*\` only when compatibility shims exist.
+3. Treat legacy \`/gsd:*\` aliases as migration-only and prefer \`/fad:*\`.
 4. Keep audit traces under \`.planning/audit\`.
 `;
     writeFileForce(skillPath, skill);
@@ -388,7 +388,7 @@ async function runInit(args) {
     console.log(`Skipped: ${report.skipped.length} file(s)`);
     console.log(`Runtimes: ${runtimes.join(", ")}`);
     console.log(`FAD commands: ${countCommands(args.dir, "fad")}`);
-    console.log(`GSD shims: ${countCommands(args.dir, "gsd")}`);
+    console.log(`Legacy alias shims: ${countCommands(args.dir, "gsd")}`);
     if (report.skipped.length) {
         console.log("Use --force to overwrite existing files.");
     }

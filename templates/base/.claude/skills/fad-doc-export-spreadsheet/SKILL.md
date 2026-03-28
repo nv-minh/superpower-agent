@@ -1,10 +1,10 @@
 ---
-name: gsd-doc-export-spreadsheet
+name: fad-doc-export-spreadsheet
 description: Generate fixed-template delivery workbooks (.xlsx) for PM/build/QC artifacts with EN/JA support.
 type: workflow
 ---
 
-# gsd-doc-export-spreadsheet
+# fad-doc-export-spreadsheet
 
 ## Purpose
 Create a reliable spreadsheet export lane for delivery artifacts when users explicitly request document generation.

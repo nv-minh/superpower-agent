@@ -6,9 +6,9 @@ Superpower Agent now installs by bundle instead of copying the full workspace by
 
 | Bundle | Purpose | Includes | Excludes |
 |---|---|---|---|
-| `core` | Lean FAD delivery runtime | PM/build/QC/review/gate essentials | advanced ops, PR feedback, browser skill installer, legacy GSD vendor |
-| `standard` | Default team install | `core` + ops flows, PR feedback, doc export, runtime extras | heavy legacy GSD vendor and PM source repo |
-| `full` | Maximum compatibility | `standard` + archived legacy GSD/PM payloads extracted during install | nothing at install time, but legacy payloads are no longer shipped as raw trees in npm |
+| `core` | Lean FAD delivery runtime | PM/build/QC/review/gate essentials | advanced ops, PR feedback, browser skill installer, legacy vendor payloads |
+| `standard` | Default team install | `core` + ops flows, PR feedback, doc export, runtime extras | heavy legacy vendor trees and upstream PM source repo |
+| `full` | Maximum compatibility | `standard` + archived legacy vendor payloads extracted during install | nothing at install time, but legacy payloads are no longer shipped as raw trees in npm |
 
 ## Recommended Usage
 
@@ -30,7 +30,7 @@ Compatibility-heavy install:
 npx superpower-agent init --dir /path/to/project --bundle full
 ```
 
-`full` now restores heavy legacy assets from `templates/vendor/*.tgz`. This keeps the published npm package significantly smaller while preserving compatibility for teams that still need the legacy GSD and PM source trees.
+`full` now restores heavy legacy assets from `templates/vendor/*.tgz`. This keeps the published npm package significantly smaller while preserving compatibility for teams that still need the legacy reference stacks on disk.
 
 ## Visibility Commands
 

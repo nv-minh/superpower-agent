@@ -1,10 +1,10 @@
 ---
-name: gsd-planner-align
+name: fad-planner-align
 description: Enforce PM requirement trace, one-sprint-per-phase planning, and TDD scoping for domain and API tasks.
 type: workflow
 ---
 
-# gsd-planner-align
+# fad-planner-align
 
 ## Purpose
 Force planning output to stay aligned with PM artifacts and avoid execution ambiguity.

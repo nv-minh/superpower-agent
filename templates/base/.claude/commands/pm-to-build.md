@@ -1,6 +1,6 @@
 ---
 name: pm-to-build
-description: Convert PM handoff artifacts into phase planning and execution using GSD.
+description: Convert PM handoff artifacts into FAD planning and execution.
 argument-hint: "<phase-number>"
 allowed-tools:
   - Read

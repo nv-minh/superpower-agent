@@ -1,10 +1,10 @@
 ---
-name: gsd-plan-checker-gates
+name: fad-plan-checker-gates
 description: Verify align-and-TDD planning gates before execution starts.
 type: workflow
 ---
 
-# gsd-plan-checker-gates
+# fad-plan-checker-gates
 
 ## Purpose
 Block weak plans before code execution.

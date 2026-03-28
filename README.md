@@ -3,10 +3,30 @@
 Adaptive PM -> Build -> QC -> Ops agent system for **Claude, Codex, and Cursor**.
 
 `superpower-agent` gives teams a repeatable delivery operating system instead of ad-hoc prompting.
+It is a custom FAD-branded system built by extracting and adapting the strongest ideas from:
+
+- [get-shit-done](https://github.com/gsd-build/get-shit-done)
+- [Product-Manager-Skills](https://github.com/deanpeters/Product-Manager-Skills)
+- [gstack](https://github.com/garrytan/gstack)
+
+This repo is not a fork. It repackages the useful patterns into one leaner install surface, one branded command namespace, and one stricter PM -> Build -> QC -> Ops pipeline.
 
 [![npm version](https://img.shields.io/npm/v/superpower-agent?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/superpower-agent)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](./LICENSE)
 
+![FAD Pipeline Overview](./docs/assets/fad-pipeline-overview.svg)
+
+## Why This Exists
+
+Most agent setups stop at prompt collections or copy entire upstream stacks into every project.
+Superpower Agent takes a different approach:
+
+- keep the PM -> Build -> QC -> Ops handoff explicit
+- keep every major decision auditable
+- keep brownfield risk and impact analysis mandatory
+- keep Figma/Jira/Confluence/PR inputs first-class
+- keep install size and context footprint under control
+- keep one default surface: `/fad:*`
 
 ## Why Teams Use It
 
@@ -48,7 +68,7 @@ npx superpower-agent inspect --dir /path/to/your-project
 ## Command Namespace
 
 - Primary namespace: `/fad:*`
-- Legacy `/gsd:*` is now installed as a small compatibility surface by default
+- Legacy `/gsd:*` aliases remain available for migration only
 - `full` bundle restores the heavy legacy vendor tree from packaged archives on demand
 
 Start here after install:
@@ -69,6 +89,20 @@ Start here after install:
 - Runtime adapters:
   - `.codex/skills/fad-operator/SKILL.md` (if Codex selected)
   - `.cursor/rules/fad.mdc` (if Cursor selected)
+
+## Optimization Highlights
+
+- Bundle-aware install with `core`, `standard`, and `full`
+- Local context visibility with `superpower-agent estimate` and `superpower-agent inspect`
+- Project-local context index written to `.planning/setup/context-index.json`
+- Publish surface reduced from the raw vendor-tree approach to a lean npm artifact
+- `full` compatibility preserved through archive-backed extraction instead of shipping the entire legacy tree raw
+
+Current packaging result after optimization:
+
+- publish artifact: `185 files`
+- unpacked package size: about `4.2 MB`
+- `full` bundle still restores legacy assets when explicitly requested
 
 ## Architecture Snapshot
 
@@ -104,6 +138,12 @@ Input (text / Jira / Confluence / Figma / PR)
 - [Configuration](./docs/CONFIGURATION.md)
 - [GitHub Setup](./docs/GITHUB_SETUP.md)
 - [Releasing](./docs/RELEASING.md)
+
+## References
+
+- [get-shit-done](https://github.com/gsd-build/get-shit-done)
+- [Product-Manager-Skills](https://github.com/deanpeters/Product-Manager-Skills)
+- [gstack](https://github.com/garrytan/gstack)
 
 ## Maintainers
 

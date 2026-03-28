@@ -5,7 +5,7 @@ This repository is configured for a multi-agent workflow:
 1. `brownfield-map-style` maps codebase and curates approved/anti patterns.
 2. `discovery-ui-handoff` runs structured discovery -> UI concept -> UI contract -> handoff.
 3. `pm-intake` captures requirement context and generates a PM handoff pack.
-4. `pm-to-build` hands the pack to GSD planning/execution agents.
+4. `pm-to-build` hands the pack to the FAD planning/execution lane.
 5. `qc-verify-ui` runs browser-based functional and design-system critical checks.
 
 High-leverage orchestration commands:
@@ -123,7 +123,7 @@ Discovery artifacts for structured intake are stored in `.planning/discovery/cur
 
 - Product skills vendor (synced local): `.claude/pm/`
 - Source PM skills repo (for sync updates, `full` bundle only): `Product-Manager-Skills/`
-- GSD repo (`full` bundle only): `get-shit-done/`
+- Legacy reference repo (`full` bundle only): `get-shit-done/`
 
 ## Rules
 

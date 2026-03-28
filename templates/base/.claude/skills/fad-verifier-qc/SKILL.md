@@ -1,10 +1,10 @@
 ---
-name: gsd-verifier-qc
+name: fad-verifier-qc
 description: Enforce release gate using functional checks and DS-critical verification with browser automation.
 type: workflow
 ---
 
-# gsd-verifier-qc
+# fad-verifier-qc
 
 ## Purpose
 Guarantee that release criteria are validated, not assumed.

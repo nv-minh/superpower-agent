@@ -1,10 +1,10 @@
 ---
-name: gsd-executor-ui-figma
+name: fad-executor-ui-figma
 description: Execute plans with requirement trace, TDD for domain/API logic, and Figma-driven UI implementation constraints.
 type: workflow
 ---
 
-# gsd-executor-ui-figma
+# fad-executor-ui-figma
 
 ## Purpose
 Keep execution aligned with PM artifacts while preserving design-system correctness.

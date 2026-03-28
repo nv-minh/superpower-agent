@@ -21,7 +21,7 @@ Input: $ARGUMENTS
 
 References:
 - @.claude/templates/DOC-SHEET-TEMPLATE.md
-- @.claude/skills/gsd-doc-export-spreadsheet/SKILL.md
+- @.claude/skills/fad-doc-export-spreadsheet/SKILL.md
 - @.planning/pm/current/PRD.md
 - @.planning/pm/current/SPRINT.md
 - @.planning/pm/current/STORIES.md

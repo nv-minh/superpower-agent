@@ -53,7 +53,7 @@ Update `package.json`:
 - `bugs.url`
 - `homepage`
 
-Replace placeholder values (`YOUR_ORG`) with your real GitHub namespace.
+This repository is already configured for `nv-minh/superpower-agent`. If you publish a fork, replace these values with your own GitHub namespace first.
 
 ## 6) Release flow
 

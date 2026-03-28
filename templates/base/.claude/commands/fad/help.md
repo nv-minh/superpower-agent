@@ -39,5 +39,5 @@ Then list key non-namespaced support commands:
 End with:
 - recommended starting command
 - where audit logs live
-- note that `/gsd:*` exists only as compatibility shims when installed
+- note that legacy `/gsd:*` aliases may still exist for migration, but users should stay on `/fad:*`
 </process>
