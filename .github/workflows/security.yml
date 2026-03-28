@@ -1,0 +1,51 @@
+name: Security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve project directory
+        id: paths
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            echo "workdir=." >> "$GITHUB_OUTPUT"
+          elif [ -f packages/superpower-agent/package.json ]; then
+            echo "workdir=packages/superpower-agent" >> "$GITHUB_OUTPUT"
+          else
+            echo "Unable to locate package.json for superpower-agent"
+            exit 1
+          fi
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ${{ steps.paths.outputs.workdir }}
+
+      - name: npm audit (high severity+)
+        run: npm audit --audit-level=high
+        working-directory: ${{ steps.paths.outputs.workdir }}
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
