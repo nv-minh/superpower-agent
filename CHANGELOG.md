@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog and this project follows Semantic Versioning.
 
+## [0.2.1] - 2026-03-28
+
+### Fixed
+
+- Release workflow now fails early with a clear error when `NPM_TOKEN` is missing in GitHub Actions.
+- Release docs now explain the `ENEEDAUTH` failure mode and how to configure npm publishing correctly.
+
 ## [0.2.0] - 2026-03-28
 
 ### Added

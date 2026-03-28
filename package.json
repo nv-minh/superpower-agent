@@ -1,6 +1,6 @@
 {
   "name": "superpower-agent",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Adaptive PM->Build->QC->Ops agent system for Claude Code, OpenCode, Gemini CLI, Codex, Copilot, Cursor, Windsurf, and Antigravity.",
   "license": "MIT",
   "repository": {
