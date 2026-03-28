@@ -1,0 +1,25 @@
+{
+  "http": [
+    {
+      "name": "web_app",
+      "url": "http://localhost:3000/health",
+      "expected_status": [200],
+      "timeout_seconds": 5
+    }
+  ],
+  "tcp": [
+    {
+      "name": "postgres",
+      "host": "127.0.0.1",
+      "port": 5432,
+      "timeout_seconds": 2
+    }
+  ],
+  "command": [
+    {
+      "name": "queue_workers",
+      "cmd": ["bash", "-lc", "echo 'replace with queue worker check'"],
+      "timeout_seconds": 20
+    }
+  ]
+}

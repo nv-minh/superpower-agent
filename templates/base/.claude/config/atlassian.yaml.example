@@ -1,0 +1,20 @@
+atlassian:
+  base_url: "https://your-company.atlassian.net"
+  auth:
+    email_env: "ATLASSIAN_EMAIL"
+    token_env: "ATLASSIAN_API_TOKEN"
+
+jira:
+  project_key: "PROJ"
+  transition_suggestions:
+    verify_pass:
+      - "Done"
+      - "Ready for Release"
+      - "Closed"
+    verify_fail:
+      - "In Progress"
+      - "To Do"
+      - "Reopen"
+
+confluence:
+  default_space_key: "ENG"

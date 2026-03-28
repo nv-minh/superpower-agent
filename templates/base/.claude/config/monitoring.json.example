@@ -1,0 +1,40 @@
+{
+  "provider": "custom",
+  "services": [
+    {
+      "name": "web_app",
+      "owner": "frontend-team",
+      "sli": {
+        "availability": ">=99.9%",
+        "p95_latency_ms": "<=400",
+        "error_rate": "<1%"
+      },
+      "alerts": [
+        {
+          "name": "web_app_availability",
+          "signal": "availability",
+          "threshold": "<99.5% for 5m",
+          "severity": "sev1",
+          "route": "oncall-web"
+        },
+        {
+          "name": "web_app_latency",
+          "signal": "p95_latency_ms",
+          "threshold": ">500ms for 10m",
+          "severity": "sev2",
+          "route": "oncall-web"
+        }
+      ],
+      "dashboards": [
+        {
+          "name": "web_app_overview",
+          "url": "https://monitoring.example.com/dashboard/web-app"
+        }
+      ]
+    }
+  ],
+  "incident": {
+    "playbook_url": "docs/INCIDENT_PLAYBOOK.md",
+    "escalation_policy": "oncall-primary -> oncall-secondary -> eng-manager"
+  }
+}

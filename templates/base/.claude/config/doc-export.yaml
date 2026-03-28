@@ -1,0 +1,17 @@
+version: 1
+output_dir: ".planning/exports"
+default_lang_mode: "both"
+sheet_names:
+  en: "DELIVERY_EN"
+  ja: "DELIVERY_JA"
+sections:
+  - "Metadata"
+  - "Requirement Context"
+  - "PRD Summary"
+  - "Sprint Scope"
+  - "Stories and Acceptance"
+  - "UI Contract Summary"
+  - "Risk and Impact Summary"
+  - "QC Gate Summary"
+  - "Decisions and Open Questions"
+  - "Next Actions"
