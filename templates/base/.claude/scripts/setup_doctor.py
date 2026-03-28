@@ -98,6 +98,7 @@ def integration_file_checks(repo_root: Path) -> List[Dict[str, Any]]:
         (".claude/skills/agent-browser/SKILL.md", False),
         (".claude/skills/playwright/SKILL.md", False),
         (".planning/audit/runs/.gitkeep", True),
+        (".planning/setup/context-index.json", True),
     ]
     results: List[Dict[str, Any]] = []
     for rel, required in targets:

@@ -20,6 +20,7 @@ fad:pipeline
 
 Detailed phase contract:
 
+- See [`BUNDLES.md`](./BUNDLES.md) for install surface by bundle
 - See [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
 - See [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md) for run-id tracing
 

@@ -25,8 +25,6 @@ Input: $ARGUMENTS
 References:
 - @.claude/commands/pm-intake.md
 - @.claude/commands/brownfield-map-style.md
-- @.claude/commands/gsd/new-project.md
-- @.claude/commands/gsd/ui-phase.md
 - @.claude/commands/pm-to-build.md
 - @.claude/commands/qc-verify-ui.md
 - @.claude/commands/gen-doc-sheet.md

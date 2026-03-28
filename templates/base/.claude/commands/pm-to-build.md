@@ -45,11 +45,10 @@ Required inputs:
 - @.claude/commands/fad/quality-gate.md
 - @.claude/templates/AUDIT-STEP-TEMPLATE.md
 
-GSD references:
-- @get-shit-done/commands/gsd/discuss-phase.md
-- @get-shit-done/commands/gsd/plan-phase.md
-- @get-shit-done/commands/gsd/execute-phase.md
-- @get-shit-done/commands/gsd/verify-work.md
+Planning references:
+- @docs/FAD_PIPELINE.md
+- @.planning/pm/current/SPRINT.md
+- @.planning/pm/current/STORIES.md
 </context>
 
 <process>
@@ -68,7 +67,7 @@ GSD references:
      - require Figma MCP evidence before UI structure implementation,
      - refresh evidence if missing/stale and append to `HANDOFF.md`,
    - else require `.planning/discovery/current/UI-CONTRACT.md` and use it as design source.
-7. Run discuss -> plan -> execute -> verify for the target phase using GSD commands when available.
+7. Run the local planning -> execution -> verification loop for the target phase using the PM sprint pack and requirement trace.
 8. Enforce policy while planning/executing:
    - every task traces requirement IDs
    - domain/API tasks use TDD

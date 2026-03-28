@@ -4,9 +4,9 @@
 
 ```text
 .claude/
-├── agents/                 # Subagents (GSD + custom)
-├── commands/               # Slash commands (fad primary + gsd compat + pm/qc/ops)
-├── get-shit-done/          # GSD runtime assets
+├── agents/                 # Optional advanced/legacy agent assets (full bundle)
+├── commands/               # Slash commands (fad primary + small gsd compat + pm/qc/ops)
+├── get-shit-done/          # Legacy GSD runtime assets (full bundle)
 ├── hooks/                  # Runtime hooks (GSD + safety hooks)
 ├── instructions/           # Instruction-as-code playbooks and experiments
 ├── memory/                 # Loop state, decisions, blockers
@@ -27,7 +27,7 @@
 
 - Keeps PM framework local to `.claude/pm` so commands stay stable.
 - Separates reusable `rules/` from role-specific `skills/`.
-- Preserves GSD assets untouched for easier updates.
+- Keeps lean bundles free of the heavy GSD vendor tree by default.
 - Supports brownfield guardrails and PM-to-code workflow in one place.
 - Adds instruction tuning and memory to support long-running autonomous loops.
 - Adds extracted gstack patterns (review/qa/safety) without importing full runtime.

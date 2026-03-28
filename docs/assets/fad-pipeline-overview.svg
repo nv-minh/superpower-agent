@@ -76,8 +76,8 @@
 
   <rect x="1140" y="380" width="300" height="140" rx="18" fill="url(#card)"/>
   <text x="1170" y="430" class="card-title">Finish / Ship</text>
-  <text x="1170" y="458" class="card-text">/gsd:pr-branch or</text>
-  <text x="1170" y="484" class="card-text">/gsd:ship</text>
+  <text x="1170" y="458" class="card-text">/fad:pr-branch or</text>
+  <text x="1170" y="484" class="card-text">/fad:ship</text>
 
   <line x1="1325" y1="295" x2="450" y2="370" stroke="#f8fafc" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#arrow)"/>
   <line x1="600" y1="450" x2="680" y2="450" stroke="#111827" stroke-width="4" marker-end="url(#arrow)"/>

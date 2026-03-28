@@ -1,22 +1,13 @@
 ---
 name: gsd:help
-description: Show available GSD commands and usage guide
+description: Compatibility shim routing legacy help requests to the FAD command surface.
 ---
-<objective>
-Display the complete GSD command reference.
 
-Output ONLY the reference content below. Do NOT add:
-- Project-specific analysis
-- Git status or file context
-- Next-step suggestions
-- Any commentary beyond the reference
+<objective>
+Preserve backward compatibility for users who still invoke `/gsd:help`.
 </objective>
 
-<execution_context>
-@/Users/abc/Desktop/ResearchAI/.claude/get-shit-done/workflows/help.md
-</execution_context>
-
 <process>
-Output the complete GSD command reference from @/Users/abc/Desktop/ResearchAI/.claude/get-shit-done/workflows/help.md.
-Display the reference content directly — no additions or modifications.
+Explain that FAD is now the primary namespace and route the user to `/fad:help`.
+If the project was installed with the full bundle, note that additional legacy GSD commands may also be available.
 </process>

@@ -20,6 +20,10 @@ Provide a reproducible, auditable agent operating model for daily software deliv
 - `.claude/scripts/*.py` / `.sh`
 - Executes verifiable checks and outputs machine-readable evidence.
 
+2.5. Archive-backed legacy payloads
+- `templates/vendor/*.tgz`
+- Keeps publish/install surface lean while preserving `full` compatibility on demand.
+
 3. Policy/rules
 - `.claude/rules/*.md`
 - Cross-cutting constraints (security, testing, style, structure).
@@ -27,6 +31,7 @@ Provide a reproducible, auditable agent operating model for daily software deliv
 4. Artifacts and memory
 - `.planning/pm/current/*`
 - `.planning/audit/*`
+- `.planning/setup/context-index.json`
 - `.claude/memory/*`
 - `.claude/state/*`
 
@@ -59,8 +64,10 @@ Requirement input
 - Preferred audit layout uses run IDs: `.planning/audit/runs/<run-id>/`.
 - Explicit status protocol: `DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT`.
 - Autopilot loops are bounded and stop on repeated failures/blockers.
+- `full` bundle overlays archived legacy assets after the lean base template is installed.
 
 Related references:
 
+- `./BUNDLES.md`
 - `./FAD_PIPELINE.md`
 - `./AUDIT_LOGGING.md`

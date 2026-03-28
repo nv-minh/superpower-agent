@@ -31,8 +31,8 @@ Phase commands:
 - @.claude/commands/review.md
 - @.claude/commands/fad/optimize.md
 - @.claude/commands/fad/quality-gate.md
-- @.claude/commands/gsd/ship.md
-- @.claude/commands/gsd/pr-branch.md
+- @.claude/commands/fad/ship.md
+- @.claude/commands/fad/pr-branch.md
 - @.claude/commands/gen-doc-sheet.md
 
 Audit/logging:
@@ -76,8 +76,8 @@ Artifacts:
    - support `en` or `ja` output mode.
 10. Finish branch phase:
    - if all gates pass, offer:
-     - create clean PR branch (`gsd:pr-branch`),
-     - open PR / ship flow (`gsd:ship`),
+     - create clean PR branch (`fad:pr-branch`),
+     - open PR / ship flow (`fad:ship`),
      - keep branch for more work.
 11. For each phase above, append one markdown log under `.planning/audit/runs/<run_id>/` via `audit_log.py`.
 12. Return one concise pipeline report:

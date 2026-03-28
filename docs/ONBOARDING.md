@@ -20,6 +20,13 @@ Recommended:
 npx superpower-agent init --dir /path/to/project
 ```
 
+Bundle examples:
+
+```bash
+npx superpower-agent init --dir /path/to/project --bundle standard
+npx superpower-agent estimate --bundle standard
+```
+
 Optional skill install:
 
 ```bash
@@ -64,6 +71,7 @@ npx superpower-agent doctor --dir /path/to/project
 
 Deep-dive docs:
 
+- [`BUNDLES.md`](./BUNDLES.md)
 - [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
 - [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md)
 

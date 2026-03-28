@@ -5,17 +5,29 @@ This package installs command contracts under `.claude/commands`.
 ## Namespace
 
 - Primary command namespace: `/fad:*`
-- Compatibility namespace: `/gsd:*` (hidden, generated for backward compatibility)
+- Compatibility namespace: `/gsd:*` (small shim surface in `core/standard`, broader in `full`)
+
+## CLI Visibility
+
+| Command | Primary Use |
+|---|---|
+| `superpower-agent estimate --bundle <bundle>` | Estimate bundle footprint before install |
+| `superpower-agent inspect --dir <target>` | Inspect an installed project and its context index |
 
 ## FAD Unified Pipeline
 
 | Command | Primary Use |
 |---|---|
 | `fad:pipeline` | End-to-end workflow: brainstorm -> plan/build -> review -> optimize -> quality gate -> finish |
+| `fad:help` | Primary branded entrypoint and command map |
+| `fad:map-codebase` | Brownfield mapping without full GSD vendor dependency |
+| `fad:pr-branch` | Prepare a review-safe branch |
+| `fad:ship` | Ship-readiness workflow after strict gate passes |
 | `fad:optimize` | Mandatory post-review optimization pass (no behavior changes) |
 | `fad:quality-gate` | Strict branch gate combining lint/typecheck/test + security + unresolved-risk checks |
 
 Reference docs:
+- [`BUNDLES.md`](./BUNDLES.md)
 - [`FAD_PIPELINE.md`](./FAD_PIPELINE.md)
 - [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md)
 

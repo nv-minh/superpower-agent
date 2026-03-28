@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-03-28T07:05:49.418Z",
+  "archives": [
+    {
+      "id": "claude_full_addon",
+      "archive_path": "templates/vendor/claude-full-addon.tgz",
+      "roots": [
+        ".claude"
+      ],
+      "summary": {
+        "files": 304,
+        "bytes": 2715989,
+        "estimated_tokens": 668625
+      }
+    },
+    {
+      "id": "root_get_shit_done",
+      "archive_path": "templates/vendor/root-get-shit-done.tgz",
+      "roots": [
+        "get-shit-done"
+      ],
+      "summary": {
+        "files": 642,
+        "bytes": 7079680,
+        "estimated_tokens": 1633662
+      }
+    },
+    {
+      "id": "product_manager_skills",
+      "archive_path": "templates/vendor/product-manager-skills.tgz",
+      "roots": [
+        "Product-Manager-Skills"
+      ],
+      "summary": {
+        "files": 200,
+        "bytes": 1997469,
+        "estimated_tokens": 445892
+      }
+    }
+  ]
+}

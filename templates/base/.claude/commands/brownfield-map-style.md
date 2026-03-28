@@ -21,7 +21,7 @@ Create a safe brownfield coding baseline so agents reuse only good project patte
 Focus: $ARGUMENTS
 
 References:
-- @.claude/commands/gsd/map-codebase.md
+- @.claude/commands/fad/map-codebase.md
 - @.planning/codebase/CONVENTIONS.md
 - @.planning/codebase/ARCHITECTURE.md
 - @.planning/codebase/CONCERNS.md
@@ -34,7 +34,7 @@ Outputs:
 
 <process>
 1. Ensure codebase map exists:
-   - if `.planning/codebase/` docs are missing, run `/gsd:map-codebase` first.
+   - if `.planning/codebase/` docs are missing, run `/fad:map-codebase` first.
 2. Read architecture, conventions, testing, and concerns documents.
 3. Curate approved patterns:
    - patterns to follow for structure, naming, error handling, testing, and module boundaries.
@@ -48,4 +48,3 @@ Outputs:
    - curation status
    - unresolved ambiguities requiring human decision
 </process>
-

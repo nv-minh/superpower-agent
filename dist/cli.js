@@ -1,32 +1,38 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
 import readline from "node:readline/promises";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { BUNDLE_SPECS, DEFAULT_BUNDLE, FULL_VENDOR_ARCHIVES, SUPPORTED_RUNTIMES, collectBundleFiles } from "./bundles.js";
+import { buildBundleEstimate, buildInstalledContextIndex, writeInstallMetadata } from "./context-index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PKG_ROOT = path.resolve(__dirname, "..");
 const TEMPLATE_ROOT = path.join(PKG_ROOT, "templates", "base");
 const APP_NAME = "superpower-agent";
-const SUPPORTED_RUNTIMES = ["claude", "codex", "cursor"];
 const PKG_JSON = JSON.parse(fs.readFileSync(path.join(PKG_ROOT, "package.json"), "utf-8"));
 function printHelp() {
     console.log(`${APP_NAME}
 
 Usage:
-  ${APP_NAME} init [--dir <target>] [--force] [--with-browser-skills] [--claude] [--codex] [--cursor] [--all]
+  ${APP_NAME} init [--dir <target>] [--bundle <core|standard|full>] [--force] [--with-browser-skills] [--claude] [--codex] [--cursor] [--all]
   ${APP_NAME} doctor [--dir <target>]
+  ${APP_NAME} inspect [--dir <target>] [--json]
+  ${APP_NAME} estimate [--bundle <core|standard|full>] [--json]
   ${APP_NAME} version
   ${APP_NAME} --version
   ${APP_NAME} --help
 
 Commands:
-  init     Copy full agent workspace template and configure runtime adapters.
-  doctor   Run setup doctor script in target project.
-  version  Print CLI/package version.
+  init      Install a bundle-aware agent workspace and runtime adapters.
+  doctor    Run setup doctor script in target project.
+  inspect   Inspect an installed project and summarize context footprint.
+  estimate  Estimate file/byte/token footprint for a bundle before install.
+  version   Print CLI/package version.
 
 Options:
   --dir <target>            Target directory (default: current working directory)
+  --bundle <name>           Install or estimate bundle: core, standard, full (default: standard)
   --force                   Overwrite existing files
   --with-browser-skills     Auto-install agent-browser + playwright skills via npx
   --claude                  Configure Claude runtime adapter
@@ -34,7 +40,11 @@ Options:
   --cursor                  Configure Cursor runtime adapter
   --all                     Configure all supported runtime adapters
   --no-prompt               Disable interactive runtime selection (defaults to claude)
+  --json                    Emit JSON for inspect/estimate
 `);
+}
+function isBundle(value) {
+    return value === "core" || value === "standard" || value === "full";
 }
 function parseArgs(argv) {
     const args = {
@@ -43,7 +53,9 @@ function parseArgs(argv) {
         force: false,
         withBrowserSkills: false,
         noPrompt: false,
-        runtimes: []
+        runtimes: [],
+        bundle: DEFAULT_BUNDLE,
+        json: false
     };
     if (!argv.length || argv[0] === "--help" || argv[0] === "-h") {
         return { ...args, command: "help" };
@@ -59,6 +71,15 @@ function parseArgs(argv) {
             i += 1;
             continue;
         }
+        if (token === "--bundle") {
+            const value = argv[i + 1] || "";
+            if (!isBundle(value)) {
+                throw new Error(`Unknown bundle: ${value}`);
+            }
+            args.bundle = value;
+            i += 1;
+            continue;
+        }
         if (token === "--force") {
             args.force = true;
             continue;
@@ -69,6 +90,10 @@ function parseArgs(argv) {
         }
         if (token === "--no-prompt") {
             args.noPrompt = true;
+            continue;
+        }
+        if (token === "--json") {
+            args.json = true;
             continue;
         }
         if (token === "--all") {
@@ -88,23 +113,6 @@ function parseArgs(argv) {
 }
 function ensureDir(dirPath) {
     fs.mkdirSync(dirPath, { recursive: true });
-}
-function copyRecursive(src, dst, force, report) {
-    const stat = fs.statSync(src);
-    if (stat.isDirectory()) {
-        ensureDir(dst);
-        for (const entry of fs.readdirSync(src)) {
-            copyRecursive(path.join(src, entry), path.join(dst, entry), force, report);
-        }
-        return;
-    }
-    if (fs.existsSync(dst) && !force) {
-        report.skipped.push(dst);
-        return;
-    }
-    ensureDir(path.dirname(dst));
-    fs.copyFileSync(src, dst);
-    report.copied.push(dst);
 }
 function setExecutableIfExists(filePath) {
     if (!fs.existsSync(filePath)) {
@@ -133,49 +141,6 @@ function writeFileForce(filePath, content) {
     ensureDir(path.dirname(filePath));
     fs.writeFileSync(filePath, content, "utf-8");
 }
-function createFadAliases(targetDir) {
-    const gsdDir = path.join(targetDir, ".claude", "commands", "gsd");
-    if (!fs.existsSync(gsdDir)) {
-        return 0;
-    }
-    const fadDir = path.join(targetDir, ".claude", "commands", "fad");
-    ensureDir(fadDir);
-    let created = 0;
-    for (const entry of fs.readdirSync(gsdDir)) {
-        if (!entry.endsWith(".md")) {
-            continue;
-        }
-        const command = entry.replace(/\.md$/, "");
-        const legacy = `/gsd:${command}`;
-        const branded = `/fad:${command}`;
-        const content = `---
-name: fad:${command}
-description: FAD alias for ${legacy}
----
-
-# ${branded}
-
-FAD branded alias command.
-
-Execute the same workflow contract defined in:
-\`.claude/commands/gsd/${entry}\`
-
-Compatibility note:
-- Primary namespace: \`/fad:*\`
-- Legacy namespace still supported internally: \`${legacy}\`
-`;
-        writeFileForce(path.join(fadDir, entry), content);
-        created += 1;
-    }
-    const readme = `# FAD Command Aliases
-
-This directory exposes branded aliases for legacy \`/gsd:*\` commands.
-
-Use \`/fad:help\` and \`/fad:pipeline\` as your primary entrypoints.
-`;
-    writeFileForce(path.join(fadDir, "README.md"), readme);
-    return created;
-}
 function createCodexAdapter(targetDir) {
     const skillPath = path.join(targetDir, ".codex", "skills", "fad-operator", "SKILL.md");
     const skill = `# FAD Operator
@@ -190,7 +155,7 @@ Use this skill when users request FAD workflows in Codex.
 ## Rules
 1. Use branded command namespace \`/fad:*\`.
 2. Resolve command contracts from \`.claude/commands/fad\`.
-3. Fall back to legacy \`/gsd:*\` only when alias is missing.
+3. Fall back to legacy \`/gsd:*\` only when compatibility shims exist.
 4. Keep audit traces under \`.planning/audit\`.
 `;
     writeFileForce(skillPath, skill);
@@ -219,15 +184,6 @@ Write audit logs to \`.planning/audit\` for major steps.
 `;
     writeFileForce(rulePath, rule);
 }
-function writeInstallAudit(targetDir, runtimes) {
-    const payload = {
-        tool: APP_NAME,
-        version: PKG_JSON.version,
-        installed_at: new Date().toISOString(),
-        runtimes
-    };
-    writeFileForce(path.join(targetDir, ".planning", "setup", "superpower-agent-install.json"), `${JSON.stringify(payload, null, 2)}\n`);
-}
 function runCommand(command, args, cwd) {
     const result = spawnSync(command, args, {
         cwd,
@@ -248,6 +204,47 @@ function installBrowserSkills(targetDir) {
     ], targetDir);
     const step2 = runCommand("npx", ["claude-code-templates@latest", "--skill", "development/playwright"], targetDir);
     return step1 && step2;
+}
+function loadVendorManifest() {
+    const manifestPath = path.join(PKG_ROOT, "templates", "vendor", "manifest.json");
+    if (!fs.existsSync(manifestPath)) {
+        return new Map();
+    }
+    try {
+        const parsed = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
+        return new Map((parsed.archives || []).map((entry) => [entry.id, entry.summary.files]));
+    }
+    catch {
+        return new Map();
+    }
+}
+function extractArchive(archivePath, targetDir) {
+    const result = spawnSync("tar", ["-xzf", archivePath, "-C", targetDir], {
+        cwd: PKG_ROOT,
+        stdio: "inherit",
+        shell: false
+    });
+    if (result.status !== 0) {
+        throw new Error(`Failed to extract archive: ${archivePath}`);
+    }
+}
+function installBundleArchives(bundle, targetDir) {
+    if (bundle !== "full") {
+        return { extractedFiles: 0, extractedArchives: [] };
+    }
+    const manifestCounts = loadVendorManifest();
+    let extractedFiles = 0;
+    const extractedArchives = [];
+    for (const archive of FULL_VENDOR_ARCHIVES) {
+        const archivePath = path.join(PKG_ROOT, archive.archivePath);
+        if (!fs.existsSync(archivePath)) {
+            throw new Error(`Required vendor archive not found: ${archivePath}`);
+        }
+        extractArchive(archivePath, targetDir);
+        extractedArchives.push(path.basename(archivePath));
+        extractedFiles += manifestCounts.get(archive.id) || 0;
+    }
+    return { extractedFiles, extractedArchives };
 }
 async function promptRuntimesInteractive() {
     if (!process.stdin.isTTY || !process.stdout.isTTY) {
@@ -270,7 +267,7 @@ async function promptRuntimesInteractive() {
         }
         const values = text
             .split(",")
-            .map((v) => v.trim().toLowerCase())
+            .map((value) => value.trim().toLowerCase())
             .filter(Boolean);
         const resolved = new Set();
         for (const value of values) {
@@ -315,26 +312,83 @@ function installRuntimeAdapters(targetDir, runtimes) {
         }
     }
 }
+function copyBundleFiles(templateRoot, targetDir, bundle, force) {
+    const report = { copied: [], skipped: [] };
+    const files = collectBundleFiles(templateRoot, bundle);
+    for (const relPath of files) {
+        const src = path.join(templateRoot, relPath);
+        const dst = path.join(targetDir, relPath);
+        if (fs.existsSync(dst) && !force) {
+            report.skipped.push(dst);
+            continue;
+        }
+        ensureDir(path.dirname(dst));
+        fs.copyFileSync(src, dst);
+        report.copied.push(dst);
+    }
+    return report;
+}
+function countCommands(targetDir, namespace) {
+    const commandsDir = path.join(targetDir, ".claude", "commands", namespace);
+    if (!fs.existsSync(commandsDir)) {
+        return 0;
+    }
+    return fs
+        .readdirSync(commandsDir)
+        .filter((entry) => entry.endsWith(".md"))
+        .length;
+}
+function renderSummary(payload) {
+    const summary = (payload.summary || {});
+    const commands = Array.isArray(payload.commands) ? payload.commands.length : 0;
+    const features = Array.isArray(payload.features) ? payload.features.length : 0;
+    const label = typeof payload.bundle === "string" ? payload.bundle : "installed";
+    return [
+        `Bundle: ${label}`,
+        `Files: ${summary.files || 0}`,
+        `Bytes: ${summary.bytes || 0}`,
+        `Estimated tokens: ${summary.estimated_tokens || 0}`,
+        `Commands indexed: ${commands}`,
+        `Features: ${features}`
+    ].join("\n");
+}
+function printPayload(payload, asJson) {
+    if (asJson) {
+        console.log(JSON.stringify(payload, null, 2));
+        return;
+    }
+    console.log(renderSummary(payload));
+    const topHeavy = Array.isArray(payload.top_heavy_files)
+        ? payload.top_heavy_files.slice(0, 5)
+        : [];
+    if (topHeavy.length > 0) {
+        console.log("");
+        console.log("Top heavy files:");
+        for (const item of topHeavy) {
+            console.log(`- ${String(item.path)} (${Number(item.estimated_tokens || 0)} tokens, ${Number(item.bytes || 0)} bytes)`);
+        }
+    }
+}
 async function runInit(args) {
     if (!fs.existsSync(TEMPLATE_ROOT)) {
         throw new Error(`Template not found: ${TEMPLATE_ROOT}`);
     }
     ensureDir(args.dir);
     const runtimes = await resolveRuntimes(args);
-    const report = { copied: [], skipped: [] };
-    for (const name of fs.readdirSync(TEMPLATE_ROOT)) {
-        const src = path.join(TEMPLATE_ROOT, name);
-        const dst = path.join(args.dir, name);
-        copyRecursive(src, dst, args.force, report);
-    }
+    const report = copyBundleFiles(TEMPLATE_ROOT, args.dir, args.bundle, args.force);
+    const archiveReport = installBundleArchives(args.bundle, args.dir);
     fixScriptModes(args.dir);
-    const aliasCount = createFadAliases(args.dir);
     installRuntimeAdapters(args.dir, runtimes);
-    writeInstallAudit(args.dir, runtimes);
+    writeInstallMetadata(args.dir, args.bundle, runtimes, PKG_JSON.version, report.copied.length + archiveReport.extractedFiles, report.skipped.length);
+    console.log(`Bundle: ${args.bundle}`);
     console.log(`Copied: ${report.copied.length} file(s)`);
+    if (archiveReport.extractedArchives.length > 0) {
+        console.log(`Extracted archives: ${archiveReport.extractedArchives.join(", ")} (${archiveReport.extractedFiles} file(s))`);
+    }
     console.log(`Skipped: ${report.skipped.length} file(s)`);
     console.log(`Runtimes: ${runtimes.join(", ")}`);
-    console.log(`FAD aliases: ${aliasCount}`);
+    console.log(`FAD commands: ${countCommands(args.dir, "fad")}`);
+    console.log(`GSD shims: ${countCommands(args.dir, "gsd")}`);
     if (report.skipped.length) {
         console.log("Use --force to overwrite existing files.");
     }
@@ -350,7 +404,8 @@ async function runInit(args) {
     console.log("1) Configure local secrets/env vars (GitHub, Atlassian, Figma).");
     console.log("2) Run: python3 .claude/scripts/setup_doctor.py --repo-root . --pretty");
     console.log('3) Run: /fad:help then /fad:pipeline "<requirement>"');
-    console.log("4) For release lane: /setup-monitoring -> /health-check -> /security-scan -> /deploy <env>");
+    console.log("4) Run: superpower-agent inspect --dir .");
+    console.log(`5) Bundle profile: ${BUNDLE_SPECS[args.bundle].description}`);
 }
 function runDoctor(args) {
     const scriptPath = path.join(args.dir, ".claude", "scripts", "setup_doctor.py");
@@ -359,6 +414,34 @@ function runDoctor(args) {
     }
     const ok = runCommand("python3", [scriptPath, "--repo-root", args.dir, "--pretty"], args.dir);
     process.exit(ok ? 0 : 1);
+}
+function runInspect(args) {
+    if (!fs.existsSync(args.dir)) {
+        throw new Error(`Directory not found: ${args.dir}`);
+    }
+    let bundle = args.bundle;
+    const installPath = path.join(args.dir, ".planning", "setup", "superpower-agent-install.json");
+    if (fs.existsSync(installPath)) {
+        try {
+            const parsed = JSON.parse(fs.readFileSync(installPath, "utf-8"));
+            if (parsed.bundle && isBundle(parsed.bundle)) {
+                bundle = parsed.bundle;
+            }
+            const runtimes = parsed.runtimes || [];
+            const payload = buildInstalledContextIndex(args.dir, bundle, runtimes);
+            printPayload(payload, args.json);
+            return;
+        }
+        catch {
+            // fall through to live scan
+        }
+    }
+    const payload = buildInstalledContextIndex(args.dir, bundle, []);
+    printPayload(payload, args.json);
+}
+function runEstimate(args) {
+    const payload = buildBundleEstimate(TEMPLATE_ROOT, args.bundle);
+    printPayload(payload, args.json);
 }
 function runVersion() {
     console.log(PKG_JSON.version);
@@ -376,6 +459,14 @@ export async function main(argv = process.argv.slice(2)) {
         }
         if (args.command === "doctor") {
             runDoctor(args);
+            return;
+        }
+        if (args.command === "inspect") {
+            runInspect(args);
+            return;
+        }
+        if (args.command === "estimate") {
+            runEstimate(args);
             return;
         }
         if (args.command === "version") {

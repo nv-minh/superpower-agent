@@ -91,5 +91,6 @@ After setup is healthy, start with:
 
 For operating details:
 
+- `docs/BUNDLES.md`
 - `docs/FAD_PIPELINE.md`
 - `docs/AUDIT_LOGGING.md`

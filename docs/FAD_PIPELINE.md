@@ -29,7 +29,7 @@ It standardizes one strict path:
 | Review | `review` | Blocker findings unresolved |
 | Optimize | `fad:optimize` | Behavior-changing refactor request |
 | Strict Gate | `fad:quality-gate` | lint/type/test/security/risk failure |
-| Finish | `gsd:pr-branch` or `gsd:ship` | Any strict gate still red |
+| Finish | `fad:pr-branch` or `fad:ship` | Any strict gate still red |
 
 ## Brownfield and Greenfield
 
@@ -78,5 +78,5 @@ Greenfield from rough idea:
 ## Compatibility and Migration
 
 - `/pm-delivery-loop` remains available as a wrapper.
-- Legacy `/gsd:*` commands continue to work.
+- Legacy `/gsd:*` commands continue to work as compatibility shims in lean bundles.
 - Branding and default entrypoint are now `/fad:*`.

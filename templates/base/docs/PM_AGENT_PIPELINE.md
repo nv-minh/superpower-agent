@@ -41,7 +41,7 @@
   - `guard`
   - `unfreeze`
   - `unguard`
-- Local PM framework vendor path: `.claude/pm/{commands,skills}` (synced from `Product-Manager-Skills`)
+- Local PM framework vendor path: `.claude/pm/{commands,skills}` (curated subset in lean bundles, full sync source in `full`)
 - FAD agent skill policies in `skills/` for planner, executor, checker, verifier.
 - PM handoff artifact contract in `.planning/pm/current/`.
 - FAD config with `agent_skills` mapping in `.planning/config.json`.
@@ -67,6 +67,7 @@
 
 ## New Runbooks
 
+- `docs/BUNDLES.md`
 - `docs/FAD_PIPELINE.md`
 - `docs/AUDIT_LOGGING.md`
 
@@ -92,7 +93,8 @@
 
 ## Prerequisites
 - FAD commands installed and available in Claude Code.
-- PM assets synced locally (run `.claude/scripts/sync-pm-assets.sh` after updating Product-Manager-Skills).
+- PM assets are available locally in `.claude/pm/`.
+- Full source sync (`.claude/scripts/sync-pm-assets.sh`) is only relevant when the `full` bundle includes `Product-Manager-Skills`.
 - MCP servers enabled:
   - `figma`
   - `browser`

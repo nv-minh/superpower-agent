@@ -98,6 +98,12 @@ Discovery artifacts for structured intake are stored in `.planning/discovery/cur
 - Use `.claude/scripts/audit_log.py` as the default writer with `.claude/templates/AUDIT-STEP-TEMPLATE.md`.
 - Minimum audit fields: metadata, inputs, MCP evidence, risk decisions, outputs, next action.
 
+## Context Index Rules
+
+- Install metadata lives in `.planning/setup/superpower-agent-install.json`.
+- Local context inventory lives in `.planning/setup/context-index.json`.
+- Prefer these indexed files before scanning the whole workspace tree.
+
 ## Code Quality Gate Rules
 
 - After implementation (`pm-to-build`, `feature-swarm`, `fix-issue`), run `.claude/scripts/code_quality_gate.py`.
@@ -116,8 +122,8 @@ Discovery artifacts for structured intake are stored in `.planning/discovery/cur
 ## Expected External Assets
 
 - Product skills vendor (synced local): `.claude/pm/`
-- Source PM skills repo (for sync updates): `Product-Manager-Skills/`
-- GSD repo: `get-shit-done/`
+- Source PM skills repo (for sync updates, `full` bundle only): `Product-Manager-Skills/`
+- GSD repo (`full` bundle only): `get-shit-done/`
 
 ## Rules
 

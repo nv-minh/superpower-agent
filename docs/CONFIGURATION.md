@@ -8,6 +8,8 @@
 - `.claude/config/*.example` - template configs
 - `.claude/config/health-check.json` - runtime health checks
 - `.claude/config/monitoring.json` - monitoring baseline
+- `.planning/setup/superpower-agent-install.json` - installed bundle + feature metadata
+- `.planning/setup/context-index.json` - local command/doc/script inventory with estimated tokens
 
 ## MCP
 
@@ -36,3 +38,4 @@ Use env vars and local private overrides per machine.
 - `.planning/setup/` - setup diagnostics outputs
 
 For audit schema and logging conventions, see [`AUDIT_LOGGING.md`](./AUDIT_LOGGING.md).
+For bundle selection and footprint strategy, see [`BUNDLES.md`](./BUNDLES.md).
