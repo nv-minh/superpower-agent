@@ -40,6 +40,9 @@ Required inputs:
 - @.claude/rules/security.md
 - @.claude/scripts/code_quality_gate.py
 - @.claude/commands/security-scan.md
+- @.claude/commands/review.md
+- @.claude/commands/fad/optimize.md
+- @.claude/commands/fad/quality-gate.md
 - @.claude/templates/AUDIT-STEP-TEMPLATE.md
 
 GSD references:
@@ -72,20 +75,21 @@ GSD references:
    - UI tasks respect HANDOFF/UI-CONTRACT design constraints
    - tasks include mitigation actions for in-scope risks
    - new code follows approved patterns and avoids anti-patterns
-9. Run post-build quality gate:
-   - `python3 .claude/scripts/code_quality_gate.py --out .planning/pm/current/CODE-QUALITY-GATE.json --pretty`
-   - if gate fails, stop and report exact failing step.
-10. Run security gate for produced changes:
-   - run `security-scan`,
-   - block phase completion if gate is blocked.
+9. Run mandatory review and optimization phases:
+   - run `review` for changed scope,
+   - run `fad:optimize` for post-review hardening.
+10. Run strict quality gate:
+   - run `fad:quality-gate`,
+   - block phase completion if strict gate is blocked.
 11. Write a step audit log in `.planning/audit/` using `AUDIT-STEP-TEMPLATE`:
    - include risk decisions, Figma evidence, execution gates, and blockers.
 12. Produce a short build report:
    - phase status
    - requirement coverage summary
    - risk gate status
-   - code quality gate summary
-   - security gate summary
+   - review status
+   - optimize status
+   - strict quality gate summary
    - failing checks and blockers
    - next command to run
 </process>

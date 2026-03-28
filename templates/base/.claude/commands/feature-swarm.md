@@ -28,6 +28,7 @@ References:
 - @.planning/pm/current/RISK-IMPACT.md
 - @.claude/scripts/code_quality_gate.py
 - @.claude/commands/security-scan.md
+- @.claude/commands/fad/quality-gate.md
 - @.claude/templates/AUDIT-STEP-TEMPLATE.md
 </context>
 
@@ -40,11 +41,10 @@ References:
    - test pass
    - risk mitigation coverage
    - brownfield guardrail compliance
-5. Run post-merge quality gate:
-   - `python3 .claude/scripts/code_quality_gate.py --out .planning/pm/current/CODE-QUALITY-GATE.json --pretty`
-6. Run post-merge security gate:
-   - run `security-scan`,
-   - block release lane if gate is blocked.
+5. Run strict post-merge gate:
+   - run `fad:quality-gate`,
+   - block release lane if strict gate is blocked.
+6. Security gate is included in strict gate.
 7. Publish a unified implementation summary and next-step checklist.
 8. Write swarm execution audit log in `.planning/audit/`.
 </process>

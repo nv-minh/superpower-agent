@@ -24,17 +24,20 @@ References:
 - @.claude/memory/LOOP-STATE.md
 - @.claude/memory/BLOCKERS.md
 - @.claude/memory/DECISIONS.md
-- @.claude/commands/pm-delivery-loop.md
+- @.claude/commands/fad/pipeline.md
+- @.claude/commands/fad/quality-gate.md
 - @.claude/templates/AUDIT-STEP-TEMPLATE.md
+- @.claude/scripts/audit_log.py
 - @.planning/audit/README.md
 </context>
 
 <process>
 1. Determine cycle budget (default 3 if omitted).
 2. For each cycle:
-   - run one delivery loop (`pm-delivery-loop` or equivalent step chain),
+   - run one strict delivery loop via `fad:pipeline`,
+   - enforce post-cycle gate with `fad:quality-gate`,
    - update memory files with outcomes and blockers,
-   - write one cycle audit file in `.planning/audit/`.
+   - write one cycle audit file in `.planning/audit/runs/<run_id>/` using `audit_log.py`.
 3. Stop early when:
    - blocker is unresolved,
    - human decision is required,

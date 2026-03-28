@@ -5,7 +5,7 @@
 ```text
 .claude/
 ├── agents/                 # Subagents (GSD + custom)
-├── commands/               # Slash commands (gsd + pm + qc flows)
+├── commands/               # Slash commands (fad primary + gsd compat + pm/qc/ops)
 ├── get-shit-done/          # GSD runtime assets
 ├── hooks/                  # Runtime hooks (GSD + safety hooks)
 ├── instructions/           # Instruction-as-code playbooks and experiments
@@ -33,6 +33,7 @@
 - Adds extracted gstack patterns (review/qa/safety) without importing full runtime.
 - Adds setup doctor and quality/pr-feedback helper scripts for continuous agent operations.
 - Adds P0 ops hardening layer (security scan, health diagnostics, incident/rollback workflows).
+- Adds unified `/fad:pipeline` with mandatory review -> optimize -> strict quality-gate phases.
 
 ## Improvement Notes Compared To Base Proposal
 

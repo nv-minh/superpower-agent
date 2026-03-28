@@ -30,6 +30,7 @@ References:
 - @.planning/pm/current/RISK-IMPACT.md
 - @.claude/scripts/code_quality_gate.py
 - @.claude/commands/security-scan.md
+- @.claude/commands/fad/quality-gate.md
 - @.claude/memory/BLOCKERS.md
 - @.claude/templates/AUDIT-STEP-TEMPLATE.md
 </context>
@@ -47,16 +48,14 @@ References:
 3. Propose minimal safe fix plan with requirement/test trace.
 4. Implement fix using brownfield guardrails.
 5. Verify with targeted tests and acceptance checks.
-6. Run mandatory post-fix quality gate:
-   - `python3 .claude/scripts/code_quality_gate.py --out .planning/pm/current/CODE-QUALITY-GATE.json --pretty`
-7. Run post-fix security gate:
-   - run `security-scan` for changed scope.
+6. Run strict post-fix gate:
+   - run `fad:quality-gate` for changed scope.
+7. Security gate is included in strict gate; do not skip it.
 8. Report:
    - root cause
    - fix summary
    - tests added/updated
-   - code quality gate summary
-   - security gate summary
+   - strict quality gate summary
    - remaining risks
 9. If blocked (missing context/env/dependency), append blocker details to `.claude/memory/BLOCKERS.md`.
 10. Update risk register if issue changes risk profile and write fix audit log in `.planning/audit/`.

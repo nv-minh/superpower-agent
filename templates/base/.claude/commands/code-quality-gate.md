@@ -12,6 +12,7 @@ allowed-tools:
 
 <objective>
 Execute a consistent quality gate and output machine-readable evidence for build/QC decisions.
+Use `fad:quality-gate` when you need strict merge/ship gating.
 </objective>
 
 <context>

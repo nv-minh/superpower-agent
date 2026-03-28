@@ -97,6 +97,7 @@ def integration_file_checks(repo_root: Path) -> List[Dict[str, Any]]:
         (".claude/state/STATE-SCHEMA.md", True),
         (".claude/skills/agent-browser/SKILL.md", False),
         (".claude/skills/playwright/SKILL.md", False),
+        (".planning/audit/runs/.gitkeep", True),
     ]
     results: List[Dict[str, Any]] = []
     for rel, required in targets:
@@ -182,6 +183,7 @@ def to_markdown(payload: Dict[str, Any]) -> str:
             "- Copy health config: `cp .claude/config/health-check.json.example .claude/config/health-check.json`",
             "- Copy monitoring config: `cp .claude/config/monitoring.json.example .claude/config/monitoring.json`",
             "- Load shell env (example): `source ~/.zshrc`",
+            "- Unified flow: `/fad:pipeline \"<requirement>\"`",
             "",
             "## Credential Variables",
             "- `ATLASSIAN_BASE_URL`",

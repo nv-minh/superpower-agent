@@ -9,6 +9,9 @@ This repository is configured for a multi-agent workflow:
 5. `qc-verify-ui` runs browser-based functional and design-system critical checks.
 
 High-leverage orchestration commands:
+- `fad:pipeline` (unified brainstorming -> plan -> execute -> review -> optimize -> finish)
+- `fad:optimize` (mandatory post-review optimization phase)
+- `fad:quality-gate` (strict go/no-go gate before finish or ship)
 - `feature-swarm` (parallel feature execution)
 - `fix-issue` (parallel triage + targeted fix)
 - `pr-feedback-loop` (GitHub PR comments -> fix -> QC retest)
@@ -27,6 +30,7 @@ High-leverage orchestration commands:
 - `deploy` (gated release execution)
 - `autopilot-loop` (bounded autonomous delivery cycles)
 - `autoplan` (auto plan-review pipeline with consolidated decisions)
+- `pm-delivery-loop` (legacy wrapper to `fad:pipeline`)
 - `discovery-ui-handoff` (greenfield and brownfield-no-figma intake lane)
 - `gen-doc-sheet` (optional spreadsheet export, EN/JA)
 - `careful` / `freeze` / `guard` / `unfreeze` / `unguard` (safety controls)
@@ -89,8 +93,9 @@ Discovery artifacts for structured intake are stored in `.planning/discovery/cur
 
 ## Audit Logging Rules
 
-- Every major step (`pm-intake`, `pm-to-build`, `autoplan`, `qc-verify-ui`, `review`, `deploy`, delivery/autopilot loops) must write one markdown audit log.
-- Audit logs live in `.planning/audit/` using `.claude/templates/AUDIT-STEP-TEMPLATE.md`.
+- Every major step (`pm-intake`, `pm-to-build`, `autoplan`, `qc-verify-ui`, `review`, `fad:optimize`, `fad:quality-gate`, `deploy`, delivery/autopilot loops) must write one markdown audit log.
+- Preferred layout: `.planning/audit/runs/<run-id>/` for each pipeline run (legacy flat logs still supported).
+- Use `.claude/scripts/audit_log.py` as the default writer with `.claude/templates/AUDIT-STEP-TEMPLATE.md`.
 - Minimum audit fields: metadata, inputs, MCP evidence, risk decisions, outputs, next action.
 
 ## Code Quality Gate Rules

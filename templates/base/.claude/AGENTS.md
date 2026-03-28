@@ -40,7 +40,8 @@ Agent should own:
 - Any in-scope unresolved `high`/`critical` risk blocks implementation/deploy.
 - If requirement/handoff includes Figma links, agent must read via Figma MCP and store evidence.
 - If brownfield input has no Figma link, run structured discovery + UI-contract flow before build.
-- After implementation, run lint/typecheck/test quality gate and record the result.
+- After implementation, run strict quality gate (`fad:quality-gate`) and record the result.
+- Run `fad:optimize` between review and finish phases (no behavior change).
 - Before release lane, run security gate (`security-scan`) and block on secret/high-risk dependency findings.
 - Deploy requires pre/post `health-check`; failures trigger `incident-response` and rollback evaluation.
 

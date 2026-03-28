@@ -26,6 +26,7 @@ References:
 - @.claude/scripts/github_pr_feedback.py
 - @.claude/scripts/code_quality_gate.py
 - @.claude/commands/security-scan.md
+- @.claude/commands/fad/quality-gate.md
 - @.claude/commands/fix-issue.md
 - @.claude/commands/qc-verify-ui.md
 - @.planning/pm/current/RISK-IMPACT.md
@@ -44,10 +45,9 @@ References:
    - update `.planning/pm/current/RISK-IMPACT.md` if risk profile changes.
 3. Discuss resolution strategy for unresolved high/critical feedback before implementation.
 4. Implement fixes in brownfield-safe increments.
-5. Run quality gate:
-   - `python3 .claude/scripts/code_quality_gate.py --out .planning/pm/current/CODE-QUALITY-GATE.json --pretty`
-6. Run security gate:
-   - run `security-scan` for changed scope and block on findings.
+5. Run strict gate:
+   - run `fad:quality-gate` for changed scope.
+6. Security gate is included in strict gate.
 7. Run QC retest policy:
    - targeted retest for changed scope,
    - plus smoke checks on critical flow.

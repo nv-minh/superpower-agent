@@ -36,6 +36,6 @@ References:
    - `setup-monitoring`
    - `security-scan`
    - `health-check`
-   - `pm-delivery-loop`
+   - `fad:pipeline`
    - `pr-feedback-loop`
 </process>
