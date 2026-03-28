@@ -7,7 +7,6 @@ Adaptive PM -> Build -> QC -> Ops agent system for **Claude, Codex, and Cursor**
 [![npm version](https://img.shields.io/npm/v/superpower-agent?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/superpower-agent)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](./LICENSE)
 
-![FAD Pipeline Overview](./docs/assets/fad-pipeline-overview.svg)
 
 ## Why Teams Use It
 
